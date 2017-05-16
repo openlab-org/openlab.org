@@ -41,4 +41,5 @@ setup and is good enough for most development.
         * `sudo apt-get install docker docker-compose`
     * [On macOS, follow this guide](https://docs.docker.com/docker-for-mac/)
 2. Setup environmental variables to point to your `dockerd` sockets
+3. ...TODO: finish this list
 
