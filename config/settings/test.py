@@ -38,6 +38,15 @@ CACHES = {
     }
 }
 
+# Switch to in-memory sqlite3 and console email backend for running tests in
+# local dev outside of docker
+if not os.environ.get('USE_DOCKER') == 'yes':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # TESTING
 # ------------------------------------------------------------------------------
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
