@@ -55,8 +55,10 @@ node_modules/
 # Compass
 .sass-cache
 
-# virtual environments
+# env vars
 .env
+
+default.sqlite3.db
 
 # User-uploaded media
 openlab/media/

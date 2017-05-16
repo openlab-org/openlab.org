@@ -61,6 +61,14 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 
+# Switch to sqlite3 and console email backend for local dev outside of docker
+if not os.environ.get('USE_DOCKER') == 'yes':
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'default.sqlite3.db',
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # django-extensions
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ['django_extensions', ]
