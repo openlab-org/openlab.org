@@ -1,0 +1,91 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+
+{% block tabcontent %}
+
+<div class="container" id="details">
+    {% if not file.is_tip %}
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-danger text-center">
+                    <p><strong>Old file version</strong></p>
+                    <p>You are viewing an older version. This is not the most
+                    up-to-date version of this file included with this project.
+                    This file may have been updated, deleted, or moved since
+                    then.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12 photo-container">
+            {% include "project/snippets/file_preview.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ file.title }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        {% if file.description %}
+                            {{ file.description }}
+                        {% else %}
+                            <p><em>No description given.</em></p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-5">
+                        <dl class="dl-horizontal">
+                            <dt>Filename</dt>   <dd>{{ file.filename }}</dd>
+                            <dt>License</dt>   <dd>{{ file.license }}</dt>
+                            {# <dt>Version</dt>   <dd>{{ file.version }}</dd> #}
+                            <dt>Size</dt>   <dd>{{ file.size|label_bytes }}</dd>
+                            {% if file.credits %}
+                                <dt>Credits</dt>   <dd>{{ file.credits }}</dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    <div class="col-md-3">
+                        {% if file.path %}
+                        <a class="btn btn-default btn-success btn-block" style="min-height: 70px; padding-left: 5px;" href="{{ file.path.url }}" target="_blank"><i class="icon-download icon-4x pull-left"></i>
+                            Download<br />{{ file.filename|truncatechars:"18" }}</a>
+                        {% else %}
+                            <i class="icon-warning-sign" alt="File does not exist."></i>
+                        {% endif %}
+                        {% if file.preview_file %}
+                            <p class="text-muted"><a href="{{ file.preview_file.url }}" class="btn btn-block btn-xs btn-link">
+                                <i class="icon-download"></i> {{ file.get_alt_format }}</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            {% if next_file %}
+                <a class="btn btn-default btn-lg btn-block" href="{{ next_file }}"><i class="icon-chevron-right"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "discussion/snippets/comments.html" %}
+
+{% endblock %}
+
+{% block more_js %}
+<script>
+    $('.do-preview').click(function () {
+        $('#preview_image').hide();
+        $('canvas').show();
+        $(this).hide();
+        setTimeout(function () {
+            window.start_jsc3d_preview();
+            $('.preview-controls').show();
+        }, 100);
+    });
+</script> 
+{% endblock %}

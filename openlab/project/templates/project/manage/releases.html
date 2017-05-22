@@ -1,0 +1,87 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+
+<a href="{% url "project_manage_releases_new" project.hubpath %}" class="btn btn-success btn-lg btn-block"
+    >Create {% if releases %}new{% else %}first{% endif %} Project Release <i class="icon-caret-right"></i></a>
+
+{% if releases %}
+
+    <h3>Old releases</h3>
+    <table class="table table-hover">
+        <tbody>
+            {% for release in releases %}
+                <tr {% if release.is_latest_release %} class="success" {% endif %}>
+                    <td>
+                        <big>{{ project.title }}</big>
+                    </td>
+                    <td>
+                        <tt><big>v{{ release.version }}</big></tt>
+                    </td>
+                    <td><code>@r{{ release.revision.number }}</code></td>
+                    <td>{{ release.creation_date }}</td>
+                    <td>
+                        {% if not release.zip_file %}
+                            <p class="text-muted tip" title="This release was recently created and still is being processed and packaged.">
+                                <i class="icon-wait icon-spin"></i> Processing...
+                            </p>
+                        {% elif not release.is_latest_release %}
+                            <form method="POST" action=".">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ release.id }}" name="release_id" />
+                                <button name="action" value="revert" class="tip btn btn-default"
+                                    title="Revert project to use this inactive release as its primary release"><i class="icon-undo"></i></button>
+                                &nbsp;
+                                <button name="action" value="delete" class="tip btn btn-default btn-sm"
+                                    title="Delete inactive release"><i class="icon-trash"></i></button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <div class="well">
+        <h3>Your first release!</h3> <p>Releases let you mark
+        your project as &ldquo;tested and prototyped&rdquo;, and create a
+        re-distributable package that will be made available for download on
+        the Open Lab website. Projects with completed releases are featured
+        more prominently on the site.</p>
+
+        <h4>Before you can release...</h4>
+        <ul>
+            <li>You must have built at the very least a functioning prototype of
+            the project.</li>
+            <li>Be sure to attach real photos of the prototype (not schematics or
+            renders)</li>
+            <li>Make sure all dependencies and licenses are correctly filled
+            out, and you have included enough files and instructions for anyone
+            to reconstruct the project.</li>
+        </ul>
+        <p>Releases are reviewed by Open Lab staff when published.</p>
+    </div>
+{% endif %}
+
+
+
+
+
+{% endblock mid_content %}
+
+
+{% block right_content %}
+<div class="well">
+    <h3><i class="icon-book"></i> Publish your project</h3>
+    <p>From here you can take a "snapshot" of the current state of your project
+    and its dependencies, and publish it as a project ready for
+    consumption.</p>
+
+    <p>Once published, you can manage your previous publishings, allowing you
+    to revert it back to a previous release.</p>
+</div>
+{% endblock right_content %}
+

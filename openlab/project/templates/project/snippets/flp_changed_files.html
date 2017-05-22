@@ -1,0 +1,87 @@
+{% extends "project/snippets/file_list_preview.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+{% load crispy_forms_tags %}
+
+{# Later, turn this into another link to start the edit modal #}
+{% block link_href %}
+    {% if file.replaced_by and file.replaced_by.removed %}
+        style="text-decoration: line-through;"
+    {% endif %}
+{% endblock %}
+
+{% block preview_info %}{% endblock %}
+
+{% block file_icon %}
+    <div class="unknown-extension extension-{{ file.get_extension }}"><big>
+    {% if file.replaced_by %}
+        {% with file.replaced_by as rfile %}
+            {% if rfile.removed %}
+                <i class="icon icon-trash"></i>
+            {% else %}
+                <i class="icon icon-arrow-up"></i>
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+    </big></div>
+{% endblock %}
+
+{% block file_attribrutes %}
+    data-placement="left"
+    {% if file.replaced_by %}
+        class="tip file-list-item"
+        {% with file.replaced_by as rfile %}
+            {% if rfile.removed %}
+                title="Marked for deletion"
+            {% else %}
+                title="Updated"
+            {% endif %}
+        {% endwith %}
+    {% else %}
+        title="Unmodified"
+        class="tip text-muted file-list-item"
+        style="opacity: 0.4;"
+    {% endif %}
+{% endblock %}
+
+{% block right_deets %}
+<span class="size">
+    {% if file.replaced_by %}
+        {% with file.replaced_by as rfile %}
+            <a href="{% url "project_update_delete_file" rfile.id %}"><i class="icon-undo"></i></a>
+
+            {% comment %}
+            {% if not rfile.removed %}
+                <a href="#file_edit_modal_{{ rfile.id }}" data-toggle="modal"><i class="icon-edit-sign"></i></a>
+            {% endif %}
+            {% if not rfile.removed %}
+                <div class="modal fade" id="file_edit_modal_{{ rfile.id }}" tabindex="-1" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="POST" action="{% url "project_update_rename_file" %}">
+                                <div class="modal-body">
+                                    {% csrf_token %}
+                                    <input name="file_id" value="{{ rfile.id }}" type="hidden" style="display: none" />
+                                    <p><code>{{ rfile.full_file_path }}</code> - rename or move</p>
+                                    {% with rename_file_forms|get_at:rfile.id as form %}
+                                        {{ form|crispy }}
+                                    {% endwith %}
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                    <button type="submit" class="btn btn-default"><i class="icon-check-sign"></i> Save Rename</button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            {% endif %}
+            {% endcomment %}
+        {% endwith %}
+    {% endif %}
+</span>
+{% endblock right_deets %}
+
+
+
+

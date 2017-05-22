@@ -1,0 +1,24 @@
+{% load i18n %}
+
+{% if page.has_other_pages %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                {% if page.has_previous %}
+                    <a href="?page={{ page.previous_page_number }}" class="btn btn-block btn-large btn-default">&larr; Previous</a>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                {% with last_obj=list|last %}
+                    <p class="text-center text-muted">{{ list.0.creation_date|date:"M Y" }} &nbsp; &nbsp; - &nbsp; &nbsp; {{ last_obj.creation_date|date:"M Y" }}</p>
+                {% endwith %}
+            </div>
+            <div class="col-md-2">
+                {% if page.has_next %}
+                    <a href="?page={{ page.next_page_number }}" class="btn btn-block btn-large btn-default">Next &rarr;</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+

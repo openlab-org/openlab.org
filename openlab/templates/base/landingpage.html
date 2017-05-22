@@ -1,0 +1,102 @@
+{% extends "base/empty.html" %}
+{% load i18n %}
+
+{% block title_full %}
+    Open Lab
+{% endblock %}
+
+{% block bodyattributes %}id="landingpage" class="{% block bodyclass %}{% endblock %}"{% endblock bodyattributes %}
+
+{% block body %}
+    {% block top %}
+    <div class="navbar navbar-fixed-top navbar-default navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ STATIC_URL }}core/images/invert_logo.png" alt="Open Lab" height="38"  />
+                </a>
+            </div>
+
+            {# main nav #}
+
+            {% if user.is_authenticated %}
+                <div class="navbar-form navbar-right hidden-print">
+                    <a class="btn-inverse btn btn-default" href="{% url "dashboard" %}">Dashboard</a>
+                </div>
+            {% else %}
+                {% spaceless %}
+                    <div class="navbar-form navbar-right hidden-print">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle btn-inverse btn btn-default" href="#" data-toggle="dropdown">Sign in</a>
+                            <div class="dropdown-menu navbar-inverse">
+                                <form class="login-form" action="{% url 'auth_login' %}" method="post" accept-charset="utf-8">{% csrf_token %}
+                                    <div class="form-group"> <input name="username" type="text" placeholder="Username" class="form-control" /> </div>
+                                    <div class="form-group"> <input name="password" type="password" placeholder="Password" class="form-control" /> </div>
+                                    <button type="submit" class="btn btn-default">{% trans "Sign in" %}</button>
+                                </form>
+                            </div>
+                        </li>
+                    </div>
+                {% endspaceless %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+    {% block middle %}
+
+        {% block header %}
+        <div class="jumbotitle {% block header_class %}{% endblock %}" {% block header_attr %}{% endblock %}>
+
+            <div class="container header-content">
+                {% block header_content %}
+                {% endblock %}
+            </div>
+
+            <div class="header-bottom">
+                {% block header_bottom %}
+                {% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+
+        <div class="landingpage-content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    {% endblock middle %}
+
+    {% block footer %}
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="{{ STATIC_URL }}core/images/shuttleworth.png" alt="Shuttleworth Foundation Funded" height="100"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <p>
+                    Open Lab
+                    <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+                    <a href="{% url "core_site_credits" %}">&copy;</a></span>
+                    {% now "Y" %}
+                    <!--
+                    Old press kit disabled for now
+                    -
+                    <a href="/press-kit/">Media</a>
+                    -->
+                    -
+                    <a href="/contact/">{% trans "Contact" %}</a>
+                    -
+                    <a href="{% url 'auth_login' %}">{% trans "Sign In" %}</a>
+                </p>
+            </div>
+        </div><!-- /container -->
+    </footer>
+    {% endblock footer %}
+
+{% endblock body %}
+

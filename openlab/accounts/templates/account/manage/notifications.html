@@ -1,0 +1,16 @@
+{% extends "account/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+<h3>Notification preferences</h3>
+    <form action="." class="form-horizontal" method="post" id="notifications_edit">
+        {% crispy extra_form %}
+        <button type="submit" class="btn btn-primary btn-block">{% trans "Update notification settings" %}</button>
+    </form>
+{% endblock mid_content %}
+
+
+{% block right_content %}
+{% endblock %}
+

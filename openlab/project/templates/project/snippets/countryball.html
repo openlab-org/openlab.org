@@ -1,0 +1,7 @@
+
+<a href="{% url "project_list" country=country.code2|lower %}" class="countryball">
+    <img class="img-circle" src="{{ STATIC_URL }}countryflags/images/64/{{ country.code2|lower }}.png" />
+    <span>{{ country }}</span>
+</a>
+
+

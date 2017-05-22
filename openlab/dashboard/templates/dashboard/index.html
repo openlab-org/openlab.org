@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-md-12 cozy-up-top">
+
+            {% comment %}
+            <div class="create-menu pull-right">
+                <div class="dropdown">
+                    <a href="#" class="btn btn-primary dropdown-toggle btn-lg" data-toggle="dropdown">Create  <i class="icon-caret-down"></i></a>
+                    <ul class="dropdown-menu pull-right">
+
+                        <li class="dropdown-header">Organization</li>
+                        <li> <a href="{% url "team_create" %}"><i class="icon-plus-sign-alt"></i> New
+                            organization</a></li>
+
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Project</li>
+                        <li>
+                            <a href="{% url "project_create" user.username %}"><i class="icon-plus-sign-alt"></i> 
+                                Project {% if user.teams.all %}&mdash; <i class="icon-user"></i> {{ user.username|truncatechars:10 }}{% endif %}
+                            </a>
+                        </li>
+
+                        {% for team in user.teams.all %}
+                            <li> <a href="{% url "project_create" team.slug %}"><i class="icon-plus-sign-alt"></i> 
+                            Team project  &mdash; <i class="icon-group"></i> {{ team|truncatechars:10 }}</a> </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endcomment %}
+
+            <div class="dashboard-menu pull-right">
+                <a class="btn-default btn" href="{% url "auth_logout" %}">{% trans "Log out" %}</a>
+            </div>
+
+            <h1>{% trans "Dashboard" %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <h4>Activity</h4>
+            {% if stream_is_generic %}
+                <p><em>Star <i class="icon-star"></i> some people or projects to get customized results.</em></p>
+            {% else %}
+                <p class="text-muted"><small>Activity with people and projects that you follow</small></p>
+            {% endif %}
+            {% if stream %}
+                {% include "activity/snippets/stream.html" with actions=stream %}
+            {% else %}
+                {# Actually empty stream, prolly cant happen outside of testing, but still.. #}
+                <p><a class="btn btn-block">&nbsp;</a></p>
+            {% endif %}
+        </div>
+
+        <div class="col-sm-6">
+            <p>
+                <a href="{% url "user_profile" user.username %}" class="btn" data-placement="left">
+                    <img style="max-height: 60px;  vertical-align: bottom;" src="{{ user.profile.gravatar }}" class="img-rounded" />
+                    <span style="font-size: 36pt; padding-left: 10px; vertical-align: bottom; color: black;">{{ user.profile.desired_name }}</span>
+                </a>
+            </p>
+
+            {% if not my_projects %}
+                <div class="alert alert-warning">
+                    <h3>Start Making</h3>
+                    <p><strong>Welcome to Open Lab!</strong> If you have something
+                    to contribute, create a new project to get started. If you are
+                    part of a team or organization, then be sure to create the team
+                    first, so that you can invite everyone and easily add
+                    contributors.</p>
+                    <p><a href="{% url "project_create" user.username %}" class="btn btn-default btn-lg btn-block">Create Project &gt;</a></p>
+                    <br />
+                    <p><a href="{% url "team_create" %}" class="btn btn-default btn-lg btn-block">Start Organization &gt;</a></p>
+                </div>
+            {% endif %}
+
+            {% if my_projects %}
+                <h4>Projects</h4>
+                {% for project in my_projects %}
+                    {% include "project/snippets/projectball.html" %}
+                {% endfor %}
+            {% endif %}
+
+            {% if team_projects %}
+                <h4>Organizations</h4>
+                {% for team, projects in team_projects %}
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {% include "team/snippets/person_or_team_ball.html" with person=team %}
+                        </div>
+                        <div class="col-sm-8">
+                            {% for project in projects%}
+                                {% include "project/snippets/projectball.html" with project=project %}
+                            {% empty %}
+                                <p class="text-muted">No projects yet.</p>
+                            {% endfor %}
+                            <p><br /><a href="{% url "project_create" team.slug %}" class="btn btn-default btn-xs">New Project with <em>{{ team|truncatechars:30 }}</em> &gt;</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if new_posts %}
+                <div class="well">
+                    <h4>{% trans "Open Lab news" %}</h4>
+                    {% for post in new_posts %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% comment %}
+{% block middle %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10 showcase showcase-bottom">
+                    <h1>Open Hardware - Open World</h1>
+                    <p>An online collaboration platform for freeing the source
+                    code to civilization.</p>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>New projects</h2>
+        <div class="row">
+            <div class="col-md-12">
+                {% for project in new_projects %}
+                    <a class="project tip" href="{{ project.get_absolute_url }}"
+                        title="{{ project.summary }}">
+                        <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+                        <span>{{ project.title|truncatechars:"30" }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% endcomment %}
+
+
+
+

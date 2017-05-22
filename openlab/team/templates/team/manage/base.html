@@ -1,0 +1,46 @@
+{% extends "team/view/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block header_class %}cozy{% endblock %}
+{% block header_content %}
+{% include "core/snippets/infobase_page_header_light.html" %}
+{% endblock %}
+
+
+{% block tabcontent %}
+<br /> <!-- XXX -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-2" id="management_nav">
+            {% block sidebar %}
+                <!-- (todo) breadcrumbs would be involved here -->
+                <ul class="nav nav-pills nav-stacked">
+                    <li {{ tab_manage.members }}>
+                        <a href="{% url "team_manage_members" team.slug %}"><i class="icon-group"></i> Users</a>
+                    </li>
+                    <li {{ tab_manage.gallery }}>
+                        <a href="{% url "team_manage_gallery" team.slug %}"><i class="icon-camera"></i> Media</a>
+                    </li>
+                    <li {{ tab_manage.edit }}>
+                        <a href="{% url "team_manage_edit" team.slug %}"><i class="icon-info"></i> Description</a>
+                    </li>
+                </ul>
+            {% endblock %}
+        </div>
+        {% block mcontent %}
+            <div class="col-md-7">
+                {% block mid_content %}
+                {% endblock mid_content %}
+            </div>
+            <div class="col-md-3">
+                {% block right_content %}
+                {% endblock right_content %}
+            </div>
+        {% endblock mcontent %}
+    </div>
+</div>
+
+
+{% endblock %}
+

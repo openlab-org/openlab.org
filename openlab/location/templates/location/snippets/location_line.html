@@ -1,0 +1,17 @@
+
+
+{% if obj.city %}
+    <a href="{% url view_name country=obj.country.code2|slugify region=obj.region.name|slugify city=obj.city.name|slugify %}">{{ obj.city.name }}</a>,
+{% endif %}
+
+{% if obj.region %}
+    <a href="{% url view_name country=obj.country.code2|slugify region=obj.region.name|slugify %}">{{ obj.region.name }}</a>,
+{% endif %}
+
+{% if obj.country %}
+    <a href="{% url view_name country=obj.country.code2|slugify %}">{{ obj.country.name }}</a>
+{% endif %}
+
+{% if not obj.country %}
+    Unspecified
+{% endif %}

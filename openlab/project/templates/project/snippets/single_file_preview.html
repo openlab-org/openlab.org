@@ -1,0 +1,28 @@
+{% load openlab_tags %}
+{% block left_deets %}
+    {% if include_link %}
+        <a {% block link_href %}href="{{ file.get_absolute_url }}"{% endblock %}>
+    {% endif %}
+    {% block file_icon %}
+        {% if file.photo and file.photo.preview_ready %}
+            <img src="{{ file.photo.preview_image_thumb.url }}" class="file-thumb" />
+        {% elif file.preview_ready %}
+            <img src="{{ file.preview_image_thumb.url }}" class="file-thumb" />
+        {% else %}
+            <div class="unknown-extension extension-{{ file.get_extension }}">{{ file.get_extension }}</div>
+        {% endif %}
+    {% endblock %}
+    {% if include_path %}
+        <tt>/{{ file.full_file_path }}</tt>
+    {% else %}
+        <tt>{{ path_message|default:"" }}</tt>
+    {% endif %}
+    {% block preview_info %}
+    {% if not skip_preview_warning and not file.preview_ready %}
+        &nbsp;&nbsp;<em class="text-muted">(preview being generated...)</em>
+    {% endif %}
+    {% endblock preview_info %}
+    {% if include_link %}
+        </a>
+    {% endif %}
+{% endblock %}

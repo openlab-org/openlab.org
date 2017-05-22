@@ -1,0 +1,11 @@
+{% extends "project/view/base.html" %}
+
+{% block tabcontent %}
+<div class="container">
+    {% if forks %}
+        {% include "project/snippets/project_list.html" with projects=forks %}
+    {% else %}
+        <p><em>This project has not yet been forked.</em></p>
+    {% endif %}
+</div>
+{% endblock %}

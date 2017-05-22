@@ -1,0 +1,12 @@
+{% load openlab_tags %}
+
+{% if photo|classname:"photo" %}
+    {% if photo.preview_image %}
+        <img src="{{ photo.preview_image.url }}" class="image-rounded photo-full" />
+    {% else %}
+        <!-- ERROR NO IMAGE -->
+        <em>Image being prepared.</em>
+    {% endif %}
+{% else %}
+    {% include "project/snippets/file_preview.html" with file=photo %}
+{% endif %}

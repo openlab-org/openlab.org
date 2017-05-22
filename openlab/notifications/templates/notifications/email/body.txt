@@ -1,0 +1,19 @@
+{% load i18n %}{% trans "Hi" %} {{ profile.desired_name }},
+
+You have {{ count }} unread notification{{ notifications|pluralize }}.
+
+{% for n in notifications %}{% with n_url=n.get_url|default:""|safe %}
+{{ n.message }}{% if n_url %}
+    {{ DOMAIN }}{{ n_url }}
+{% endif %}{% endwith %}{% endfor %}
+
+
+{% trans "Happy Hacking, " %}
+-- {% trans "The Open Lab Team" %}
+
+_____________________
+
+{% blocktrans %}This message was sent to {{ email }}. If you do not want to receive
+messages like this in the future, disable notifications from the address
+provided below:{% endblocktrans %}
+    {{ DOMAIN }}{% url "user_manage_notifications" user.username %}

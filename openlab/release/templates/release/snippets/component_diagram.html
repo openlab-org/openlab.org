@@ -1,0 +1,25 @@
+
+{% load openlab_tags %}
+
+<div class="row component-diagram">
+    <div class="col-xs-4 left-components">
+        {# First half of components #}
+        {% include "release/snippets/components.html" with components=release.components|first_half side="left" %}
+    </div>
+
+    <div class="col-xs-4">
+        {# Project photo #}
+        {% if not project.photo %}
+            {# Should never happen in prod since we would not allow such a project to be released #}
+            <img src="{{ project.get_thumb_url|safe }}" class="project-image" />
+        {% else %}
+            <img src="{{ project.photo.preview_image.url|safe }}" class="project-image" />
+        {% endif %}
+    </div>
+
+    <div class="col-xs-4 right-components">
+        {# Second half of components #}
+        {% include "release/snippets/components.html" with components=release.components|second_half side="right" %}
+    </div>
+</div>
+

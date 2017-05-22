@@ -1,0 +1,16 @@
+{% extends "base/landingpage.html" %}
+
+{% block tab_projects %}class="active"{% endblock %}
+
+{% block head_meta %}
+    <meta name="title" content="{{ release }} - Open Lab" />
+    <meta name="description" content="{{ release.description }}" />
+    {% comment %}
+    gallery.photos.all.0.preview_image.url
+    project.photo.preview_image.url
+    <meta property="og:image" content="{{ STATIC_URL }}" />
+    <link rel="image_src" href="{{ STATIC_URL }}" />
+    {% endcomment %}
+{% endblock head_meta %}
+
+

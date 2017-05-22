@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<form action="{{ actionurl|default:"" }}" method="POST">
+    {% csrf_token %}
+    <input name="action" value="follow_toggle" type="hidden" />
+    <button class="follow-star tip btn btn-link"
+        {% if is_following %}
+        title="Unstar this {{ noun }} to stop following its development."
+        {% else %}
+        title="Star this {{ noun }} to follow its development."
+        {% endif %}
+        >
+        <i class="{% if is_following %}icon-star{% else %}icon-star-empty{% endif %} icon-large"></i>
+    </button>
+</form>

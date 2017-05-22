@@ -1,0 +1,40 @@
+{% extends "project/snippets/file_list_preview.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+
+{% block preview_info %}{% endblock %}
+
+
+{% block left_deets %}
+    {% if file.revision_stat != "d" %}
+        {% include "project/snippets/single_file_preview.html" with skip_preview_warning="True" include_link="True"  include_path="True" %}
+    {% endif %}
+{% endblock %}
+
+{% block center_deets %}
+<div class="badge" style="margin-left: 10px">
+    {% switch file.revision_stat %}
+        {% case "d" %}
+            <i class="icon icon-trash icon-3x"></i>
+            <p>Removed</p>
+        {% case "a" %}
+            <i class="icon icon-plus icon-3x"></i>
+            <p>New</p>
+        {% case "m" %}
+            <i class="icon icon-arrow-up icon-3x"></i>
+            <p>Updated</p>
+        {% else %}
+            <!-- nada -->
+            <p>{{ file.revision_stat }}</p>
+    {% endswitch %}
+</div>
+{% endblock center_deets %}
+
+
+{% block right_deets %}
+    {% if file.replaces %}
+        {# {% include "project/snippets/single_file_preview.html" with file=file.replaces skip_preview_warning="True" include_link="True" path_message="[old]"  %} #}
+        {% include "project/snippets/single_file_preview.html" with file=file.replaces skip_preview_warning="True" include_link="True" include_path="True"  %}
+    {% endif %}
+{% endblock right_deets %}
+

@@ -1,0 +1,14 @@
+{% load taggit_extras %}
+
+<div class="tag-cloud">
+    {% comment %}
+    NOTE: model_class might actually be "app name". For Team and Project those
+    happen to be the same. We'll need to add a new parameter if this ever
+    becomes an issue.
+    {% endcomment %}
+    {% get_tagcloud as tags for model_class %}
+    {% for tag in tags %}
+        <a class="tag-size-{{tag.weight|floatformat:0}}" href="{% url target_view_name %}?tag={{tag|urlencode}}">{{ tag }}</a>
+    {% endfor %}
+</div>
+

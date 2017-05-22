@@ -1,0 +1,15 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block mid_content %}
+    {% crispy form %}
+{% endblock mid_content  %}
+
+{% block right_content %}
+<div class="well">
+    <h3>Project details</h3>
+    <p>Edit the details about your project. Also, change the photo that represents your project.</p>
+</div>
+{% endblock %}

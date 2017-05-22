@@ -1,0 +1,6 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+    {% include "gallery/snippets/photo_full.html" with show_link="project_photo" link_arg=project.hubpath  %}
+{% endblock %}

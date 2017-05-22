@@ -1,0 +1,50 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Open Lab admin' %}{% endblock %}
+
+{% block extrastyle %}
+<style>
+#header{ background-color: #fff; color: #000; }
+#header a{
+    color: #f60;
+}
+#branding {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #fafafa;
+    border-bottom: 5px solid #aaa;
+}
+#branding a {
+    color: #000;
+}
+#branding h1, #branding img { 
+ color: #000;
+ float: left;
+ }
+ a:hover { color: #f60; }
+
+#header a:link, #header a:visited 
+{
+color: #333; 
+}
+
+ </style>
+{% endblock %}
+
+{% block branding %}
+<a href="/labrat/admin/"><img src="{{ STATIC_URL }}core/images/logo.png" /></a>
+<h1 id="site-name">{% trans 'Open Lab Administration' %}</h1>
+<br />
+<br />
+<br />
+<p class="quicklinks"><strong>Quick links:</strong>
+<a href="/labrat/admin/quickblog/post/add/">New article</a>
+-
+<a href="/labrat/admin/quickblog/post/">Manage articles</a>
+</p>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+

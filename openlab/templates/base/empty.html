@@ -1,0 +1,134 @@
+{% load i18n %}
+{% load compress %}
+
+{# Disabled until we upgrade s3uploader #}
+{# {% load s3uploader %} #}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head_meta %}
+        <meta name="title" content="Open Lab" />
+        <meta name="description" content="Open source hardware projects for a greener future." />
+        <meta property="og:image" content="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-144x144-precomposed.png" />
+        <link rel="image_src" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-144x144-precomposed.png" />
+    {% endblock head_meta %}
+    <link rel="shortcut icon" href="{{ STATIC_URL }}core/images/favicons/favicon.ico">
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ STATIC_URL }}core/images/favicons/apple-touch-icon-144x144-precomposed.png">
+
+
+    <title>
+        {% spaceless %}
+            {% block title_full %}
+                {% block title %}{% endblock %}Open Lab
+            {% endblock %}
+        {% endspaceless %}
+    </title>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:400|Pathway+Gothic+One'
+            rel='stylesheet' type='text/css' />
+
+    {% compress css %}
+        <!-- Bootstrap core CSS -->
+        <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/magic-bootstrap.css" rel="stylesheet">
+
+        <!-- font -->
+        <link href="{{ STATIC_URL }}font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" href="{{ STATIC_URL }}fontello/css/fontello.css">-->
+
+        <!-- Fine Uploader -->
+        <!--<link href="{{ STATIC_URL }}ajaxuploader/css/fileuploader.css" rel="stylesheet" type="text/css" />-->
+
+        <!-- Select2 -->
+        <link href="{{ STATIC_URL }}select2/css/select2-bootstrap.css" rel="stylesheet" type="text/css" />
+
+        <!-- bootstrap plugins -->
+        <!--
+        <link href="{{ STATIC_URL }}bootstrap-markdown/css/bootstrap-markdown.min.css" rel="stylesheet" type="text/css" />
+        -->
+
+        <!-- pygments style -->
+        <link href="{{ STATIC_URL }}pygments/css/friendly.css" rel="stylesheet" type="text/css" />
+
+        {% comment %}
+        <!-- jquery-vectormap -->
+        <link href="{{ STATIC_URL }}jquery-jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+        {% endcomment %}
+
+        <link href="{{ STATIC_URL }}jqueryplugins/css/jquery.atwho.css" rel="stylesheet" type="text/css" />
+
+        <!-- OpenLab specific CSS -->
+        {# {% s3uploader_css %} #}
+        <link href="{{ STATIC_URL }}core/css/openlab.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/anthrome.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/project.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/icons.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/notifications.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/discussion.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/activity.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/gallery.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/release.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/release2.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/nounball.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/landingpage.css" rel="stylesheet">
+        <link href="{{ STATIC_URL }}core/css/stickyfooter.css" rel="stylesheet">
+
+        <link href="{{ STATIC_URL }}olmarkdown/css/olmarkdown.css" rel="stylesheet">
+    {% endcompress %}
+  </head>
+
+  <body {% block bodyattributes %}{% endblock %}>
+
+    {% block startjavascript %}
+
+    <script src="{{ STATIC_URL }}jquery/js/jquery-1.11.0.min.js"></script>
+
+    {% endblock startjavascript %}
+
+    {% block body %}
+    {% endblock body %}
+
+    {% block endjavascript %}
+    {% compress js %}
+        <!-- jquery ui (core & interactions only) -->
+        <script src="{{ STATIC_URL }}jquery/js/jquery-ui-1.10.4.custom.js"></script>
+
+        <!-- 3D stuff -->
+        <script src="{{ STATIC_URL}}meshviewer/js/jsc3d/jsc3d.min.js"></script>
+
+        <!-- document viewing stuff-->
+        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.svgpan.js"></script>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- textarea plugins -->
+        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.autosize.js"></script>
+        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.caret.js"></script>
+        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.atwho.js"></script>
+
+        <script src="{{ STATIC_URL }}bootstrap-markdown/js/bootstrap-markdown.js"></script>
+
+        {# {% s3uploader_js %} #}
+
+        <!-- Open lab custom JS -->
+        <script src="{{ STATIC_URL }}core/js/main.js"></script>
+        <script src="{{ STATIC_URL }}core/js/components.js"></script>
+        <script src="{{ STATIC_URL }}core/js/docviewer.js"></script>
+        <script src="{{ STATIC_URL }}core/js/olmarkdown.js"></script>
+        <script src="{{ STATIC_URL }}core/js/gallery.js"></script>
+        <script src="{{ STATIC_URL }}core/js/newrelease.js"></script>
+    {% endcompress %}
+
+    {% endblock %}
+    {% block more_js %}
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "base/landingpage.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+{% block title %}Contact - {% endblock %}
+
+{% block header_content %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>{% trans "Contact" %}</h1>
+        </div>
+        <div class="col-md-8">
+            <h2>Message Sent</h2>
+            <h3>Nice to hear from ya!</h3>
+            <p>Thanks for contacting us! We'll reply as soon as we get a chance.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

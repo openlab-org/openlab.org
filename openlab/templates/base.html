@@ -1,106 +1,158 @@
-{% load staticfiles i18n compress%}<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}openlab{% endblock title %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends "base/empty.html" %}
+{% load i18n %}
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <![endif]-->
 
-    {% block css %}
-    <!-- Latest compiled and minified Bootstrap 4 Alpha 4 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+{% block title %}
+    {% if page_title %}
+        {{ page_title|capfirst }} -
+    {% endif %}
+{% endblock %}
 
-    <!-- Your stuff: Third-party CSS libraries go here -->
-    {% compress css %}
-    <!-- This file stores project-specific CSS -->
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    {% endcompress %}
+
+{% block body %}
+    {% block top %}
+    <div class="navbar navbar-fixed-top navbar-default">
+      <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="{{ STATIC_URL }}core/images/new_logo_2_2x.png" alt="Open Lab" height="38"  />
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            {# Main nav #}
+            <ul class="nav navbar-nav main-nav">
+                <li {% block tab_planet %}{% endblock tab_planet %}><a href="{% if not user or not user.is_authenticated %}/{% else %}{% url "showcase" %}{% endif %}" class="tab-planet tip"  data-placement="bottom" title="Planet">
+                    <i class="ol-icon ol-planet"></i>
+                    <span class="icon-label">Planet</span>
+                </a></li>
+                <li {% block tab_projects %}{% endblock %}><a href="{% url "project_list" %}" class="tab-projects tip" title="Projects" data-placement="bottom">
+                    <i class="ol-icon ol-project"></i>
+                    <span class="icon-label">Projects</span>
+                </a></li>
+                <li {% block tab_people %}{% endblock %}><a href="{% url "team_list" %}" class="tab-people tip" title="People" data-placement="bottom">
+                    <i class="ol-icon ol-person"></i>
+                    <span class="icon-label">People</span>
+                </a></li>
+            </ul>
+
+            {% block nav_user_menu %}
+                {# user tools #}
+                {% if not user.is_authenticated %}
+                    <div class="navbar-form navbar-right navbar-login hidden-print">
+                        {% include "account/snippets/login.html" %}
+                    </div>
+                {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% include "account/snippets/user_menu.html" %}
+                    </ul>
+                {% endif %}
+            {% endblock nav_user_menu %}
+            </div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
     {% endblock %}
 
-  </head>
 
-  <body>
+    {% block middle %}
 
-    <div class="m-b-1">
-      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="{% url 'home' %}">openlab</a>
+        {% block header %}
+        <div class="jumbotitle {% block header_class %}{% endblock %}" {% block header_attr %}{% endblock %}>
+            <div class="header-top">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="sign-up-link" class="nav-link" href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a>
-              </li>
-              <li class="nav-item">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a id="log-in-link" class="nav-link" href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-              </li>
-            {% endif %}
-          </ul>
+
+                {% block breadcrumbs %}
+                    {% if request.breadcrumbs and request.breadcrumbs|length > 1 %}
+                        <div class="container">
+                            <ol class="breadcrumb">
+                                {% for breadcrumb in request.breadcrumbs %}
+                                    {% if forloop.last %}
+                                        <li class="active">{{ breadcrumb.name }}</li>
+                                    {% else %}
+                                        <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    {% endif %}
+                {% endblock breadcrumbs %}
+                <div id="messages">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="container">
+                                <div class="alert alert-info alert-{{ message.tags }}">
+                                    <a class="btn btn-large btn-warning pull-right" data-dismiss="alert">&times;</a>
+                                    <p><big>{{ message }}</big></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="container header-content">
+                {% block header_content %}
+                {% endblock %}
+            </div>
+
+            <div class="header-bottom">
+                {% block header_bottom %}
+                {% endblock %}
+            </div>
         </div>
-      </nav>
+        {% endblock %}
 
-    </div>
+        {% block content %}
+        {% endblock content %}
+    {% endblock middle %}
 
-    <div class="container">
+    {% block footer %}
+    <footer class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-10">
+            <p>
+                Open Lab
+                <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+                <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+                &copy;</span>
+                <!--[if lte IE 8]></span><![endif]-->
+                {% now "Y" %}
 
-      {% if messages %}
-          {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-          {% endfor %}
-      {% endif %}
 
-      {% block content %}
-        <p>Use this document as a way to quick start any new project.</p>
-      {% endblock content %}
+                <a href="{% url "core_site_credits" %}">{% trans "Credits & Special Thanks." %}</a>
+                {% trans "Contact:" %}
+                <a href="/contact/">{% trans "Contact us online" %}</a>
+                {% if user.is_authenticated and user.is_superuser %}
+                <div class="pull-right well">
+                <strong>ADMIN OPTIONS</strong> |
+                <a href="/labrat/admin/">Admin panel</a> |
+                <strong>Site blog:</strong> <a href="/labrat/admin/quickblog/post/add/">Write post</a>
+                | <a href="/labrat/admin/quickblog/post/">Manage post</a>
+                </div>
+                {% endif %}
+            </p>
+        </div>
 
-    </div> <!-- /container -->
 
-    {% block modal %}{% endblock modal %}
+            <div class="col-md-2">
+                <p><a 
+                        class="btn btn-default btn-xs tip"
+                        href="javascript:void(0);"
+                        onClick="window.open('http://webchat.freenode.net/?nick={% firstof user.username 'visitor...' %}&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
+                        title="Ran into a bug? Not sure what to do? Click here to chat with us in the chat channel! (freenode#openlab-dev)"
+                    >
+                    <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
+                </a></p>
+            </div>
+        </div>
+    </footer> <!-- /container -->
+    {% endblock footer %}
+{% endblock body %}
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    {% block javascript %}
-      <!-- Required by Bootstrap v4 Alpha 4 -->
-      <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-      <!-- Your stuff: Third-party javascript libraries go here -->
-
-      <!-- place project specific Javascript in this file -->
-      {% compress js %}
-      <script src="{% static 'js/project.js' %}"></script>
-      {% endcompress %}
-
-    {% endblock javascript %}
-  </body>
-</html>
- 

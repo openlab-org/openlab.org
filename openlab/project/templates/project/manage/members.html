@@ -1,0 +1,37 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+
+{% comment %}
+<br />
+<div class="alert alert-info">
+    <p>Not implemented yet!</p>
+</div>
+<br />
+{% endcomment %}
+
+{% include "account/snippets/user_management.html" %}
+
+{% endblock mid_content %}
+
+
+{% block right_content %}
+<div class="well">
+    <h3><i class="icon-lock"></i>  Access</h3>
+    <p>From this page, you can manage who has access to contribute this
+    project.</p>
+
+    <p>By adding additional collaborators, you can give certain privileges,
+    such as uploading new versions of files, or changing project details.</p>
+
+    {% comment %}
+    <p>By adding teams as collaborators, you give access to everyone who is
+    part of that group.</p>
+    {% endcomment %}
+
+</div>
+{% endblock right_content %}
+
+

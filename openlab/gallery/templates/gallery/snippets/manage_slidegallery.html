@@ -1,0 +1,13 @@
+{# {% load s3uploader %} #}
+{% load crispy_forms_tags %}
+{% load openlab_tags %}
+
+{% if not files %}
+    <em>No photos yet!</em>
+{% else %}
+    <div data-jsview="manage_gallery" id="item_list">
+        {% csrf_token %}
+        {% include "gallery/snippets/gallery.html" with is_owner="True" show_checkbox="True" gallery_is_mixture="True" %}
+    </div>
+{% endif %}
+

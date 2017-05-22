@@ -1,0 +1,10 @@
+{% for tag in thread.tags.all %}{% spaceless %}
+    {% if discussion_tag_url %}
+        <a href="{{ discussion_tag_url }}?tag={{ tag|urlencode }}">
+            <span class="label label-warning">{{ tag }}</span>
+        </a>
+    {% else %}
+        <span class="label label-warning">{{ tag }}</span>
+    {% endif %}
+{% endspaceless %}{% endfor %}
+                        

@@ -1,0 +1,75 @@
+{% extends "team/base.html" %}
+{% load openlab_tags %}
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="col-md-8">
+    {% if is_search %}
+        <h1>
+            {% include "core/snippets/infobase_search_title.html" %}
+            <small> People</small>
+        </h1>
+    {% else %}
+        <h1>People</h1>
+    {% endif %}
+</div>
+
+<div class="col-md-4">
+    {% include "core/snippets/infobase_search.html" %}
+</div>
+
+{% endblock %}
+
+
+{% block header_bottom %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li {{ tab.active }}><a href="{% url "team_list" %}">Active</a></li>
+                <li {{ tab.all }}><a href="{% url "team_list_tab" tab="all" %}">All</a></li>
+                {% comment %}
+                <li {{ tab.top }}><a href="{% url "team_list" %}">Top</a></li>
+                <li {{ tab.new }}><a href="{% url "team_list" %}">New</a></li>
+                {% if user.is_authenticated %}
+                    <li class="pull-right {{ tab.new.class }}"><a href="{% url "team_list" %}">Search</a></li>
+                {% endif %}
+                {% endcomment %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock header_bottom %}
+
+
+{% block content %}
+{% include "snippets/next_previous.html" %}
+<div class="container">
+    <div class="row">
+        {% for team in teams %}
+        <div class="col-md-6">
+            <div class="col-md-4">
+                <br />
+                <a href="{{ team.get_absolute_url }}">
+                    <img class="img-rounded info-thumb" src="{{ team.get_thumb_url }}" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <a href="{{ team.get_absolute_url }}"><h3>{{ team.title|truncatechars:"30" }}</h3></a>
+                <p class="text-muted">{{ team.summary }}</p>
+                {% for user in team.members.all %}
+                    <a href="{% url "user_profile" user.username %}">{{ user.profile.desired_name }}</a>
+                {% empty %}
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+            <p><em>No teams found!</em></p>
+        {% endfor %}
+    </div>
+</div>
+{% include "snippets/next_previous.html" %}
+{% endblock content %}
+
+

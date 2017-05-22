@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load openlab_tags %}
+{# renders a "person" correctly, e.g. an team or person #}
+
+<div class="nounball">
+    {% switch person|classname %}
+        {% case "user" %}
+            {% with person.profile as profile %}
+                <a href="{{ profile.get_absolute_url }}">
+                    {% if not text_only %}
+                        <img class="img-circle" src="{{ profile.avatar_url }}" />
+                    {% endif %}
+                    <span>{{ profile.desired_name }}</span>
+                </a>
+            {% endwith %}
+        {% case "team" %}
+            <a href="{{ person.get_absolute_url }}">
+                {% if not text_only %}
+                    <img class="img-circle info-thumb" src="{{ person.get_thumb_url }}" />
+                {% endif %}
+                <span>{{ person.title|truncatechars:"30" }}</span>
+                </a>
+    {% endswitch %}
+</div>

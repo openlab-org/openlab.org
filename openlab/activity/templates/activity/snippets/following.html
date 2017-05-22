@@ -1,0 +1,5 @@
+{% for user in following %}
+    {% include "account/snippets/profile.html" with profile=user.profile %}
+{% empty %}
+    <em>Not following anyone.</em>
+{% endfor %}

@@ -1,0 +1,12 @@
+{% extends "team/view/base.html" %}
+{% load i18n %}
+
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <h2>Team photos</h2>
+        {% include "gallery/snippets/gallery.html" with show_link="team_photo" link_arg=team.slug  %}
+    </div>
+</div>
+{% endblock %}

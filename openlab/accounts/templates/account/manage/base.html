@@ -1,0 +1,65 @@
+{% extends "account/view/base.html" %}
+{% load i18n %}
+
+{% comment %}
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+{% include "core/snippets/infobase_page_header_light.html" %}
+{% endblock %}
+{% endcomment %}
+
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-md-11">
+            <h1 class="infobase-pagetitle">{{ profile.desired_name }}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block tabcontent %}
+<br /> <!-- XXX -->
+<div class="container">
+    <div class="row">
+        <!--
+            Sidebar
+        -->
+        <div class="col-md-2">
+            <div id="management_nav">
+                <ul class="nav nav-pills nav-stacked">
+                    <li {{ tab_manage.edit }}>
+                        <a href="{% url "user_manage_edit" the_user.username %}"><i class="icon-user"></i>{% trans "Profile" %}</a>
+                    </li>
+                    <li {{ tab_manage.email }}>
+                        <a href="{% url "user_manage_email" the_user.username %}"><i class="icon-envelope"></i>{% trans "Email" %}</a>
+                    </li>
+                    <li {{ tab_manage.notifications }}>
+                        <a href="{% url "user_manage_notifications" the_user.username %}"><i class="icon-asterisk"></i>{% trans "Notifications" %}</a>
+                    </li>
+                    <li {{ tab_manage.password }}>
+                        <a href="{% url "user_manage_password" the_user.username %}"><i class="icon-ellipsis-horizontal"></i>{% trans "Password" %}</a>
+                    </li>
+                    <hr />
+                </ul>
+            </div>
+            <p style="margin-top: 50px"><a href="{% url "user_manage_delete" the_user.username %}">{% trans "Delete account" %}</a></p>
+        </div>
+
+        {% block mcontent %}
+            <div class="col-md-7">
+                {% block mid_content %}
+                {% endblock mid_content %}
+            </div>
+            <div class="col-md-3">
+                {% block right_content %}
+                {% endblock right_content %}
+            </div>
+        {% endblock mcontent %}
+    </div>
+</div>
+
+{% endblock tabcontent %}
+
+

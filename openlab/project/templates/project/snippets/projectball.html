@@ -1,0 +1,6 @@
+<a class="project tip" href="{{ project.get_absolute_url }}"
+    title="{{ project.summary }}">
+    <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+    <span>{{ project.title|truncatechars:"30" }}</span>
+</a>
+

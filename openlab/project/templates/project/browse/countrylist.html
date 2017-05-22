@@ -1,0 +1,42 @@
+{% extends "project/base.html" %}
+
+{% block header_class %}compact{% endblock %}
+{% block header_content %}
+<div class="col-md-8">
+    <h1>Projects by country</h1>
+</div>
+{% endblock %}
+
+
+{% block header_bottom %}
+                {% comment %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li {{ tab.stable|default:"class='active'" }}><a href="{% url "project_list" %}">Released</a></li>
+                <li {{ tab.unstable }}><a href="{% url "project_list" %}">Bleeding edge</a></li>
+                <li {{ tab.new }}><a href="{% url "project_list" %}">New</a></li>
+                {% if user.is_authenticated %}
+                    <li class="pull-right {{ tab.search.class }}"><a href="{% url "project_list" %}">Search</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+                {% endcomment %}
+{% endblock header_bottom %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <ol>
+            {% for country in countries %}
+                <li><a href="{% url "project_list" country=country.code2|lower %}">{{ country }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+{% endblock content %}

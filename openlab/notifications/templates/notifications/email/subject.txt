@@ -1,0 +1,2 @@
+Open Lab - {% if count == 1 %}{{ notifications.0.message }}{% else %}{{ count }} unread notification{{ notifications|pluralize }}{% endif %}
+

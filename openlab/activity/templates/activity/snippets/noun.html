@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load openlab_tags %}
+{# renders a "noun" correctly, e.g. an actor, object etc #}
+
+{% switch noun|classname %}
+    {% case "user" %}
+        {% with noun.profile as profile %}
+            <a href="{{ profile.get_absolute_url }}">
+                {% if not text_only %}
+                    <img class="img-rounded" src="{{ profile.avatar_url }}" />
+                {% endif %}
+                {{ profile.desired_name }}
+            </a>
+        {% endwith %}
+    {% case "team" %}
+        <a href="{{ noun.get_absolute_url }}">
+            {% if not text_only %}
+                <img class="img-rounded info-thumb" src="{{ noun.get_thumb_url }}" />
+            {% endif %}
+            {{ noun.title|capfirst }}</a>
+    {% case "project" %}
+        <a href="{{ noun.get_absolute_url }}">
+            {% if not text_only %}
+                <img class="img-circle info-thumb" src="{{ noun.get_thumb_url }}" />
+            {% else %}
+                {{ noun.title }}
+            {% endif %}
+        </a>
+    {% case "revision" %}
+        <a href="{{ noun.get_absolute_url }}">
+            {{ noun.title }}
+        </a>
+    {% case "message" %}
+        a comment
+    {% case "thread" %}
+        a thread on
+        {% for project in noun.project_set.all %}
+            <a href="{{ project.get_absolute_url }}">
+                {{ project }}
+            </a>
+        {% endfor %}
+        {% for team in noun.team_set.all %}
+            <a href="{{ team.get_absolute_url }}">
+                {{ team }}
+            </a>
+        {% endfor %}
+    {% else %}
+        <!-- don't know this actor... -->
+
+{% endswitch %}
+

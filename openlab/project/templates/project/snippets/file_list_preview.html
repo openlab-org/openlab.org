@@ -1,0 +1,86 @@
+{% load openlab_tags %}
+
+<ul class="project-tree-view">
+    {% for folder, files in files_by_folder %}
+        {% if folder %}
+        <li>
+            <i class="icon-folder-close-alt"></i><tt>{{ folder }}</tt>
+            <ul>
+        {% endif %}
+                {% for file in files %}
+                    <li {% block file_attribrutes %}class="file-list-item"{% endblock %}>
+                        {% block left_prefix %}{% endblock left_prefix %}
+                        {% block left_deets %}
+                            <a class="first-link" {% block link_href %}href="{{ file.get_absolute_url }}"{% endblock %}>
+                                {% block file_icon %}
+                                    {% if file.photo and file.photo.preview_ready %}
+                                        <img src="{{ file.photo.preview_image_thumb.url }}" class="file-thumb" />
+                                    {% elif file.preview_ready %}
+                                        <img src="{{ file.preview_image_thumb.url }}" class="file-thumb" />
+                                    {% else %}
+                                        <div class="unknown-extension extension-{{ file.get_extension }}">{{ file.get_extension }}</div>
+                                    {% endif %}
+                                {% endblock %}
+                                <tt>/{{ file.full_file_path }}</tt>
+                                {% block preview_info %}
+                                {% if not file.preview_ready %}
+                                    &nbsp;&nbsp;<em class="text-muted">(preview being generated...)</em>
+                                {% endif %}
+                                {% endblock preview_info %}
+                            </a>
+                        {% endblock %}
+                        <span class="title">
+                            {% block center_deets %}
+                                {{ file.title }}
+                            {% endblock center_deets %}
+                        </span>
+                        {% block right_deets %}
+                            <span class="size">
+                                {{ file.size|label_bytes }}
+                            </span>
+                            <a href="{{ file.path.url }}" download class="download-option"><i class="icon-download"></i></a>
+                        {% endblock right_deets %}
+                    </li>
+                {% endfor %}
+        {% if folder %}
+            </ul>
+        </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+
+{% comment %}
+{% for file in files %}
+    <div class="col-md-6">
+        <div class="col-md-4">
+            <a href="{{ file.get_absolute_url }}">
+                {% if file.photo and file.photo.preview_ready %}
+                    <img src="{{ file.photo.preview_image_thumb.url }}" />
+                {% elif file.preview_ready %}
+                    <img src="{{ file.preview_image_thumb.url }}" />
+                {% else %}
+                    <div class="unknown-extension">{{ file.get_extension }}</div>
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-md-8">
+            <h4>{{ file.title }}</h4>
+            {{ file.description }}
+            <p class="muted">{{ file.credits }}</p>
+            <p>
+                {% if file.path %}
+                    <a class="btn btn-default" href="{{ file.path.url }}" target="_blank"><i class="icon-download"></i> Get</a>
+                {% else %}
+                    <i class="icon-warning-sign" alt="File does not exist."></i>
+                {% endif %}
+                {{ file.size_mb }} Mb
+                <a class="btn btn-default pull-right" href="{{ file.get_absolute_url }}">Details &nbsp;<i class="icon-angle-right"></i></a>
+            </p>
+        </div>
+    </div>
+{% empty %}
+    <p><em>No files yet available for this project!</em></p>
+{% endfor %}
+
+{% endcomment %}

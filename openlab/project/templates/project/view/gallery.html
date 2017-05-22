@@ -1,0 +1,11 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <h2>Project photos</h2>
+        {% include "gallery/snippets/gallery.html" with show_link="project_photo" link_arg=project.hubpath  %}
+    </div>
+</div>
+{% endblock %}

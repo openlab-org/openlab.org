@@ -1,0 +1,21 @@
+
+i.ol-icon {
+    background-image: url("../images/icons_50.png");
+    display: inline-block;
+    width:  50px;
+    height: 50px;
+}
+
+i.ol-planet { background-position: 0px 0px; }
+li.active i.ol-planet,
+a:hover i.ol-planet { background-position: 0px -50px; }
+
+i.ol-project { background-position: -50px 0px; }
+li.active i.ol-project,
+a:hover i.ol-project { background-position: -50px -50px; }
+
+i.ol-person { background-position: -100px 0px; }
+li.active i.ol-person,
+a:hover i.ol-person { background-position: -100px -50px; }
+
+

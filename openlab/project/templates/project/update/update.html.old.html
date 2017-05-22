@@ -1,0 +1,109 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{# {% load s3uploader %} #}
+{% load crispy_forms_tags %}
+{% load openlab_tags %}
+
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+{% include "core/snippets/infobase_page_header_light.html" %}
+{% endblock %}
+
+{% block tabcontent %}
+<div class="container" id="upload_revision">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a href="{% url "project_update_delete_revision" revision.id %}" class="tip btn btn-xs btn-default"
+                    title="Cancel this revision and clear all files in progress."><i class="icon-trash"></i> Cancel</a>
+            </div>
+
+            <h1>Update <small>#{{ revision.number }}</small></h1>
+            <div class="row">
+                <div class="col-sm-6">
+
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Changes
+                                    <i class="icon-upload-alt pull-right"></i>
+                                </h4>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    {% if files %}
+                                        <h4>Files in this revision</h4>
+                                        {% include "project/snippets/revision_change_list.html" with show_controls="True" %}
+                                    {% endif %}
+                                    {% if files %}
+                                        <h4>Add</h4>
+                                    {% endif %}
+                                    {# {% s3uploader filemodel revision_id=revision.id folder="" %} #}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+
+
+                    {% if existing_files and FALSE %}
+                        <div class="panel-group" id="existing_files_accordian">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a style="display: block" data-toggle="collapse" data-parent="#existing_files_accordion" href="#existing_files_collapse_one">
+                                            Existing files
+                                            <i class="icon-edit pull-right"></i>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="existing_files_collapse_one" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        {% with files=existing_files files_by_folder=existing_files_by_folder %}
+                                            {% include "project/snippets/revision_change_list.html" with show_controls="True" %}
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-6">
+                    <h3>2. Save</h3>
+                    <form method="POST" action="{% url "project_update_revision_complete" revision.id %}" class="form">
+                        {% csrf_token %}
+                        <div class="controls">
+                            <input class="textinput textInput form-control"
+                                id="id_summary" maxlength="140" name="summary" type="text"
+                                value="{{ revision_form.summary.value }}" placeholder="Summary of changes..." />
+                        </div>
+                        <a data-toggle="collapse" data-parent="#accordion" class="tip pull-right" href="#description_form" title="{% trans "Click to include a detailed summary of changes (optional)." %}">
+                            {% trans "Details..." %} <i class="icon-caret-down"></i> </small>
+                        </a>
+                        <div id="description_form" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                {{ revision_form.changes|as_crispy_field }}
+                            </div>
+                        </div>
+                        <button class="btn btn-block btn-primary btn-large" type="submit"><i class="icon-check"></i> {% trans "Update project" %}
+                            <!--<i class="icon-caret-right"></i>--></button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block final_js %}
+<script>
+</script> 
+{% endblock %}
+

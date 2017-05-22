@@ -1,0 +1,49 @@
+{% extends "account/view/base.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            {% if projects %}
+                <h2>Projects</h2>
+            {% endif %}
+
+            {% if projects %}
+                {% for project in projects %}
+                    <div class="row">
+                        {% include "project/snippets/project_bar.html" %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if projects_permissions %}
+                <h4>Contributed</h4>
+                {% endif %}
+
+            {% if teams %}
+                <h2>Teams</h2>
+                {% include "team/snippets/team_list.html" %}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal text-muted">
+                <dt>{% trans "Joined" %}<dt>
+                <dd>{{ the_user.date_joined|date:"F Y"}}</dd>
+
+                {% if the_user.first_name or the_user.last_name %}
+                    <dt>{% trans "Name" %}</dt>
+                    <dd>{{ the_user.first_name }} {{ the_user.last_name }}</dd>
+                {% endif %}
+            </dl>
+            {% if the_profile.rendered_markdown %}
+                <h3>About</h3>
+                {{ the_profile.rendered_markdown }}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock tabcontent %}

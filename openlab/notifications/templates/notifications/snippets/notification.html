@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load openlab_tags %}
+{# renders a "notificaiton" correctly #}
+
+<div class="notification-details alert {% if not notification.read %}alert-success{% else %}{% endif %}">
+    <p class="notification-title"><i class="icon-envelope"></i> <strong>{{ notification.message }}</strong>
+    <form action="." method="POST">{% csrf_token %}<input type="hidden" name="id" value="{{ notification.id }}" /><button type="submit" name="action" value="clear" class="btn btn-xs btn-warning">×</button> </form>
+    </p>
+    {% if notification.topic_object %}
+        {% comment %}
+            {% include "notifications/preview/"|add:notification.content_type.name|add:".html" %}
+        {% endcomment %}
+        <a href="{{ notification.get_url }}">
+            <div class="row notification-preview">
+                <div class="col-md-12">
+                    {% switch notification.content_type.name %}
+                        {% case "message" %}
+                            {% include "discussion/snippets/message.html" with summary_only="True" message=notification.topic_object %}
+                        {% case "thread" %}
+                            <blockquote><big>{{ notification.topic_object.title  }}</big></blockquote>
+                        {% case "project" %}
+                            <div class="col-md-6">
+                                {% include "project/snippets/project_bar.html" with project=notification.topic_object skip_link="True" %}
+                            </div>
+                        {% case "team" %}
+                            <div class="col-md-6">
+                                {% include "project/snippets/project_bar.html" with project=notification.topic_object skip_link="True" %}
+                            </div>
+                    {% endswitch %}
+                </div>
+            </div>
+        </a>
+    {% endif %}
+</div>

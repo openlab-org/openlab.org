@@ -1,0 +1,120 @@
+{% extends "base/landingpage.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+
+{% block bodyclass %}front{% endblock %}
+
+{% block middle %}
+
+
+<div id="messages">
+    {% if messages %}
+        <br /> <br /> <br /> <!-- oh god what am i doing -->
+        {% for message in messages %}
+            <div class="container">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="alert alert-info alert-{{ message.tags }}">
+                        <a class="btn btn-large btn-warning pull-right" data-dismiss="alert">&times;</a>
+                        <p><big>{{ message }}</big></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="worldmap container">
+    <div class="map-wrapper">
+        <img src="{{ STATIC_URL }}anthrome/images/map_empty.png" class="map" />
+        {% for anthrome in anthrome_groups %}
+            <img data-number="{{ anthrome.number }}"
+                src="{{ STATIC_URL }}anthrome/images/map_{{ anthrome.number }}_group.png"
+                class="map overlay" />
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="showcase-smaller signup-well">
+                <div id="showcase_infobox_2">
+                    <h3>Built for this planet</h3>
+                    <p>Open Lab grounds projects by ecosystem and human development.</p>
+                    <div class="showcase-body">
+                        <p><strong>&nbsp;</strong></p>
+                    </div>
+                </div>
+                <div class="margin-fix">
+                    {% for anthrome in anthrome_groups %}
+                        <a data-showcase-title="Anthrome"
+                            data-showcase-body="<p><strong>{{ anthrome.label }}:</strong> {{ anthrome.ratio_as_percent }}% of land</p>"
+                                data-number="{{ anthrome.number }}"
+                                class="anthrome"
+                                href="#">
+                                <img src="{{ STATIC_URL }}{% firstof anthrome.image_thumb_url anthrome.first_child.image_thumb_url %}" class="img-circle" />
+                            <span>{{ anthrome.label }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1><span>Projects that</span> Fix the world</h1>
+            <div class="signup-well">
+                <h3>Discover the source code to civilization.</h3>
+                {% if allow_signup %}
+                    <form class="signup-form" action="{% url 'auth_login' %}" method="post" accept-charset="utf-8">{% csrf_token %}
+                        <input name="email" type="text" placeholder="Email" class="form-control" /> 
+                        <input name="password" type="password" placeholder="Password" class="form-control" /> 
+                        <button type="submit" class="btn btn-default btn-success">{% trans "Sign up" %}</button>
+                    </form>
+                {% else %}
+                    <form class="signup-form" action="{% url 'newsletter_global_subscribe' %}" method="post" accept-charset="utf-8">{% csrf_token %}
+                        <input name="the_email_address" type="text" placeholder="Your e-mail" class="form-control" /> 
+                        <button type="submit" class="btn btn-default btn-success">Sign me up</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block more_js %}
+<script>
+    $(document).ready(function () {
+        var default_html = $('#showcase_infobox_2 .showcase-body').html();
+        var show = function () {
+            var title = $(this).attr('data-showcase-title');
+            var body = $(this).attr('data-showcase-body');
+            if ($(this).hasClass('project')) {
+                $('#showcase_infobox_2')
+                    .removeClass('infobox-anthrome')
+                    .addClass('infobox-project');
+            } else {
+                $('#showcase_infobox_2')
+                    .removeClass('infobox-project')
+                    .addClass('infobox-anthrome');
+            }
+
+            $('#showcase_infobox_2 .showcase-title').html(title);
+            $('#showcase_infobox_2 .showcase-body').html(body);
+            /*$('#showcase_infobox_2').css("opacity", 1.0);*/
+        };
+        $('[data-showcase-title]').hover(show, function () {
+                /*$('#showcase_infobox_2').css("opacity", 0.0);*/
+                $('#showcase_infobox_2 .showcase-body').html(default_html);
+            });
+        $('[data-showcase-title]').click(show);
+
+        $('.anthrome').click(show);
+
+        $('.anthrome').hover(function () {
+                var num = $(this).attr('data-number');
+                $("img[data-number="+num+"]").css("opacity", 1.0);
+            }, function () {
+                var num = $(this).attr('data-number');
+                $("img[data-number="+num+"]").css("opacity", 0.1);
+            });
+    });
+</script>
+{% endblock more_js %}

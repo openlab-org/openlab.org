@@ -1,0 +1,44 @@
+{% load openlab_tags %}
+
+{% if file.preview_ready and file.is_3d %}
+    <div class="preview-controls pull-left" style="display:none">
+        {% include "meshviewer/snippets/viewer_controls.html" %}
+    </div>
+    {% include "meshviewer/snippets/jsc3d_stl_viewer.html" with url_stl=file.url_for_3d_preview hidden="True" %}
+{% endif %}
+
+
+
+{% if file.url_for_doc %}
+    <iframe 
+        src="{{ STATIC_URL }}/viewerjs/index.html#{{ file.url_for_doc }}"
+        width="100%" height="500px"
+        allowfullscreen webkitallowfullscreen></iframe>
+{% elif file.url_for_svg %}
+    <div data-jsview="svgpan" data-svgpan-url="{{ file.url_for_svg }}">
+        <img id="preview_image" src="{{ file.preview_image.url }}" />
+    </div>
+{% else %}
+
+{% if file.preview_ready %}
+    <div class="preview-image-wrapper">
+        <img id="preview_image" src="{{ file.preview_image.url }}" />
+        {% if file.is_3d %}
+            <button class="big-play-icon pull-left do-preview"><i class="icon-play-circle icon-4x"></i></button>
+        {% endif %}
+    </div>
+    {% else %}
+        <div class="unknown-extension">{{ file.get_extension }}</div>
+    {% endif %}
+
+{% endif %}
+
+
+{% if file.photo and file.photo.preview_ready %}
+    {% spaceless %}
+        <a class="btn btn-default pull-right" href="{% url "project_photo" project.hubpath file.photo.id %}">
+            <img src="{{ file.photo.preview_image_thumb.url }}" />
+        </a> 
+    {% endspaceless %}
+{% endif %}
+

@@ -1,0 +1,85 @@
+{% extends "anthrome/base.html" %}
+
+{% block header_class %}anthrome-header{% endblock %}
+
+{% block header_attr %}
+    style="background: url('{{ STATIC_URL }}{% firstof anthrome.image_url anthrome.first_child.image_url %}') bottom; background-size: cover;"
+{% endblock %}
+
+{% block header_content %}
+<div class="row">
+    <div class="col-md-10">
+        <div class="map-wrapper">
+            <img src="{{ STATIC_URL }}anthrome/images/map_empty.png" class="map" />
+            {% if anthrome.children %}
+                <img src="{{ STATIC_URL }}anthrome/images/map_{{ anthrome.number }}_group.png" class="map overlay opaque" />
+                {% for anthrome in anthrome.children %}
+                    <img data-number="{{ anthrome.number }}"
+                        src="{{ STATIC_URL }}anthrome/images/map_{{ anthrome.number }}.png"
+                        class="map overlay" />
+                {% endfor %}
+            {% else %}
+                <img src="{{ STATIC_URL }}anthrome/images/map_{{ anthrome.number }}.png" class="map overlay opaque" />
+            {% endif %}
+            <div class="anthrome-info" >
+                <h1>{{ anthrome.label }}</h1>
+            </div>
+        </div>
+    </div>
+    {% if anthrome.children %}
+        {% if anthrome.children|length > 2 %}
+            {% for anthrome in anthrome.children %}
+                <div class="col-md-1 showcase-right">
+                    {% include "anthrome/snippets/anthrome.html" %}
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for anthrome in anthrome.children %}
+                <div class="col-md-2 showcase-right">
+                    {% include "anthrome/snippets/anthrome.html" %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block header_bottom %}
+{% comment %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="">About</a></li>
+                <li><a href="">Projects</a></li>
+                <li><a href="">Organizations</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endcomment %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="">Projects</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock header_bottom %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "project/snippets/project_list.html" %}
+    </div>
+</div>
+{% endblock %}
+
+

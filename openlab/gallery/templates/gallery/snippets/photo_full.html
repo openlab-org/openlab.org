@@ -1,0 +1,56 @@
+{% load i18n %}
+
+{% if next_photo %}
+    {% url show_link link_arg next_photo.number  as next_photo_url %}
+{% endif %}
+{% if previous_photo %}
+    {% url show_link link_arg previous_photo.number  as previous_photo_url %}
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 photo-container">
+
+            {% spaceless %}
+                {% if next_photo %}
+                    <a href="{{ next_photo_url }}">
+                {% endif %}
+
+                <img src="{{ photo.preview_image.url }}" class="image-rounded photo-full" />
+
+                {% if next_photo %}
+                    </a>
+                {% endif %}
+            {% endspaceless %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-1">
+            {% if previous_photo %}
+                <a class="btn btn-default btn-lg btn-block" href="{{ previous_photo_url }}"><i class="icon-chevron-left"></i></a>
+            {% endif %}
+        </div>
+        <div class="col-xs-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ photo.nice_title }}</h3>
+                </div>
+                <div class="panel-body">
+                    {% if photo.description %}
+                        {{ photo.description }}
+                    {% else %}
+                        <p><em>No description.</em></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-1">
+            {% if next_photo %}
+                <a class="btn btn-default btn-lg btn-block" href="{{ next_photo_url }}"><i class="icon-chevron-right"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include "discussion/snippets/comments.html" %}
+

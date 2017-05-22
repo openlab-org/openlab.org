@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load openlab_tags %}
+
+<div class="container" id="discussion_section">
+    {% comment %}
+        <span data-thread-subscribers='{{ thread.subscribers.all|users_to_json }}'></span>
+    {% endcomment %}
+
+    {% if discussion_titled %}
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{% trans discussion_titled %}</h2>
+            </div>
+        </div>
+    {% endif %}
+
+    {% for message in message_list %}
+        <div class="row single-message" id="m{{ message.id }}">
+            {% include "discussion/snippets/message.html" with user=message.user %}
+        </div>
+    {% empty %}
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+                <p class="text-muted"><em>{% trans "No comments." %}</em></p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% include "snippets/next_previous.html" %}
+
+{% if request.user.is_authenticated %}
+    <div class="container" id="reply_section">
+        <div class="row">
+            {% include "discussion/snippets/message.html" with user=request.user as_form="True" %}
+        </div>
+    </div>
+{% endif %}

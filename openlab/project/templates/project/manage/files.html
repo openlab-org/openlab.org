@@ -1,0 +1,27 @@
+{% extends "project/manage/base.html" %}
+
+
+{% block mid_content %}
+    {% include "core/snippets/file_manage.html" %}
+{% endblock %}
+
+
+{% block right_content %}
+
+<div class="well">
+    <h3><i class="icon-upload"></i> Upload your data</h3>
+    <p>Use this area to upload all the project files relevant to your project.</p>
+</div>
+
+<div class="well">
+    <h3><i class="icon-time"></i> Version tracking</h3>
+    <p>If you upload a file with the exact same filename as one already in the
+    project, Open Labs will automatically create a new revision of that file
+    for you!</p>
+</div>
+
+
+{% endblock %}
+
+
+

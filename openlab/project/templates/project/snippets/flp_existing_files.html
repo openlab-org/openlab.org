@@ -1,0 +1,8 @@
+{% extends "project/snippets/file_list_preview.html" %}
+{% load openlab_tags %}
+
+{% block right_deets %}
+<span class="size">
+    <a href="{% url "project_update_delete_file" file.id %}"><i class="icon-trash"></i></a>
+</span>
+{% endblock right_deets %}

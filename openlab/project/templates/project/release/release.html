@@ -1,0 +1,181 @@
+{% extends template_override|default_if_none:"project/release/base.html" %}
+{% load i18n %}
+{# {% extends "project/release/base.html" %} #}
+
+{% block header_class %} release-top-info {% endblock %}
+{% block header_content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ project }}</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="release-gallery">
+            {% include "gallery/snippets/slidegallery.html" %}
+        </div>
+    </div>
+
+    <div class="col-md-5 release-summary">
+        <a href="#" class="btn btn-success btn-download">
+            <i class="icon-download"></i>
+            <span>Download</span>
+        </a>
+        <p>{% spaceless %}
+                <div class="btn-group" role="group">
+                    <a href="http://twitter.com/intent/tweet?url={{ full_url|urlencode }}&text={{ project|urlencode }}"
+                        class="btn btn-default">
+                        <i class="icon icon-twitter"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ full_url|urlencode }}&t={{ project|urlencode }}"
+                        class="btn btn-default">
+                        <i class="icon icon-facebook"></i>
+                    </a>
+                    <a href="http://plus.google.com/share?url={{ full_url|urlencode }}"
+                        class="btn btn-default">
+                        <i class="icon icon-google-plus"></i>
+                    </a>
+                </div>
+        {% endspaceless %}</p>
+        <p>v{{ release.version }} released on {{ release.creation_date|date:"M Y" }} under
+        {% include "licensefield/snippets/license.html" with license=release.license license_display=release.get_license_display img_size="small" %}</p>
+        <p class="lead">{{ release.summary }}</p>
+        {{ release.text }}
+        <!--
+        <p>{{ project }} was released on the <a href="/">Open Lab</a> free
+        hardware platform in  </p>
+        -->
+        <br />
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block header_bottom %}
+{% endblock header_bottom %}
+
+{% block content %}
+<div class="container">
+    {# {% include "release/snippets/component_diagram.html" %} #}
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 text-center release-panel made-in">
+            <img class="panel-background"
+                src="{{ project.get_location_image_url }}" />
+            <div class="inner-text">
+                <h2>Made In</h2>
+                <a {% if allow_links %}
+                    href="{% url "project_list" country=project.country.code2|lower %}"
+                    {% endif %}>
+                    <big>{{ project.city.name }}</big><br />
+                    {{ project.country }}
+                </a>
+            </div>
+        </div>
+
+        <div class="col-sm-4 text-center release-panel made-in-statistics">
+            {% url "project_files" project.hubpath as project_url %}
+            {% if allow_links %}
+                <p><a class="btn btn-default btn-inverse btn-lg" href="{{ project_url }}">Contribute</a></p>
+            {% endif %}
+            {% if user.is_authenticated %}
+                {% include "activity/snippets/star_icon.html" with noun="project" object=project actionurl=project_url %}
+            {% else %}
+                <p>Excited by this project? Enter your email for updates!</p>
+                {% include "newsletter/snippets/subscribe.html" with project_id=project.id %}
+            {% endif %}
+        </div>
+
+        <div class="col-sm-4 text-center release-panel made-for">
+            <img class="panel-background"
+                src="{{ STATIC_URL }}{% firstof anthrome.image_thumb_url anthrome.first_child.image_thumb_url %}" />
+            <div class="inner-text">
+                <h2>Made For</h2>
+                <a {% if allow_links %}
+                        href="{% url "anthrome" anthrome.slug_dasherized %}"
+                    {% endif %}>
+                    {{ anthrome.label }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6 text-center">
+            <h2>Details</h2>
+            <dl class="dl-horizontal">
+                {% if allow_links %}
+                    <dt>Owner</dt>   <dd><a
+                        href="{% if project.team %}
+                        {{ project.team.get_absolute_url }} {% else %}
+                        {{ project.user.get_absolute_url }}{% endif %}">{% firstof project.team project.user %}</a>
+                    </dd>
+                {% endif %}
+                <!--<dt>Path</dt>    <dd>{{ project.hubpath }}</dd>-->
+                {% url "project_list" as project_list_url %}
+                <dt>Tags</dt>   <dd>
+                    {% for tag in project.tags.all %}
+                        <a class="label label-info"
+                            {% if allow_links %}
+                            href="{{ project_list_url}}?tag={{ tag }}"
+                            {% endif %}
+                            >{{ tag }}</a>
+                    {% empty %}
+                        None
+                    {% endfor %}</dd>
+                <dt>License</dt>   <dd>
+                <p>
+                    {% include "licensefield/snippets/license.html" with license=project.license license_display=project.get_license_display img_size="small" %}
+                </p>
+                </dd>
+                <dt>First created</dt>   <dd>{{ project.creation_date|date }}</dd>
+                <dt>Last updated</dt>   <dd>{{ project.updated_date|date }}</dd>
+            </dl>
+
+        </div>
+
+        <div class="col-sm-6 text-center">
+            <h2>Contributors</h2>
+            {% for person in first_three_people %}
+                {% include "team/snippets/person_or_team_ball.html" %}
+            {% endfor %}
+
+            {% if dependencies %}
+                <h2>Projects</h2>
+                {% for p in dependencies %}
+                    {% include "project/snippets/projectball.html" %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block more_js %}
+<script>
+    $('.do-preview').click(function () {
+        $('#preview_image').hide();
+        $('canvas').show();
+        $(this).hide();
+        setTimeout(function () {
+            window.start_jsc3d_preview();
+            $('.preview-controls').show();
+        }, 100);
+    });
+</script> 
+{% endblock %}

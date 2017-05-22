@@ -1,0 +1,94 @@
+{% load i18n %}
+    <div class="row">
+        <div class="col-md-11">
+            {% spaceless %}
+            <img class="img-rounded info-thumb top-thumb" src="{{ obj.get_thumb_url }}" />
+                <h1 class="infobase-pagetitle {{ obj.forked_from|yesno:"forked,notforked" }}">{{ obj.title }}{% if obj.forked_from %} <small>
+                    <br />
+                    <span class="icon-stack">
+                        <i class="icon-circle icon-stack-base"></i>
+                        <i class="icon-code-fork icon-rotate-90 icon-light"></i>
+                    </span>
+                    forked from
+                    <a href="{{ obj.forked_from.get_absolute_url }}">{{ obj.forked_from.hubpath }}</a></small>
+                {% endif %}</h1>
+                <p class="infobase-summary lead">{{ obj.summary }}</p>
+                {% if show_location_view_name %}
+                    {% if obj.city or obj.region or obj.country %}
+                        <p class="infobase-summary-location">
+                            <i class="icon-map-marker"></i> &nbsp; {% include "location/snippets/location_line.html" with view_name=show_location_view_name %}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            {% endspaceless %}
+        </div>
+        <div class="col-md-1">
+            {% if user.is_authenticated %}
+                <div class="pull-right infobase-actions">
+                    {% include "activity/snippets/star_icon.html" with noun=object_class %}
+                    {% if 'forking' in actions_available %}
+                        <a class="tip"
+                            data-toggle="modal" href="#fork_modal"
+                            title="Fork this {{ object_class }}."><i class="icon-code-fork icon-large"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% if 'forking' in actions_available %}
+    <div class="modal fade" id="fork_modal" tabindex="-1" role="dialog" aria-labelledby="fork_modal_label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="fork_modal_label">{% trans "Fork this" %} {{ object_class }}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                    {% blocktrans %}
+                    Forking a project allows you to make improvements on the
+                    project independently of the project's original
+                    maintainers.
+                    {% endblocktrans %}
+                    </p>
+                    {% with user.teams.all as teams %}
+                    <form method="POST" action=".">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="forking" />
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <button class="btn btn-success btn-lg btn-block" name="team_id" value="">
+                                    <i class="icon-code-fork icon-4x pull-left"></i>
+                                    {% trans "Fork " %}{% if teams %}
+                                    {% trans "as" %}<br /><i class="icon-user"></i>{{ user.profile.desired_name }}{% endif %}
+                                </button>
+                            </div>
+                        </div>
+                        {% for team in teams %}
+                            <br />
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <button class="btn btn-info btn-lg btn-block" name="team_id" value="{{ team.id }}">
+                                        <i class="icon-code-fork icon-4x pull-left"></i>
+                                        {% trans "Fork " %}
+                                        {% trans "as" %}
+                                        <br /><i class="icon-group"></i>{{ team }}
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </form>
+                    {% endwith %}
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endif %}
+

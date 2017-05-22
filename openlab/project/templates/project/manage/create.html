@@ -1,0 +1,51 @@
+{% extends "project/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="col-md-12">
+    <h1>Create a new project</h1>
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% crispy form %}
+        </div>
+        <div class="col-md-4">
+            <div class="well">
+                <h3>New to Open Lab?</h3>
+                <p>Here's some information about project creation.</p>
+                <ul>
+                    <li>The final URL of a project is in the format
+                    <tt>openlab.org/name/slug</tt>, where <tt>name</tt> is name
+                    of the responsible organization or user.</li>
+
+                    <li>The <tt>slug</tt> is generated from the title.</li>
+
+                    <li>After the project is (somewhat) complete, including a
+                    photograph of a physical prototype of the project, you can
+                    publish a 1.0 "Release" of the project.
+                    <li>A Release indicates a mature product, and  earns
+                    prominent placement on Open Lab.</li>
+                </ul>
+            </div>
+            <div class="well">
+                <h3>Are you part of a team?</h3>
+                <p>If you're part of a organization, first register a team with
+                Open Lab and add your teammates to it. This will allow multiple
+                people to easily collaborate on the project.</p>
+                <p><a class="btn btn-primary" href="{% url "team_create" %}"><i class="icon-plus-sign-alt"></i> Create organization</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

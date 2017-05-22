@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load openlab_tags %}
+<span class="activity-stream">
+    {% for action in actions %}
+        {% ifchanged action.timestamp.day %}
+            <div class="date-info">
+                <hr />
+                <h4>{{ action.timestamp|date }}</h4>
+            </div>
+        {% endifchanged %}
+        <div class="action
+                {% ifchanged action.timestamp.day %}
+                    isfirst
+                {% else %}
+                    notfirst
+                {% endifchanged %}">
+            <div class="action-icon">
+                {% switch action.verb %}
+                    {% case "forked" %}
+                        <i class="icon-code-fork"></i>
+                    {% case "commented" %}
+                        <i class="icon-comment-alt"></i>
+                    {% case "updated" %}
+                        <i class="icon-edit"></i>
+                    {% case "created" %}
+                        <i class="icon-plus-sign-alt"></i>
+                    {% case "committed" %}
+                        <i class="icon-collapse-top"></i>
+                    {% else %}
+                        {% if "follow" in action.verb %}
+                            <i class="icon-star"></i>
+                        {% else %}
+                            <i class="icon-sign-blank"></i>
+                        {% endif %}
+                {% endswitch %}
+            </div>
+            <span class="action-actor">
+                {% if action.actor and not skip_actor %}
+                    {% include "activity/snippets/noun.html" with noun=action.actor %}
+                {% endif %}
+            </span>
+            {{ action.verb }}
+            {% if action.action_object %}
+                {% include "activity/snippets/noun.html" with noun=action.action_object text_only="true" only %}
+                {% trans "to" %}
+            {% endif %}
+            {% include "activity/snippets/noun.html" with noun=action.target text_only="true" only %}
+            <div class="action-summary">
+                {% include "activity/snippets/action_summary.html" %}
+            </div>
+            <div class="action-left-border"></div>
+        </div>
+    {% empty %}
+    <p class="text-muted"><em>&ldquo;{% trans "A tumbleweed rolls by..." %}&rdquo;</em></p>
+</div>
+{% endfor %}
+

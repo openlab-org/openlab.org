@@ -1,0 +1,32 @@
+{% extends "base/landingpage.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+{% block title %}Contact - {% endblock %}
+{% block header_content %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <h1>Subscribed</h1>
+            <p><tt>{{ email_address }}</tt></p>
+            <p>Thanks for subscribing. As updates happen, we'll
+            be sure to let you know!</p>
+
+            <h1>Get involved</h1>
+            <p>Do you want to get more involved, with either
+            <a href="{{ project.get_absolute_url|safe }}">{{ project }}</a> or the Open Lab project
+                in general? Need more information, or want to contribute?
+                    We'd love to hear from you! <a href="{% url "contact_form" %}">Contact us</a> to learn more.</a>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

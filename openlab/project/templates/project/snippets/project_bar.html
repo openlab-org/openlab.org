@@ -1,0 +1,29 @@
+
+<div class="col-md-4">
+    <br /> <!-- ugh -->
+    {% if not skip_link %}
+        <a href="{{ project.get_absolute_url }}">
+            <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+        </a>
+    {% else %}
+        <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+    {% endif %}
+</div>
+<div class="col-md-8">
+    {% if not skip_link %}
+    <a href="{{ project.get_absolute_url }}">
+        <h3>{{ project.title|capfirst|truncatechars:"30" }}</h3>
+        <!--
+        <h5>{{ project.hubpath }}</h5>
+        -->
+    </a>
+    {% else %}
+        <h3>{{ project.title|capfirst|truncatechars:"30" }}</h3>
+    {% endif %}
+    <p>{{ project.summary }}</p>
+    <p class="text-muted"><i class="icon-map-marker"></i> {{ project.location_name }}</p>
+    <!--
+    <p class="text-muted">{{ project.updated_date }}</p>
+    -->
+</div>
+

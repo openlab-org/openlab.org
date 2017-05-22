@@ -1,0 +1,21 @@
+{% extends "error/base.html" %}
+{% load i18n %}
+
+{% block title %}
+Error -
+{% endblock %}
+
+<h1>{% block error_code %}500{% endblock %}</h1>
+<h2>{% block message %}{% trans "Uh oh! Something went wrong with your request." %}{% endblock %}</h2>
+
+{% block extra_message %}
+<p>Something went wrong on our servers when you were doing that thing you just
+did. Sorry. You can try doing it again to see if it has gotten better.</p>
+
+<p>We'd really appreciate if you let us know what you were doing when this
+error occurred!</p>
+{% endblock extra_message %}
+
+
+{% block nav_user_menu %}
+{% endblock %}

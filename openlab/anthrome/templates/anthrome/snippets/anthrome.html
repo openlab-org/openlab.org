@@ -1,0 +1,12 @@
+<a 
+    
+    data-showcase-title="Anthrome"
+    data-showcase-body="
+            <p>&ldquo;The global ecological patterns created by sustained direct human interactions with ecosystems.&rdquo;</p>
+            <p><strong>{{ anthrome.label }}:</strong> {{ anthrome.ratio_as_percent }}% of land</p>
+        "
+        data-number="{{ anthrome.number }}" class="anthrome" href="{% url "anthrome" anthrome.slug_dasherized %}">
+        <img src="{{ STATIC_URL }}{% firstof anthrome.image_thumb_url anthrome.first_child.image_thumb_url %}" class="img-circle" />
+    <span>{{ anthrome.label }}</span>
+</a>
+

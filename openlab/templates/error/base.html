@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+Page Not Found -
+{% endblock %}
+
+{% block header_content %}
+<div class="col-md-12 text-center">
+    <h1>{% block error_code %}404{% endblock %}</h1>
+    <h2>{% block message %}{% trans "Oops! The page you were looking for does not exist." %}{% endblock %}</h2>
+    <p>
+        <a 
+                class="btn btn-default btn-lg"
+                href="javascript:void(0);"
+                onClick="parent.history.back();"
+            >
+            <i class="icon-arrow-left"></i> Back</i>
+        </a>
+        </p>
+
+    {% block extra_message %}
+    <p>If you think you got this page in error, please let us know!</p>
+    {% endblock extra_message %}
+    <p>
+        {#
+        <a 
+                class="btn btn-default tip"
+                href="javascript:void(0);"
+                onClick="window.open('http://webchat.freenode.net/?nick={% firstof user.username 'visitor...' %}&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
+                title="If an Open Lab staff member happens to be online, we can help you immediately!"
+            >
+            <i class="icon-comments"></i> Chat with us</i>
+        </a>
+        or
+        #}
+        <a 
+                class="btn btn-default tip"
+                href="https://bitbucket.org/michaelb/openlab.org/issues/new"
+                target="_blank"
+                title="Filing a bug report explaining what you did and what happened will help us fix these issues in the future."
+            >
+            <i class="icon-bug"></i> File a bug</i>
+        </a>
+    </p>
+
+
+
+    <div style="margin-top: 15%"></div> <!-- spacing -->
+    <img src="{{ STATIC_URL }}core/images/openlabrat_72x100.png" class="tip" title="Oops, I think I got carried away with my experiment!  &mdash;  &#128045; " />
+</div>
+{% endblock %}
+
+{% block content %}
+{% endblock content %}

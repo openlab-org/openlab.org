@@ -1,0 +1,25 @@
+
+{% extends "account/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+<div class="well">
+    <h3>Account deletion</h3>
+    <p>To delete your account, please contact an Open Lab admin and request
+    that you wish to delete your account. Be sure to use the email address registered with your account in the request.</p>
+    <p>Please also specify if you'd also like to delete the projects created
+    with your account.</p>
+    <br />
+    <br />
+    <br />
+    <p>
+        <a class="btn btn-default btn-block" href="/contact/">Contact</a>
+    </p>
+<div>
+{% endblock mid_content %}
+
+
+{% block right_content %}
+{% endblock %}
+

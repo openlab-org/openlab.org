@@ -1,0 +1,62 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+<form action="." method="post">
+{% csrf_token %}
+
+<table class="table table-striped">
+
+{% for user in musers_forms.users %}
+    <tr>
+        <td>
+            <p>
+            <a class="tip" title="View user profile..." target="_blank" href="{% url "user_profile" user.username %}"><i class="icon icon-user"></i></a> 
+            <strong>{{ user.profile.desired_name }}</strong>{% if user.profile.desired_name != user.username %} - {{ user.username }}{% endif %}</p>
+        </td>
+        <td class="permissions">
+            {# add in permission buttons later #}
+            {% for option in musers_forms.permission_options %}
+                <button
+                    name="permission_{{ option }}"
+                    value="{{ user.id }}"
+                    class="btn {% if option.is_selected %}btn-info{% else %}btn-default{% endif %} btn-xs"
+                    title="Give this user {{ option }} level access.">
+                        <i class="icon-remove-sign"></i>
+                </button>
+            {% endfor %}
+        </td>
+        <td class="delete">
+            <button
+                name="delete"
+                value="{{ user.id }}"
+                class="btn btn-link tip"
+                title="Remove all permissions from this user."
+                ><i class="icon-remove-sign"></i></button>
+        </td>
+    </tr>
+{% endfor %}
+    <tr>
+        <td>
+            {# {{ musers_forms.new_user|crispy }} #}
+            {{ musers_forms.new_user|crispy }}
+        </td>
+        <td class="permissions">
+        </td>
+        <td class="submit" style="vertical-align: bottom">
+            <button
+                name="submit"
+                value="add"
+                class="btn btn-default"
+                title=""
+                ><i class="icon-plus"></i> {% trans "Add user" %}</button>
+            <br />
+            <br />
+        </td>
+    </tr>
+
+</table>
+</form>
+
+
+

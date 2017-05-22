@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<p><em>A project release is organized into "components". Drag files to arrange into components. Name components and add descriptions.</em></p>
+
+<div data-component-manager="{{ form.components.name }}" data-jsview="component_manager">
+    {% for c in components %}
+        <div data-component="{{ c.id }}" class="component-box">
+            <p class="component-handle">Component</p>
+            <input type="text" class="c-summary" placeholder="(description)" value="{{ c.summary }}" />
+            <input type="text" class="c-title" placeholder="(name)" value="{{ c.title }}" />
+            <p class="empty-placeholder hide">Drag files here<br /><em>or</em><br /><a class="delete-component-button btn btn-default"><i class="icon-trash"></i> Delete</a></p>
+            {% for f in c.files %}
+                {% include "project/snippets/file_thumbnail.html" with file=f %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <p><a class="new-component-button btn btn-default btn-lg btn-block"><i class="icon-plus"></i> {% trans "New component" %}</a></p>
+</div>

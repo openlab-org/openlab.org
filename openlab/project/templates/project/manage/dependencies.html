@@ -1,0 +1,45 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+
+{% for project in subprojects %}
+
+    <div class="row ">
+        {% include "project/snippets/project_bar.html" %}
+        <div class="pull-right">
+            <form method="POST" action=".">
+                {% csrf_token %}
+                <button name="delete_id" value="{{ project.id }}" class="tip btn btn-default"
+                        title="Remove project from being a dependency."><i class="icon-trash"></i></button>
+            </form>
+        </div>
+
+    </div>
+{% empty %}
+    <p><em>No projects have been listed as dependencies.</em></p>
+{% endfor %}
+
+
+
+<form method="POST" action=".">
+    {% crispy add_dependency_form %}
+    <div class="col-lg-2">
+        <button type="submit" class="btn btn-default">Add <i class="icon-plus"></i></button>
+    </div>
+</form>
+
+
+{% endblock mid_content %}
+
+
+
+{% block right_content %}
+<div class="well">
+    <h3><i class="icon-cogs"></i>  Dependencies</h3>
+    <p>List other projects as "sub-projects" for this project, or
+    related dependencies.</p>
+</div>
+{% endblock right_content %}
+

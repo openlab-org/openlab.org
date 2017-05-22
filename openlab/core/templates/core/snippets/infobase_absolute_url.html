@@ -1,0 +1,11 @@
+{% spaceless %}{% if content_type.model == "wikipage" %}
+    {% with view_name=object_class|add:"_edit_history_wiki" %}
+        {% url view_name obj.hubpath content_object.slug %}
+    {% endwith %}
+{% elif content_type.model == "photo" %}
+    {% with view_name=object_class|add:"_photo" %}
+        {% url view_name obj.hubpath content_object.number %}
+    {% endwith %}
+{% else %}
+    {{ content_object.get_absolute_url }}
+{% endif %}{% endspaceless %}

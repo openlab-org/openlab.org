@@ -1,0 +1,12 @@
+This is an Open Lab project. Open Lab is a collaboration and publishing
+platform for releasing Open Source Hardware, or hardware projects under
+free licenses.
+
+To check the latest version of this project, go to:
+
+    http://openlab.org/{{ project.get_absolute_url }}/
+
+
+Sign up with Open Lab today! http://openlab.org/
+
+

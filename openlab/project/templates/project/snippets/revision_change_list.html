@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load openlab_tags %}
+{% load crispy_forms_tags %}
+
+<ul>
+    {% for folder, files in files_by_folder %}
+        {% if folder %}
+        <li><i class="icon-folder-open-alt"></i> <tt>{{ folder }}</tt></li>
+        <ul>
+        {% endif %}
+            {% for file in files %}
+                <!--<tt>{{ file.full_file_path }} ({{ file.size_mb }} mb)</tt><br />-->
+                <li>
+                    {% if show_controls %}
+                        <a href="#file_edit_modal_{{ file.id }}" data-toggle="modal"><i class="icon-edit-sign"></i></a>
+                        <a href="{% url "project_update_delete_file" file.id %}"><i class="icon-trash"></i></a>
+
+                        <div class="modal fade" id="file_edit_modal_{{ file.id }}" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form method="POST" action="{% url "project_update_rename_file" %}">
+                                        <div class="modal-body">
+                                            {% csrf_token %}
+                                            <input name="file_id" value="{{ file.id }}" type="hidden" style="display: none" />
+                                            <p><code>{{ file.full_file_path }}</code> - rename or move</p>
+                                            {% with rename_file_forms|get_at:file.id as form %}
+                                                {{ form|crispy }}
+                                            {% endwith %}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                            <button type="submit" class="btn btn-default"><i class="icon-check-sign"></i> Save Rename</button>
+                                        </div>
+                                    </form>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    {% endif %}
+                    &nbsp;
+                    &nbsp;
+                    <tt>/{{ file.full_file_path }}</tt>
+                    {% if not file.is_uploaded %}
+                        <span class="tip label label-warning" title="Something went wrong with uploading this file. Delete this file to try again.">
+                            <i class="icon-warning-sign"></i>
+                        </span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        {% if folder %}
+        </ul>
+        {% endif %}
+    {% endfor %}
+</ul>

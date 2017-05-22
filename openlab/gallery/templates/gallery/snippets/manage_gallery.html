@@ -1,0 +1,22 @@
+{# {% load s3uploader %} #}
+{% load crispy_forms_tags %}
+{% load openlab_tags %}
+
+<div class="well text-center">
+    {# {% s3uploader photo gallery_id=gallery.id folder="" %} #}
+</div>
+
+{% if not files %}
+    <em>No photos yet!</em>
+{% else %}
+    <form data-jsview="manage_gallery" id="item_list" action="." method="POST">
+        {% csrf_token %}
+        {% include "gallery/snippets/gallery.html" with is_owner="True" show_checkbox="True" %}
+        <br clear="both" />
+        <hr />
+        <button type="submit" name="action" value="delete"
+            title="Delete all selected media items."
+            class="btn btn-xs btn-default pull-right"><i class="icon icon-trash"></i> Delete</button>
+    </form>
+{% endif %}
+

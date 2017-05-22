@@ -1,0 +1,10 @@
+
+{% load openlab_tags %}
+{% if search.country %}
+    <img class="img-circle pull-right" src="{{ STATIC_URL }}countryflags/images/64/{{ search.country.code2|lower }}.png" />
+{% endif %}
+{% if search.country %}{{ search.country }}{% endif %}
+{% if search.region %} - {{ search.region }}{% endif %}
+{% if search.city %} - {{ search.city }}{% endif %}
+{% if search.tag %}{{ search.tag|beautify }}{% endif %}
+{% if search.search_terms %} Searching for "{{ search.search_terms|join:" "|lower }}"{% endif %}

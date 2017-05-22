@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="536.07483"
+   height="100"
+   id="svg4865"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="logo_2_share_tech.svg"
+   inkscape:export-filename="/home/michaelb/work/openlab/src/openlab/openlab/static/core/images/new_logo.png"
+   inkscape:export-xdpi="34.192947"
+   inkscape:export-ydpi="34.192947">
+  <defs
+     id="defs4867">
+    <linearGradient
+       id="linearGradient6016">
+      <stop
+         style="stop-color:#6daa2c;stop-opacity:1;"
+         offset="0"
+         id="stop6018" />
+      <stop
+         id="stop6026"
+         offset="0.5"
+         style="stop-color:#d27d2c;stop-opacity:1;" />
+      <stop
+         style="stop-color:#597dce;stop-opacity:1;"
+         offset="1"
+         id="stop6020" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6016"
+       id="linearGradient6048"
+       x1="191.30656"
+       y1="281.02612"
+       x2="290.66422"
+       y2="281.02612"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6016"
+       id="linearGradient6067"
+       gradientUnits="userSpaceOnUse"
+       spreadMethod="pad"
+       x1="191.30656"
+       y1="281.02612"
+       x2="290.66422"
+       y2="281.02612"
+       gradientTransform="matrix(1.0064652,0,0,1.0064652,-1.2368411,-1.8168979)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="105.77213"
+     inkscape:cy="89.337647"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="824"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata4870">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-191.30657,-231.02612)">
+    <rect
+       style="fill:#f8f8f8;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect6069"
+       width="536"
+       height="100"
+       x="191.34398"
+       y="231.02612" />
+    <path
+       style="fill:url(#linearGradient6067);fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 238.17666,231.02612 -22.26625,22.76391 c -22.30159,22.80568 -23.85101,24.44538 -23.85101,25.10073 0,0.19409 5.61189,0.3223 12.48016,0.3223 l 12.48018,0 10.53884,-10.8783 10.57846,-10.91864 0,-13.21513 0.0396,-13.17487 z m 24.04911,11.72442 c -0.77043,0 -17.16376,16.86437 -16.9572,17.44561 0.13156,0.37057 3.83847,4.48367 8.24087,9.14586 4.40243,4.66214 8.25407,8.51644 8.51822,8.54149 0.26418,0.0261 0.47545,-7.85608 0.47545,-17.52621 0,-9.67011 -0.12154,-17.60675 -0.27734,-17.60675 z m 2.81299,10.43514 0,13.33601 0,13.37632 13.15373,0 13.11409,0 0,-13.37632 0,-13.33601 -13.11409,0 -13.15373,0 z m -73.73215,29.9355 14.77811,14.94763 c 8.13353,8.21944 14.80759,15.32798 14.81776,15.79374 0.0106,0.46576 0.8668,1.6026 1.94136,2.49797 1.07457,0.89538 4.89715,4.55204 8.47861,8.1386 l 6.4976,6.527 0.19821,-12.89284 0.15835,-12.85253 -6.57684,-6.84932 c -9.17926,-9.54159 -11.7579,-12.13391 -13.58955,-13.8195 -1.53731,-1.41462 -2.00745,-1.49075 -14.14423,-1.49075 l -12.55942,0 z m 73.73215,0 0,12.04678 c 0,6.62579 0.15325,12.04668 0.31695,12.04668 0.16416,0 5.67926,-5.42089 12.24248,-12.04668 l 11.92551,-12.04678 -12.24247,0 -12.24247,0 z m -2.89221,1.97423 c -0.59546,0 -18.74626,18.72101 -19.45326,20.06445 -0.7418,1.40956 -0.99421,24.33146 -0.27734,25.06046 0.22173,0.22548 2.44462,-1.85303 4.95245,-4.59308 2.50783,-2.74003 5.1197,-5.51624 5.82409,-6.16439 0.70441,-0.64812 3.10782,-2.90627 5.30903,-5.03624 l 4.00159,-3.86785 0,-12.73168 c 0,-7.00381 -0.17726,-12.73167 -0.35656,-12.73167 z"
+       id="path3844"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5440"
+       style="font-size:36px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(190.98539,231.02613)"><flowRegion
+         id="flowRegion5442"><rect
+           id="rect5444"
+           width="76"
+           height="51"
+           x="-317"
+           y="-231" /></flowRegion><flowPara
+         id="flowPara5446"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5448"
+       style="font-size:36px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="matrix(3.2906866,0,0,3.968254,1813.0978,762.2278)"><flowRegion
+         id="flowRegion5450"><rect
+           id="rect5452"
+           width="388"
+           height="401"
+           x="-462"
+           y="-144" /></flowRegion><flowPara
+         id="flowPara5454"
+         style="word-spacing:-0.04206997px;font-family:Share Tech;-inkscape-font-specification:Share Tech">OPEN LAB</flowPara></flowRoot>  </g>
+</svg>

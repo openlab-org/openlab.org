@@ -1,0 +1,44 @@
+{% extends "release/zip/base.html" %}
+{% load openlab_tags %}
+
+{% block body %}
+    <h1>{{ release }}</h1>
+    <p class="lead lead-big">{{ project.summary }}</p>
+
+    <hr />
+
+    <h2>Components</h2>
+    {% for component in components %}
+        <h3>{{ component.title }}</h3>
+        <p class="lead lead-medium">{{ component.summary }}</p>
+        <table>
+            <thead>
+                <th></th> <th>Filename</th> <th>Size</th>
+            </thead>
+            <tbody>
+                {% for f in component.files %}
+                    <tr>
+                        <td class="icon">
+                            <a href="{{ f.relative_path }}" title="Open this file.">
+                                {% if f.thumb_filename %}
+                                    <img src="./{{ THUMB_PATH|safe }}/{{ f.thumb_filename|safe }}" />
+                                {% else %}
+                                    <td><tt class="ext">{{ f.ext }}</tt></td>
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td class="filename">
+                            <a href="{{ f.relative_path }}" title="Open this file.">
+                                <tt>{{ f.filename }}</tt>
+                            </a>
+                        </td>
+                        <td class="size">
+                            <tt>{{ f.size|label_bytes }}</tt>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock body %}
+

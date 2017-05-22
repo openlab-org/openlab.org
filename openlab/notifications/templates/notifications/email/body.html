@@ -1,0 +1,59 @@
+{% load i18n %}
+{% load openlab_tags %}
+
+
+<table style="font-size: 14pt; font-family: 'Georgia', serif; color: #666; border-collapse:collapse; width:600px; background: #f8f8f8;" cellpadding="20" cellspacing="20">
+<tbody>
+    
+<tr><td style="text-align: center; font-size: 48pt;">
+        <img src="{{ STATIC_URL }}core/images/new_logo_2_2x.png" alt="Open Lab" title="Open Lab" height="38"  />
+</td></tr>
+
+<tr><td>{% trans "Hi " %} {{ profile.desired_name }},</td> </tr>
+<tr>
+{% if count != 1 %}
+    <td><p>You have {{ count }} unread notification{{ notifications|pluralize }}.</td>
+{% endif %}
+
+<td width="300px"><a style="border: 1px solid #000; border-radius: 4px; padding: 10px; background-color: #333; width: 80px; color: #fff; text-decoration: none;"
+            href="{{ DOMAIN|safe }}{% url "notifications_all" %}">
+            {% trans "View my notifications" %}</a>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<table style="font-size: 14pt; font-family: 'Georgia', serif; color: #666; border-collapse:collapse; width:600px; background: #f8f8f8;" cellpadding="10" cellspacing="10">
+<tbody>
+{% for n in notifications %}
+    {% with n_url=n.get_url|default:""|safe %}
+        <tr><td><a style="color: #597dce;"
+                    {% if n.topic_object %}
+                        href="{{ DOMAIN|safe }}{{ n_url }}"
+                    {% else %}
+                        href="{{ DOMAIN|safe }}"
+                    {% endif %}
+                    >{{ n.message }}</a>
+        </td></tr>
+        {# <tr><td style="border: 1px solid #ccc"></td></tr> #}
+    {% endwith %}
+{% endfor %}
+
+</tbody>
+</table>
+
+<table style="font-size: 8pt; font-family: 'Georgia', serif; color: #ddd; width:300px">
+<tbody>
+<tr><td> <p>
+{% blocktrans %}
+This message was sent to {{ email }}. If you do not want to
+receive messages like this in the future, disable notifications from
+{% endblocktrans %}
+<a style="color: #ddd" href="{{ DOMAIN }}{% url "user_manage_notifications" user.username %}">
+{% blocktrans %}
+your settings page.</a>
+{% endblocktrans %}
+</tbody>
+</table>
+

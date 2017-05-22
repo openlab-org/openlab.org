@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "error/base.html" %}
+{% load i18n %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}
+Page Not Found -
+{% endblock %}
 
-{% block content %}
-<h1>Page not found</h1>
+<h1>{% block error_code %}404{% endblock %}</h1>
+<h2>{% block message %}{% trans "Oops! The page you were looking for does not exist." %}{% endblock %}</h2>
 
-<p>This is not the page you were looking for.</p>
-{% endblock content %}

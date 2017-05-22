@@ -1,0 +1,150 @@
+
+
+
+/* presently not used, but could be  useful
+ *************************************************** */
+
+
+/* Undo the collapsing navbar */
+
+body.unresponsive .navbar-collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+    visibility: visible !important;
+}
+
+body.unresponsive .navbar-toggle {
+    display: none;
+}
+
+body.unresponsive .navbar-collapse {
+    border-top: 0;
+}
+
+body.unresponsive .navbar-brand {
+    display: inline;
+    max-width: 50%;
+    margin: 0 !important;
+}
+
+body.unresponsive .navbar-nav {
+    float: left;
+    margin: 0;
+}
+
+body.unresponsive .navbar-nav > li {
+    float: left;
+}
+
+body.unresponsive .navbar-nav > li > a {
+    padding: 15px;
+}
+
+body.unresponsive .navbar-nav.navbar-right {
+    float: right;
+}
+
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu {
+    position: absolute;
+    float: left;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-width: 0 1px 1px;
+    border-radius: 0 0 4px 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+body.unresponsive .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #333;
+}
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > li > a:hover,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > li > a:focus,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .active > a,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fff !important;
+    background-color: #428bca !important;
+}
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .disabled > a,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #999 !important;
+    background-color: transparent !important;
+}
+
+body.unresponsive .navbar-form {
+    float: left;
+    width: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+body.unresponsive .navbar-collapse .navbar-form.navbar-right {
+    float: right;
+}
+
+body.unresponsive .navbar-form .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+body.unresponsive .navbar-form .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+body.unresponsive 
+.navbar-form .form-control-static {
+    display: inline-block;
+}
+
+body.unresponsive .navbar-form .input-group {
+    display: inline-table;
+    vertical-align: middle;
+}
+
+body.unresponsive .navbar-form .input-group .input-group-addon,
+body.unresponsive .navbar-form .input-group .input-group-btn,
+body.unresponsive .navbar-form .input-group .form-control {
+    width: auto;
+}
+
+body.unresponsive .navbar-form .input-group > .form-control {
+    width: 100%;
+}
+
+body.unresponsive .navbar-form .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+body.unresponsive .navbar-form .radio,
+body.unresponsive .navbar-form .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+body.unresponsive .navbar-form .radio label,
+body.unresponsive .navbar-form .checkbox label {
+    padding-left: 0;
+}
+
+body.unresponsive .navbar-form .radio input[type="radio"],
+body.unresponsive .navbar-form .checkbox input[type="checkbox"] {
+    position: relative;
+    margin-left: 0;
+}
+
+body.unresponsive .navbar-form .has-feedback .form-control-feedback {
+    top: 0;
+}

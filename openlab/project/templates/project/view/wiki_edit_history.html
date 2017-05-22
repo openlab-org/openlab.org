@@ -1,0 +1,38 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Revision history <small>{{ pageslug }} </small></h2>
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right wiki-controls btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                    <a href="{% url "project_wiki" obj.hubpath pageslug %}" class="btn btn-default btn-xs">view</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% crispy form %}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Page discussion <small>{{ pageslug }} </small></h3>
+        </div>
+    </div>
+</div>
+
+{% include "discussion/snippets/comments.html" %}
+
+{% endblock tabcontent %}
+

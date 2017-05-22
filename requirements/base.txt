@@ -47,10 +47,41 @@ redis>=2.10.5
 
 celery==3.1.25
 
-
-
-rcssmin==1.0.6 
+rcssmin==1.0.6
 django-compressor==2.1.1
 
+#############################################
+# Open Lab specific reqs:
 
-# Your custom requirements go here
+# Versioning
+django-reversion==2.0.8
+
+# Forms
+django-contact-form==1.3
+
+# Have to use special fork of django-select2 to support both Django 1.10
+# and the django-select2 v4.x interface
+#django_select2==5.10.0
+-e git+https://github.com/michaelb/django-select2.git@v4#egg=django-select2
+
+# Geo
+django-cities-light==3.3.0
+
+# Tagging and social
+django-taggit==0.22.1
+django-taggit-templatetags==0.4.6dev
+
+# django-activity-stream==0.6.3 # pypi version is very out of date, using this one:
+-e git+https://github.com/justquick/django-activity-stream.git@37c18f50dd0ec2c8c3ab809bce81dd31d73e2ba2#egg=django-activity-stream
+
+# Misc django utilities
+django_extensions==1.7.9
+
+# nondjango
+markdown==2.3.1
+#requests==1.2.3 # OLD VERSION
+requests==2.14.2
+
+#############################################
+# First party reqs (not yet packaged)
+-e git+https://bitbucket.com/michaelb/django-s3-uploader.git#egg=django-s3-uploader

@@ -1,0 +1,127 @@
+
+<div id="success_message" style="display:none">
+    <div class="alert alert-success">
+        <p><strong>Uploads successful!</strong> <i style="font-size: 20px" class="icon-refresh icon-spin"></i></p>
+    </div>
+</div>
+
+<p style="text-align: center">
+    <a class="btn btn-lg btn-success" id="upload_button"><i class="icon-upload"></i> Choose a {{ noun }} to upload</a>
+    <br />
+    <span class="text-muted">Or drag and drop {{ noun }}s below.</span>
+</p>
+
+<div id="upload_area">
+    <div class="alert alert-danger">
+        <p><strong><big>Drop {{ noun }} here to begin upload.</big></strong></p>
+    </div>
+</div>
+
+<br />
+<br />
+
+<hr />
+
+{% if not files %}
+    <em>No {{ noun }}s yet!</em>
+{% else %}
+    <div class="row">
+        <form action="{% url edit_view_name obj.get_url_arg %}" method="get">
+            <div class="row">
+                <div class="btn-group">
+                    <a  class="check-all btn btn-default" title="Select all files."><i class="icon-check"></i></a>
+                </div>
+                <div class="btn-group">
+                    <button name="action" value="edit"   class="btn btn-success" title="Edit data about selected files."><i class="icon-pencil"></i></button>
+                    {% if show_history %}
+                        <button name="action" value="revert" class="btn btn-success" title="Revert selected files to a previous version."><i class="icon-time"></i></button>
+                    {% endif %}
+                </div>
+
+                <div style="float: right">
+                    <div class="btn-group">
+                        {% comment %}
+                        <button name="action" value="delete" class="btn btn-default" title="Move selected files to trash bin."><i class="icon-trash"></i></a>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+
+        <div id="item_list">
+            {% include list_template with is_owner="True" show_checkbox="True" files=files %}
+        </div>
+    </div>
+{% endif %}
+
+
+
+{% comment %}
+---------------------------------------
+- AJAX upload stuff
+---------------------------------------
+{% endcomment %}
+
+
+<script>
+    $(document).ready(function(){
+        var AFTER_UPLOAD_DELAY = 500;
+
+        $('.btn-group .btn').tooltip({container: 'body'});
+
+        $('#item_list [name=files]').change(function () {
+            var is_checked = $(this).prop('checked');
+            var action = is_checked ? 'addClass' : 'removeClass';
+            var $label = $('#'+$(this).attr('id')+'_label');
+            $label[action]('input-checked');
+        });
+
+        $('.btn.check-all').click(function () {
+            var $boxes = $("#item_list input[name=files]");
+            var all_checked = $boxes.prop("checked");
+            $boxes.prop("checked", !all_checked);
+            $boxes.trigger('change');
+        });
+
+        var original_html = $('#upload_area').html();
+
+        var uploader = new qq.FileUploader({
+            action: "{% url upload_view_name %}",
+            element: $('#upload_area')[0],
+            button: $('#upload_button')[0],
+            //disableDefaultDropzones: true,
+            multiple: true,
+            onComplete: function(id, fileName, responseJSON) {
+                if(responseJSON.success) {
+                } else {
+                    alert("Upload failed! :(");
+                }
+            },
+            onAllComplete: function(uploads) {
+                // uploads is an array of maps
+                // the maps look like this: {file: FileObject, response: JSONServerResponse}
+                // On success refresh page to display results
+                $('#upload_area').hide();
+                $("#success_message").show();
+                window.setTimeout(function () {
+                        // Refresh after a short delay
+                        location.reload();
+                    }, AFTER_UPLOAD_DELAY);
+            },
+            params: {
+                'csrf_token': '{{ csrf_token }}',
+                'csrf_name': 'csrfmiddlewaretoken',
+                'csrf_xname': 'X-CSRFToken',
+                'object_id': '{{ obj.id }}',
+                'object_class': '{{ object_class }}'
+            }
+        });
+        $('#upload_area .qq-upload-button').hide();
+        $('#upload_area .qq-upload-drop-area span').replaceWith(original_html);
+    });
+</script>
+
+
+
+
+
+

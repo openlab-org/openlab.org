@@ -1,0 +1,122 @@
+{% extends "project/base.html" %}
+{% load openlab_tags %}
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="col-md-8">
+    {% if is_search %}
+        <h1>
+            {% include "core/snippets/infobase_search_title.html" %}
+            <small>Projects</small>
+        </h1>
+    {% else %}
+        <h1>Projects</h1>
+    {% endif %}
+</div>
+{% include "core/snippets/infobase_search.html" %}
+
+
+
+{% comment %}
+<div class="col-md-4">
+    <form class="navbar-form" role="search">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search projects" name="search" id="search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endcomment %}
+
+{% endblock %}
+
+
+{% block header_bottom %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li {{ tab.stable }}><a href="{% url "project_list" %}">Released</a></li>
+                <li {{ tab.unstable }}><a href="{% url "project_list_tab" tab="unstable" %}">Bleeding edge</a></li>
+                {% comment %}
+                <li {{ tab.new }}><a href="{% url "project_list" %}">New</a></li>
+                {% if user.is_authenticated %}
+                    <li class="pull-right {{ tab.search.class }}"><a href="{% url "project_list" %}">Search</a></li>
+                {% endif %}
+                {% endcomment %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock header_bottom %}
+
+
+
+{% block content %}
+{% include "snippets/next_previous.html" %}
+
+<div class="container">
+    <div class="row">
+        {% include "project/snippets/project_list.html" with projects=projects %}
+    </div>
+</div>
+{% include "snippets/next_previous.html" %}
+
+{% endblock content %}
+
+
+
+{% comment %}
+
+
+    {% if user.is_authenticated %}
+        <p><em>Log in to create a project!</em></p>
+    {% else %}
+        <p> <a href="{% url "project_create" user.username %}" class="btn
+        btn-success"><i class="icon-plus-sign-alt"></i> New
+        individual project &mdash; <i class="icon-user"></i> {{ user.username }}</a> </p>
+
+        {% for team in user.teams.all %}
+            <p> <a href="{% url "project_create" team.slug %}" class="btn
+            btn-info"><i class="icon-plus-sign-alt"></i> New
+            team project  &mdash; <i class="icon-group"></i> {{ team }}</a> </p>
+        {% endfor %}
+    {% endif %}
+
+
+<div class="well">
+    <h3>Create new project</h3>
+    <p><em>(alt style ideas)</em></p>
+
+    <p> </p>
+    <form action="{% url "project_new" user.username %}">
+        <div class="input-group" id="new_control">
+            <div class="form-control" >
+                <span class="prefix">{{ user.username }}/</span>
+                {% spaceless %}
+                <input type="text" class="borderless-control" placeholder="project-name">
+                {% endspaceless %}
+            </div>
+            <span class="input-group-btn">
+                <button class="btn btn-success">Go &nbsp;<i class="icon-caret-right"></i></button>
+            </span>
+        </div>
+    </form>
+
+    <p> </p>
+    <form action="{% url "project_new" user.username %}">
+        <button class="btn btn-success">
+        <span class="prefix">{{ user.username }}/</span>
+        <input type="text" class="borderless-control" placeholder="project-name">
+        Create &nbsp;<i class="icon-caret-right"></i></button>
+    </form>
+
+</div>
+
+
+
+
+{% endcomment %}

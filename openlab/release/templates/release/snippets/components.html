@@ -1,0 +1,14 @@
+{% load olrelease_tags %}
+
+{% for c in components %}
+    <div class="component-box">
+        <p class="c-summary">{{ c.summary }}</p>
+        <p class="c-title">{{ c.title }}</p>
+        {% for f in c.files %}
+            {% include "project/snippets/file_thumbnail.html" with file=f skip_data="true" %}
+        {% endfor %}
+
+        <div class="component-line c-l-{{ side }}" style="{{ c|to_component_line_style:side }}">
+        </div>
+    </div>
+{% endfor %}

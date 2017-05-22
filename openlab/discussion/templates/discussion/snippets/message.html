@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<div class="col-md-1 col-xs-2">
+    <i class="icon-caret-left icon-4x" style="position: absolute; right: -18px; top:0; color: #eee"></i>
+    <p>{% if not summary_only %}<a href="{{ user.profile.get_absolute_url }}">{% endif %}
+        <img style="max-width: 100%" src="{{ user.profile.gravatar }}" class="img-rounded" />
+    {% if not summary_only %}</a>{% endif %}</p>
+    {% if not summary_only %}<p class="centered-text">{{ user.profile.desired_name }}</p>{% endif %}
+</div>
+
+<div class="col-md-11 col-xs-10">
+    <div class="message well">
+        {% if as_form %}
+            {% include "discussion/snippets/new_message_form.html" with form=message_form %}
+        {% elif summary_only %}
+            {{ message.rendered_summary }}
+        {% else %}
+            <p class="pull-right text-muted">
+                {{ message.creation_date|timesince }} {% trans " ago" %}
+            </p>
+            {{ message.rendered_markdown }}
+        {% endif %}
+    </div>
+</div>
+
+

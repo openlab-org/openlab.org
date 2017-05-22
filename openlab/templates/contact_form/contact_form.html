@@ -1,0 +1,41 @@
+{% extends "base/landingpage.html" %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+{% block title %}Contact - {% endblock %}
+
+{% block header_content %}
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>{% trans "Contact" %}</h1>
+            <ul>
+                <li><strong>Are you working on a hardware project that you
+                    think might be a fit in with Open Lab's goal?</strong>
+                Contact us, and we may be able to feature your project during
+                launch!</li>
+
+                <li>Have questions or want something clarified? Let us know!</li>
+                <!--
+                <li>Do you have expertise in the areas of Django Web App
+                development, CSS and JavaScript front end development, DevOps,
+                or graphic design, and want to contribute to something super
+                big and impactful? We need your help!</li> </ul>
+                -->
+            <p>
+        </div>
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-large btn-block btn-info">{% trans "Submit" %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+
+<div class="container" id="details">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        {% trans "Revision " %} #{{ revision.number }}
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Date</dt>   <dd>{{ revision.updated_date }}</dd>
+                        <dt>User</dt>   <dd>{{ revision.user }}</dt>
+                        <dt>Hash</dt>   <dd>{{ revision.hash_code }}</dd>
+                        <dt>Number</dt>   <dd>{{ revision.number }}</dd>
+                    </dl>
+
+                    {% if revision.summary %}
+                        <p><big>{{ revision.summary }}</big></p>
+                    {% else %}
+                        <p class="text-muted text-center"><em>No summary provided.</em></p>
+                    {% endif %}
+
+                    {% if file.changes %}
+                        {{ file.changes }}
+                    {% endif %}
+                    {% comment %}
+                        {{ file.changes|markdown }} <-- used to use markdown
+                    <div class="col-md-3">
+                        <p><a href="#" class="btn btn-block btn-default disabled tip"
+                            title="Revision browsing is not available.">View at this revision <i class="icon icon-caret-right"></i></a>
+                        </p>
+                        {% if can_edit %}
+                        <p><a href="#" class="btn btn-block btn-warning btn-sm disabled tip"
+                            title="Revision rervision is not available.">Revert to this revision <i class="icon icon-caret-right"></i></a>
+                        </p>
+                        {% endif %}
+                    </div>
+                    {% endcomment %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h2>Changes</h2>
+            {% if not revision.is_ready %}
+                <div class="alert-warning"><p>Revision is still being processed...</p></div>
+            {% endif %}
+
+            {% if files_by_folder and files_by_folder.0.1 %}
+                {% include "project/snippets/flp_revision_files.html" %}
+            {% else %}
+                <p class="no-files-notice">This revision doesn't have any files.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+
+{% include "discussion/snippets/comments.html" with discussion_titled="Discussion" %}
+
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% load openlab_tags %}
+{% switch action.verb %}
+    {% case "forked" %}
+        <!-- nothing -->
+    {% case "commented" %}
+        {% include "discussion/snippets/message.html" with summary_only="True" message=action.action_object %}
+    {% case "updated" %}
+        <!-- nothing -->
+    {% case "committed" %}
+        {% comment %}
+        {% for file in action.action_object.files.all|first_of:"10" %}
+            <ul>
+                <li>
+                    <tt>/{{ file.full_file_path }}</tt>
+                </li>
+            </ul>
+        {% endfor %}
+        {% endcomment %}
+    {% case "created" %}
+        <!-- nothing -->
+    {% else %}
+        <!-- nothing -->
+
+{% endswitch %}

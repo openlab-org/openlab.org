@@ -1,0 +1,40 @@
+{% extends "anthrome/base.html" %}
+{% load i18n %}
+
+{% block middle %}
+    <div class="jumbotron">
+        <div class="container">
+            {% include "anthrome/snippets/world.html" %}
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10 showcase showcase-bottom">
+                    <h1>{% trans "Open Hardware - Open World" %}</h1>
+                    <p>{% trans "An online collaboration platform for freeing the source code to civilization." %}</p>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>{% trans "New projects" %}</h2>
+        <div class="row">
+            <div class="col-md-12">
+                {% for project in new_projects %}
+                    <a class="project tip" href="{{ project.get_absolute_url }}"
+                        title="{{ project.summary }}">
+                        <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+                        <span>{{ project.title|truncatechars:"30" }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

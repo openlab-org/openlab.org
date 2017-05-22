@@ -1,0 +1,175 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{# {% load s3uploader %} #}
+{% load crispy_forms_tags %}
+{% load openlab_tags %}
+
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+    {% include "core/snippets/infobase_page_header_light.html" %}
+{% endblock %}
+
+{% block tabcontent %}
+<div class="container" id="upload_revision">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <a class="tip btn btn-xs btn-primary"
+                    title="Click to add a description of the changes you are making, so that you and your teammates can remember why you made the changes you did. (Optional)"
+                    data-toggle="modal" data-target="#commit_description_form_modal"><i class="icon-edit"></i> Description</button>
+                </a>
+                &nbsp;
+                {% include "project/snippets/update_help.html" %}
+                <a href="{% url "project_update_delete_revision" revision.id %}" class="tip btn btn-xs btn-default"
+                    title="Cancel this revision and clear all files in progress."><i class="icon-trash"></i> Cancel</a>
+            </div>
+            <h1>Change <small>#{{ revision.number }}</small></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {# {% s3uploader filemodel revision_id=revision.id folder="" %} #}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            {% if existing_files %}
+                <h3>Change <small>#{{ revision.number|add:"-1" }}</small></h3>
+                {% with files=existing_files files_by_folder=existing_files_by_folder  %}
+                    {% include "project/snippets/flp_existing_files.html" %}
+                {% endwith %}
+            {% else %}
+                <div class="well">
+                    <p>Welcome to Open Lab!</p>
+                    <ol>
+                        <li>To get started, drag and drop files onto this
+                        window. Or, click the "Upload Files" button to upload
+                        files.</li>
+                        <li>Once files are uploaded, you will be able to rename
+                        them, or put them into directories.</li>
+                        <li>Once you are satisfied, click the "Save" button at
+                        the bottom.</li>
+                    </ol>
+                    <p><strong>Tip:</strong> Your work here is saved as a draft
+                    even before you click the "Save" button, so you can feel
+                    free to return to finish the update later.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-5">
+            <h3>Change <small>#{{ revision.number }}</small></h3>
+            {#    {% include "project/snippets/revision_change_list.html" with show_controls="True" %} #}
+            {% with files=existing_files files_by_folder=existing_files_by_folder %}
+                {% include "project/snippets/flp_changed_files.html" %}
+            {% endwith %}
+            <hr />
+            {% if brand_new_files %}
+                {% with files=brand_new_files files_by_folder=brand_new_files_by_folder %}
+                    {% include "project/snippets/flp_new_files.html" %}
+                {% endwith %}
+            {% endif %}
+        </div>
+    </div>
+    <hr />
+
+    <form method="POST" action="{% url "project_update_revision_complete" revision.id %}" class="form">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 {% if no_changes %}tip{% endif %}"
+                {% if no_changes %}
+                        title="Make some changes first, by deleting files, uploading files (either new files or replacements for existing files), or renaming or moving files."
+                {% endif %}>
+                <button class="btn btn-success btn-lg btn-block tip"
+                    {% if no_changes %}
+                        disabled="disabled"
+                    {% else %}
+                        title="Click here when you're done!"
+                    {% endif %}
+                    type="submit">{% trans "Save Changes" %}</button>
+                <div class="modal fade" id="commit_description_form_modal" tabindex="-1" role="dialog" aria-labelledby="commitdescriptionmodal_label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="commitdescriptionmodal_label">Commit description</h4>
+                            </div>
+                            <div class="modal-body">
+                                {{ revision_form.summary|as_crispy_field }}
+                                {{ revision_form.changes|as_crispy_field }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% comment %}
+    <div class="row">
+        <form method="POST" action="{% url "project_update_revision_complete" revision.id %}" class="form">{% csrf_token %}
+            <div class="col-md-11">
+                <div class="controls">
+                    <input class="textinput textInput form-control"
+                        id="id_summary" maxlength="140" name="summary" type="text"
+                        value="{{ revision_form.summary.value }}" placeholder="Summary of changes..." />
+                </div>
+                <a data-toggle="collapse" data-parent="#accordion" class="tip pull-right" href="#description_form" title="{% trans "Click to include a detailed summary of changes (optional)." %}">
+                    {% trans "Details..." %} <i class="icon-caret-down"></i> </small>
+                </a>
+                <div id="description_form" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ revision_form.changes|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">{% trans "Save" %}</button>
+            </div>
+        </form>
+    </div>
+    {% endcomment %}
+</div>
+{% endblock %}
+
+
+
+{% block more_js %}
+<script>
+window.S3_OPTIONS = (function () {
+    var in_progress = {};
+    var check_for_complete = function () {
+        for (var i in in_progress) { if (in_progress[i]) return; }
+        $('body').css('opacity', 0.3);
+        $('body').css('cursor', "progress");
+        // Complete!
+        location.reload();
+    };
+
+    return {
+        callbacks: {
+            onUpload: function (id, name) {
+                //console.log("on Upload!");
+                //console.log("ID", id, "name", name);
+                in_progress[id] = true;
+            },
+            /*onCancel: function (id, name) {
+                console.log("cancel!");
+                console.log("ID", id, "name", name);
+                in_progress[id] = false;
+                check_for_complete();
+            },*/
+            onComplete: function (id, name) {
+                console.log("Compelte!");
+                console.log("ID", id, "name", name);
+                in_progress[id] = false;
+                check_for_complete();
+            },
+        }
+    };
+})()
+</script> 
+{% endblock %}
+

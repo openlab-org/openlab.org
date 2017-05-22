@@ -1,0 +1,386 @@
+/*
+ * Color pallet (On a whim, using DB's 16 color palette for pixel art)
+ * (Gimp's format FWIW)
+     rgb(20, 12, 28)    #140c1c      Dark1   - Darker purple
+     rgb(68, 36, 52)    #442434      Dark2   - Dark purple
+    rgb(48, 52, 109)    #30346d      Dark3   - Blue
+     rgb(78, 74, 78)    #4e4a4e      Dark4   - Dreary gray
+    rgb(133, 76, 48)    #854c30      Dark5   - Brown
+    rgb(52, 101, 36)    #346524      Dark6   - Forrest Green
+    rgb(208, 70, 72)    #d04648      Dark7   - Muted pink
+   rgb(117, 113, 97)    #757161      Dark8   - Medium gray
+   rgb(89, 125, 206)    #597dce     Light1   - Medium-light blue
+   rgb(210, 125, 44)    #d27d2c     Light2   - Orange
+  rgb(133, 149, 161)    #8595a1     Light3   - Gray-blue
+   rgb(109, 170, 44)    #6daa2c     Light4   - Pastel green
+  rgb(210, 170, 153)    #d2aa99     Light5   - Pastel gray-pink
+  rgb(109, 194, 202)    #6dc2ca     Light6   - Pastel blue
+   rgb(218, 212, 94)    #dad45e     Light7   - Pastel yellow
+  rgb(222, 238, 214)    #deeed6     Light8   - Light gray-green
+*/
+
+
+html {
+    font-family: 'Lato', sans-serif;
+    color: #140c1c;
+}
+
+.navbar-brand {
+    /*
+    color: #000 !important;
+    font-family: 'Share Tech', sans-serif;
+    font-size: 32pt;
+    */
+    max-height: 32px;
+    margin-top: 0px;
+    padding-top: 10px;
+}
+
+/* ******************************** */
+/* * Mobile version of navbar     * */
+/* ******************************** */
+.navbar-collapse.in {
+    background-color: rgb(248, 248, 248);
+}
+
+.navbar-collapse.in .dropdown li {
+    display: inline-block;
+}
+
+.navbar-collapse.in .dropdown li.dropdown-header {
+    display: none;
+}
+
+.navbar-collapse.in .dropdown a.btn {
+    display: block;
+    text-align: center;
+}
+
+
+
+h1, h2, h3  {
+    font-family: 'Pathway Gothic One', sans-serif;
+    color: #140c1c;
+}
+
+
+h4, h5, h6 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+.nav li.active {
+    whitespace: no-wrap;
+}
+
+.nav .nav-breadcrumb {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 1px;
+    margin: 1px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 9pt;
+    float:left;
+
+}
+/*
+.nav li:hover a.tab-planet,
+.nav li.active:hover a.tab-planet,
+.nav li.active a.tab-planet {
+    color: #6daa2c;
+}
+
+.nav li:hover a.tab-projects,
+.nav li.active:hover a.tab-projects,
+.nav li.active a.tab-projects {
+    color: #d27d2c;
+}
+
+.nav li:hover a.tab-people,
+.nav li.active:hover a.tab-people,
+.nav li.active a.tab-people {
+   color:   #597dce;
+}
+*/
+
+
+.navbar {
+    max-height: 56px;
+}
+
+.nav.navbar-nav li.create-menu {
+    margin-right: 30px;
+}
+.nav.navbar-nav li.create-menu a {
+    margin-top: 10px;
+}
+
+.nav.navbar-nav li.user-menu.push-up a {
+    margin-top: -10px;
+}
+
+
+.nav.navbar-nav.main-nav li a {
+    padding-top: 1px;
+    padding-bottom: 0px;
+    margin: 0;
+}
+
+div.userswitch {
+    margin-top: 50px;
+}
+
+#new_control button {
+    margin: 0;
+    display: inline;
+}
+
+#new_control span,
+#new_control input,
+#new_control button {
+    font-size: 14pt;
+    line-height: 14pt;
+    font-family: 'Lato', sans-serif;
+}
+
+#new_control .borderless-control {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+#new_control .borderless-control:focus,
+#new_control .borderless-control:active {
+    border: none;
+    outline: 0;
+}
+
+/* ****************************************************************** */
+/* * Project management panel *************************************** */
+/* ****************************************************************** */
+
+#management_nav a {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+#management_nav i {
+    min-width: 22px;
+    display: inline-block;
+}
+
+/* ****************************************************************** */
+/* * Select 2                 *************************************** */
+/* ****************************************************************** */
+
+div.select2-container a.select2-choice,
+div.select2-container a.select2-choice div,
+div.select2-container a.select2-choice span,
+div.select2-container ul.select2-choices,
+div.select2-container ul.select2-choices,
+div.select2-container ul.select2-choices:active,
+div.select2-container ul.select2-choices:focus,
+div.select2-container.select2-container-active ul.select2-choices {
+    border: none;
+    background: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+div.select2-container {
+    height: 100%;
+}
+
+div.select2-container ul.select2-choices {
+    height: 100%;
+    padding-top: 10px;
+}
+
+div.select2-container span.select2-arrow  {
+    border: none !important;
+    background: none !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+/*
+div.select2-container span.select2-arrow b:before {
+  content: "\f002";
+}
+*/
+
+ul.select2-results li,
+ul.select2-results div.select2-result-label {
+    display: inline-block !important;
+}
+
+div.photoselect2widget {
+}
+
+textarea {
+    min-height: 6em;
+}
+
+
+/* ****************************************************************** */
+/* * info base stuff          *************************************** */
+/* ****************************************************************** */
+
+.info-thumb {
+    width: 150px;
+    min-width: 150px;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+}
+
+.top-thumb {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.infobase-pagetitle.forked {
+    margin-top: 0;
+    line-height: 0.8em;
+}
+
+p.infobase-summary {
+    font-size: 16pt;
+    font-style: italic;
+}
+
+
+p.infobase-summary-location,
+p.infobase-summary-location a {
+    font-size: 12pt;
+    font-family: 'Pathway Gothic One', sans-serif;
+    color: #854c30;
+}
+
+
+
+.edit-tab a {
+    color: rgb(92, 184, 92);
+}
+
+
+.jumbotitle {
+  margin-bottom: 5px;
+  /*font-size: 21px;*/
+  background-color: #eeeeee;
+  background-color: #deeed6;
+}
+
+
+.jumbotitle .header-top {
+  padding-top: 60px;
+}
+
+.jumbotitle .header-content {
+  line-height: 2.1428571435;
+  font-weight: 200;
+  padding: 20px;
+}
+
+.jumbotitle.cozy .header-content {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+.jumbotitle.cozy h1 {
+    margin-top: 1px;
+    padding-bottom: 1px;
+}
+
+.jumbotitle.cozy .header-top {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.jumbotitle.compact .header-content {
+    padding: 1px;
+    line-height: 1;
+}
+
+.jumbotitle.compact .header-top {
+  padding-top: 0px;
+}
+
+.jumbotitle.compact .right-contols {
+}
+
+.breadcrumb {
+    background: none;
+}
+
+.jumbotitle h1 {
+    font-size: 36pt;
+}
+
+.jumbotitle p {
+    line-height: 1.4;
+}
+
+.navbar-login input,
+.navbar-login button {
+    max-width: 150px;
+    margin-right: 2px;
+}
+
+@media (min-width: 768px) and  (max-width: 991px) {
+    .navbar-login input,
+    .navbar-login button {
+        max-width: 100px;
+    }
+
+    .navbar-login button span {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-login input,
+    .navbar-login button {
+        max-width: 100%;
+    }
+}
+
+.icon-label {
+    font-size: 40px;
+    vertical-align: top;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-family: 'Pathway Gothic One', sans-serif;
+    color: black;
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .icon-label { display: inline-block !important; }
+}
+
+/*
+@media screen and (min-width: 768px) {
+  /*.jumbotitle .header-content {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .container .jumbotitle {
+    padding-right: 60px;
+    padding-left: 60px;
+  }
+  .jumbotitle h1 {
+    font-size: 63px;
+  }
+}
+*/
+
+
+
+

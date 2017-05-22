@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load openlab_tags %}
+
+{% if search %}
+    {% if search.tag %}
+        <h4>{{ search.tag|beautify }} <small>(tag)</small></h4>
+    {% endif %}
+{% endif %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>{% trans "Topic" %}</th>
+            {% if not search or not search.tag %}
+                <th>{% trans "Tags" %}</th>
+            {% endif %}
+            <th>{% trans "Participants" %}</th>
+            <th>{% trans "Posts" %}</th>
+            <th>{% trans "Activity" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for thread in threads %}
+            <tr>
+                <td>{# star #}
+                    <a href="#"><i class="icon-star"></i></a>
+                </td>
+
+                <td>{# title #}
+                    <p><strong>
+                    {% if thread.title %}
+                        <a href="{% url thread_view_name obj.hubpath thread.id %}">
+                            {{ thread.title }}
+                        </a>
+                    {% else %}
+                    <a href="{% include "core/snippets/infobase_absolute_url.html" with content_type=thread.content_type content_object=thread.topic_object %}">
+                        {% include "activity/snippets/content_type_icon.html" with content_type=thread.content_type %}
+                            {{ thread.topic_object }}</a>
+                    {% endif %}
+                    </strong></p>
+                </td>
+
+                {% if not search or not search.tag %}
+                    <td>{# tags #}
+                        {% include "discussion/snippets/tags.html" %}
+                    </td>
+                {% endif %}
+
+                <td>{# participants #}
+                    {% for user in thread.subscriptions.all %}
+                        {{ user }}
+                    {% endfor %}
+                </td>
+
+                <td>{# posts #}
+                    <p class="badge">{{ thread.messages_count }}</p>
+                </td>
+
+                <td>{# activity #}
+                    <p>
+                        <span>{{ thread.last_edited|timesince }} {% trans "ago" %}</span>
+                        -
+                        <span class="text-muted tip" title="{% trans "Date that the discussion started." %}">{{ thread.creation_date|date:"M d" }}</span>
+                    </p>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td></td>
+                <td><em>{% trans "No discussions." %}</em></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+

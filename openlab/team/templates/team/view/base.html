@@ -1,0 +1,34 @@
+{% extends "team/base.html" %}
+{% load i18n %}
+
+{% block header_content %}
+    {% include "core/snippets/infobase_page_header.html" with show_location_view_name="team_list" %}
+{% endblock %}
+
+{% block header_bottom %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li {{ tab.about }}><a href="{% url "team" team.slug %}">Projects</a></li>
+                {% comment %}
+                    <li {{ tab.activity }}><a href="{% url "team_activity" team.slug %}">Activity</a></li>
+                {% endcomment %}
+                <li {{ tab.members }}><a href="{% url "team_members" team.slug %}">Members</a></li>
+                {% comment %}
+                    <li {{ tab.gallery }}{{ tab.photo }}><a href="{% url "team_gallery" team.slug %}">Gallery</a></li>
+                <li {{ tab.followers }}><a href="{% url "team_followers" team.slug %}">Followers</a></li>
+                {% endcomment %}
+                {% if can_edit %}
+                    <li class="{{ tab.manage.as_class }} edit-tab pull-right"><a href="{% url "team_manage_members" team.slug %}"><i class="icon-pencil"></i> Manage</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock header_bottom %}
+
+{% block content %}
+    {% block tabcontent %}
+    {% endblock %}
+{% endblock content %}

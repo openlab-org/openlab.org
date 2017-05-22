@@ -1,0 +1,96 @@
+{% extends "project/release/base.html" %}
+{% load i18n %}
+
+{% block header_class %} release2-jumbotron {% endblock %}
+{% block header_content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ project }}</h1>
+        <p class="lead">v{{ release.version }}</p>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4 release-summary">
+        <p>{{ release.summary }}</p>
+    </div>
+
+    <div class="col-md-4">
+        <a href="#" class="btn btn-warning download-button">
+            <span class="small-info">download (zip)</span>
+            <i class="icon-arrow-down"></i>
+        </a>
+    </div>
+
+    <div class="col-md-4 license-summary">
+        <p><a class="btn btn-success btn-lg" href="{% url "project_files" project.hubpath %}">Contribute <i class="icon-caret-right"></i></a></p> 
+        <!--
+        <p>{{ project }} was released on the <a href="/">Open Lab</a> free
+        hardware platform in {{ release.creation_date|date:"M Y" }} </p>
+        -->
+        {% include "licensefield/snippets/license.html" with license=release.license license_display=release.get_license_display img_size="large" %}
+        <br />
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block header_bottom %}
+{% endblock header_bottom %}
+
+{% block content %}
+<div class="container">
+    {% include "release/snippets/component_diagram.html" %}
+</div>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-4 text-center">
+            <h2>Planet</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    {% include "anthrome/snippets/anthrome.html" %}
+                </div>
+                <div class="col-md-6">
+                    {% if project.city %}
+                        {% include "project/snippets/cityball.html" with city=project.city %}
+                    {% else %}
+                        {% comment %}
+                            {% include "project/snippets/countryball.html" with country=project.country %}
+                        {% endcomment %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 text-center">
+            <h2>Projects</h2>
+            <dl class="dl-horizontal">
+                <dt>{{ project }}</dt> <dd><tt>{{ project.hubpath }}</tt>
+                </dd>
+                {% if not dependencies %}
+                    <dt>created</dt> <dd>{{ project.creation_date }}</dd>
+                {% endif %}
+                {% for p in dependencies %}
+                    <dt><i class="icon-level-up icon-rotate-90"></i> {{ p }}</dt> <dd><tt>{{ p.hubpath }}</tt></dd>
+                {% endfor %}
+            </dl>
+        </div>
+        <div class="col-sm-4 text-center">
+            <h2>People</h2>
+            {% for person in first_three_people %}
+                {% include "team/snippets/person_or_team_ball.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}
+

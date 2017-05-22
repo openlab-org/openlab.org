@@ -1,0 +1,17 @@
+{% if content_type.model == "user" %}
+    <i class="icon-user"></i>
+{% elif content_type.model == "team" %}
+    <i class="icon-group"></i>
+{% elif content_type.model == "filemodel" %}
+    <i class="icon-archive"></i>
+{% elif content_type.model == "revision" %}
+    <i class="icon-chevron-sign-up"></i>
+{% elif content_type.model == "project" %}
+    <i class="icon-rocket"></i>
+{% elif content_type.model == "message" %}
+    <i class="icon-comment"></i>
+{% elif content_type.model == "wikipage" %}
+    <i class="icon-file-text-alt"></i>
+{% elif content_type.model == "photo" %}
+    <i class="icon-picture"></i>
+{% endif %}

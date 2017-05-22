@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Test Email</h1>
+    </div>
+    <div class="col-md-4">
+        {% if unread or read %}
+            <form action="." method="POST">
+                {% csrf_token %}
+                <p><br /><br /> <button type="submit" name="action" value="clear_all" class="btn btn-large btn-default pull-right">Clear all</button> </p>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="well">
+                <dl class="dl-horizontal">
+                    {% comment %}
+                    message.attach           message.connection       message.message
+                    message.attach_file      message.content_subtype  message.mixed_subtype
+                    message.attachments      message.encoding         message.recipients
+                    message.bcc              message.extra_headers    message.send
+                    message.body             message.from_email       message.subject
+                    message.cc               message.get_connection   message.to
+                    {% endcomment %}
+                    <dt>from</dt> <dd><tt>{{ message.from_email }}</tt></dd>
+                    <dt>recipients</dt> <dd><tt>{{ message.recipients }}</tt></dd>
+                    <dt>to</dt> <dd><tt>{{ message.to }}</tt></dd>
+                    <dt>cc</dt> <dd><tt>{{ message.cc }}</tt></dd>
+                    <dt>bcc</dt> <dd><tt>{{ message.bcc }}</tt></dd>
+                    <dt>encoding</dt> <dd><tt>{{ message.encoding }}</tt></dd>
+                    <dt>content_subtype</dt> <dd><tt>{{ message.content_subtype }}</tt></dd>
+                    <dt>attachments</dt> <dd><tt>{{ message.attachments }}</tt></dd>
+                </dl>
+            </div>
+            <p class="well"><big>Subject:<br /><strong>{{ message.subject}}</strong></big></p>
+        </div>
+        <div class="col-md-7"  style="border: 1px solid green; background: #fff;">
+
+            {% if message.content_subtype == "plain" %}
+                <pre>{{ message.body }}</pre>
+            {% else %}
+            <div>
+                {{ message.body|safe }}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

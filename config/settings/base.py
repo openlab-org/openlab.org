@@ -8,6 +8,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 import environ
+import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (openlab/config/settings/base.py - 3 = openlab/)
 APPS_DIR = ROOT_DIR.path('openlab')
@@ -49,13 +50,36 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+
+    # Openlab specific stuff
+    'cities_light',
+    'reversion',
+    'actstream',
+    'taggit',
 ]
 
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
     'openlab.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+    'openlab.core.apps.CoreConfig',
+    'openlab.gallery.apps.GalleryConfig',
+    'openlab.discussion.apps.DiscussionConfig',
+    'openlab.wiki.apps.WikiConfig',
+    'openlab.team.apps.TeamConfig',
+    'openlab.project.apps.ProjectConfig',
+    'openlab.accounts.apps.AccountsConfig',
+    'openlab.release.apps.ReleaseConfig',
+    'openlab.moderation.apps.ModerationConfig',
+    'openlab.notifications.apps.NotificationsConfig',
+    'openlab.newsletter.apps.NewsletterConfig',
+
+    # no models
+    'openlab.olmarkdown',
+    'openlab.anthrome',
+    'openlab.prequeue',
+    'openlab.licensefield',
+    'openlab.docviewer',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -71,6 +95,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # custom middlewares
+    'breadcrumbs.middleware.BreadcrumbsMiddleware',
+    #'openlab.core.middleware.WhitelistMiddleware',
 ]
 
 # MIGRATIONS CONFIGURATION
@@ -149,15 +177,16 @@ TEMPLATES = [
         'DIRS': [
             str(APPS_DIR.path('templates')),
         ],
+        'APP_DIRS': True,
         'OPTIONS': {
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
             'debug': DEBUG,
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
+            #'loaders': [
+            #    'django.template.loaders.filesystem.Loader',
+            #    'django.template.loaders.app_directories.Loader',
+            #],
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -168,7 +197,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                # Your stuff: custom template context processors go here
+
+                # Open Lab Context Processors:
+                'openlab.notifications.context_processors.notifications',
             ],
         },
     },
@@ -282,5 +313,31 @@ STATICFILES_FINDERS += ['compressor.finders.CompressorFinder']
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
 
-# Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+
+
+########### S3 Uploader
+S3UPLOADER = {}
+S3UPLOADER_PROFILES = {
+    'default': {
+        'template_name': 'bootstrap',
+        'disable_css_classes': True,
+    },
+
+    'filemodel': {
+        'generic_model_class': 'project.FileModel',
+        'template_name': 'filemodel',
+    },
+
+    'attachment': {
+        'generic_model_class': 'discussion.Attachment',
+        'template_name': 'attachment',
+    },
+
+    'photo': {
+        'generic_model_class': 'gallery.Photo',
+        'template_name': 'photo',
+    },
+}
+########### End S3 Uploader
+

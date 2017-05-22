@@ -1,0 +1,85 @@
+
+/* ****************************************************************** */
+/* * Slide gallery            *************************************** */
+/* ****************************************************************** */
+
+
+
+
+/* ****************************************************************** */
+/* * Gallery                  *************************************** */
+/* ****************************************************************** */
+
+/*
+.gallery-preview-not-ready + img {
+    opacity: 0.8;
+}
+*/
+
+div.thumbnail.preview-not-ready {
+    position: relative;
+}
+
+div.thumbnail.preview-not-ready img {
+    opacity: 0.8;
+}
+
+label .gallery-preview-not-ready {
+    top: 0;
+    left: 0;
+    background: black;
+    color: white;
+    opacity: 0.1;
+    /*width: 90%;*/
+    /*min-height: 100px;*/
+    text-decoration: none;
+    position: absolute;
+    margin: 10px;
+    padding: 2px;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+    text-align: center;
+}
+
+label .gallery-preview-not-ready {
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.gallery-item input[type=checkbox] {
+    display: none;
+}
+
+
+#item_list .input-checked .thumbnail {
+    /* Same color as "btn-success" */
+    background: rgb(92, 184, 92);
+}
+
+/*#item_list .input-checked img {*/
+#item_list .input-checked img {
+    opacity: 0.8;
+}
+
+
+#item_list img {
+    transition: none;
+    -moz-transition: none;
+    -webkit-transition: none;
+}
+
+
+.photo-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.photo-full {
+    -moz-box-shadow: 0px 0px 5px #333;
+    -webkit-box-shadow: 0px 0px 5px #333;
+    box-shadow: 0px 0px 5px #333;
+    display: inline-block;
+}
+

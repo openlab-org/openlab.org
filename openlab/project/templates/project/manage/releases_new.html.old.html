@@ -1,0 +1,69 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block tabcontent %}
+<br /> <!-- XXX -->
+<div class="container">
+    <div class="row">
+
+{% block mcontent %}
+
+<div class="col-md-12">
+    <h2>New release <small>{{ obj }}</small></h2>
+    <hr />
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs release-tabs">
+        <li class="active"><a href="#information" data-toggle="tab">1. Information</a></li>
+        <li><a href="#components" data-toggle="tab">2. Components</a></li>
+        <li><a href="#submit" data-toggle="tab">3. Review and Submit <i class="icon-caret-right"></i></a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="tab-content well release-tab-content">
+            {# FORM PANE #}
+            <div class="tab-pane active row" id="information" class="form-horizontal">
+                {% crispy form %}
+            </div>
+
+            {# COMPONENT MANAGER PANE #}
+            <div class="tab-pane" id="components">
+                {% include "release/snippets/component_manager.html" %}
+            </div>
+
+            {# SUBMIT PANE #}
+            <div class="tab-pane" id="submit">
+
+                {% if form.errors %}
+                    <div class="alert alert-warning">
+                        <p><strong>Oops!</strong> There were issues with your previous the submission:</p>
+                        <hr />
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+
+                <h4>Project completeness</h4>
+                <ul>
+                    <li>Project photo specified</li>
+                    <li>Location specified</li>
+                </ul>
+                <h4>Release completeness</h4>
+                <ul>
+                    <li>Project photo specified</li>
+                    <li>Components specified</li>
+                </ul>
+                <button type="submit" class="btn btn-success btn-lg btn-block"><i class="icon-check-sign"></i> Release {{ project }}</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock mcontent %}
+</div>
+</div>
+
+{% endblock tabcontent %}

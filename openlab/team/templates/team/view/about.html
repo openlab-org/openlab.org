@@ -1,0 +1,22 @@
+{% extends "team/view/base.html" %}
+{% load i18n %}
+
+
+{% block teamtab_about %}class="active"{% endblock %}
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <h2>{% trans "Projects" %}</h2>
+        {% include "project/snippets/project_list.html" with projects=projects %}
+        {% comment %}
+        <div class="col-md-6">
+            <h2>About</h2>
+            {{ obj.rendered_markdown }}
+        </div>
+        <div class="col-md-6">
+        </div>
+        {% endcomment %}
+    </div>
+</div>
+{% endblock %}

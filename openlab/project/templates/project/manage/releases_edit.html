@@ -1,0 +1,15 @@
+
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block mcontent %}
+<h1>{{ version }}</h1>
+{% if not release %}
+<p>No release found with that version...</p>
+{% endif %}
+
+
+{% endblock mcontent %}
+

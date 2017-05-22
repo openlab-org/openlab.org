@@ -1,0 +1,27 @@
+
+{% for team in teams %}
+<div class="row">
+    <div class="col-md-3">
+        <br />
+        <a href="{{ team.get_absolute_url }}">
+            <img class="img-rounded info-thumb" src="{{ team.get_thumb_url }}" />
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ team.get_absolute_url }}"><h2>{{ team.title|capfirst }}</h2></a>
+        <p class="text-muted">{{ team.summary }}</p>
+    </div>
+    <div class="col-md-5">
+        {% for user in team.members.all %}
+            {% include "account/snippets/profile.html" with profile=user.profile %}
+        {% empty %}
+            <br /> <br /> <br />
+            <p class="text-muted"><em>The team is currently empty.</em></p>
+        {% endfor %}
+    </div>
+</div>
+<br />
+{% empty %}
+    <p><em>No teams found!</em></p>
+{% endfor %}
+

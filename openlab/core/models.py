@@ -1,0 +1,182 @@
+from django.db import models
+from django.utils.translation import ugettext as _
+from django.conf import settings
+
+from taggit.managers import TaggableManager
+
+# 1st party
+from openlab.gallery.models import Gallery, Photo
+from openlab.discussion.models import Thread
+from openlab.wiki.models import WikiSite
+
+from openlab.location.models import LocatableBaseModel
+from openlab.hubpath.models import HubPathBase
+from openlab.olmarkdown.models import OLMarkdownBase
+
+class UpdateMixin(object):
+    def update_fields(self, **kwds):
+        for key, val in list(kwds.items()):
+            setattr(self, key, val)
+
+class InfoBaseModel(LocatableBaseModel, UpdateMixin, OLMarkdownBase, HubPathBase):
+    #PLACEHOLDER_IMAGE_URL = settings.STATIC_URL + 'core/images/placeholder.png'
+
+    class Meta:
+        abstract = True
+        get_latest_by = "updated_date"
+
+    title = models.CharField(
+            verbose_name=_("Name"),
+            max_length=255)
+
+    creation_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    gallery = models.ForeignKey(Gallery,
+            null=True, blank=True,
+            help_text=_("Image gallery for the project"))
+
+    wikisite = models.ForeignKey(WikiSite,
+            null=True, blank=True,
+            help_text=_("Project wiki"))
+
+    tags = TaggableManager(
+            help_text=_("Tags for the project"))
+
+    photo = models.ForeignKey(Photo,
+            null=True, blank=True,
+            help_text=_("Select a photo to be used as an icon. You can only "
+                    "select from photos you have already uploaded to the "
+                    "gallery."))
+
+    summary = models.CharField(
+            max_length=140,
+            verbose_name=_("Summary"),
+            help_text=_("Describe in in 140 characters or less. (No paragraphs.)"))
+
+    PUBLIC = "pu"
+    VISIBILITY = (
+            (PUBLIC, "Public"),
+            ("un",  "Unlisted"),
+            ("og",  "Need to log in"),
+            ("pr",  "Private"),
+            ("lp", "Locked - Private"), # Completely invisible
+            ("lu", "Locked - Unlisted"),
+            ("lo", "Locked - Logged in only"),
+    )
+
+    VISIBILITY_CHOICES = (
+            (PUBLIC, "Public"),
+            ("un",  "Unlisted"),
+            ("pr",  "Private"),
+        )
+
+    # Visibility --- only item that's user changeable 
+    visibility = models.CharField(max_length=2,
+        choices=VISIBILITY, default=PUBLIC, db_index=True)
+
+    threads = models.ManyToManyField(Thread,
+        help_text=_("Threads related to this"))
+
+    @classmethod
+    def get_displayable_kwds(cls):
+        return {
+            'visibility': cls.PUBLIC,
+        }
+
+    def create_gallery_if_necessary(self):
+        """
+        NOTE: Side-effects, and calls save twice.
+        """
+        if not self.gallery:
+            gallery = Gallery()
+            gallery.save()
+            self.gallery = gallery
+            self.save()
+        return self.gallery
+
+    def editable_by(self, user):
+        if not user.is_authenticated():
+            return False
+
+        if user == self.user:
+            return True
+
+        return bool(self.members.filter(id=user.id))
+
+    def __str__(self):
+        return self.title
+
+    def get_thumb_url(self):
+        if self.photo and self.photo.preview_ready:
+            # Use specified photo
+            return self.photo.preview_image_thumb.url
+
+        url = self.get_location_image_url()
+
+        if not url:
+            # Could not generate location image either
+            return self.PLACEHOLDER_IMAGE_URL
+
+        return url
+
+    def get_olmarkdown_source(self):
+        """
+        "Description" is the field we use for the source
+        """
+        return self.description
+
+    def fetch_olmarkdown_context_object(self):
+        """
+        InfoBase objects generally should use themselves as the context.
+        """
+        return self
+
+
+
+class Randomable(object):
+    MAX_RETRY_COUNT = 3
+    @classmethod
+    def random_of_the_day(cls, count, is_cyclic=False):
+        try:
+            return cls.__random(datetime.datetime.now().day, count, is_cyclic)
+        except IndexError:
+            return []
+
+    @classmethod
+    def __random(model, i, count, is_cyclic):
+        #  note this is broken
+        result = []
+        id_set = set() # kept so we don't get duplicates
+        max_id = model.objects.count()
+        for num in range(count):
+            for retries in range(Randomable.MAX_RETRY_COUNT):
+                if is_cyclic:
+                    seed = i + num + retries
+                else:
+                    seed = i * num + retries
+                random.seed(seed)
+
+                id = random.randint(1, max_id)
+                kwds = model.get_displayable_kwds()
+                kwds['id__gte'] = id
+                #print kwds
+                try:
+                    obj = model.objects.filter(**kwds)[0]
+                except IndexError:
+                    # If we accidentally sampled a high number which there are
+                    # only deleted ones after this, for example
+                    #print "ERROR", kwds
+                    continue
+
+                if obj.id not in id_set:
+                    id_set.add(obj.id)
+                    result.append(obj)
+                    break
+
+        return result
+
+    @classmethod
+    def get_displayable_kwds(cls):
+        return {}
+

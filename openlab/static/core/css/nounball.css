@@ -1,0 +1,55 @@
+
+
+.anthrome,
+.nounball,
+.countryball {
+    position: relative;
+    /*opacity: 1.0;
+    transition: opacity 0.2s ease;
+    -mozilla-transition: opacity 0.2s ease;
+    -webkit-transition: opacity 0.2s ease;*/
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.anthrome img,
+.nounball img,
+.countryball img {
+    -mozilla-box-shadow: 0px 0px 2px 2px #6daa2c;
+    -webkit-box-shadow: 0px 0px 2px 2px #6daa2c;
+    box-shadow: 0px 0px 2px 2px #6daa2c;
+    min-height: 150px;
+    min-width: 150px;
+    background-color: #6daa2c;
+}
+
+.anthrome:hover {
+    z-index: 30;
+}
+
+.anthrome span,
+.nounball span,
+.countryball span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-align: center;
+    opacity: 0.0;
+    top: 35%;
+    left: 0;
+    display: block;
+    transition: opacity 0.2s ease;
+    -mozilla-transition: opacity 0.2s ease;
+    -webkit-transition: opacity 0.2s ease;
+    font-family: Lato, sans-serif;
+    font-size: 14pt;
+    line-height: 14pt;
+    font-weight: bold;
+}
+
+.anthrome:hover span,
+.nounball:hover span,
+.countryball:hover span {
+    opacity: 0.7;
+}

@@ -1,0 +1,43 @@
+{% load openlab_tags %}
+
+{% for photo in files %}
+    {% if photo.preview_ready or is_owner %}
+      <div class="col-sm-6 col-md-3 gallery-item">
+        {% if show_link %}
+            <a href="{% url show_link link_arg photo.number %}">
+        {% endif %}
+        {% if show_checkbox %}
+            {% with cn=photo|classname %}
+                <input id="file_check_{{ cn }}_{{ photo.id }}" type="checkbox" name="files"
+                        {% if gallery_is_mixture %}
+                            value="{{ cn }}_{{ photo.id }}"
+                        {% else %}
+                            value="{{ photo.id }}"
+                        {% endif %}
+                    />
+                <label for="file_check_{{ cn }}_{{ photo.id }}"
+                    id="file_check_{{ cn }}_{{ photo.id }}_label">
+            {% endwith %}
+        {% endif %}
+        <div class="thumbnail {% if not photo.preview_ready %}preview-not-ready{% endif %}">
+            {% if photo.preview_ready %}
+                <img
+                    src="{{ photo.preview_image_thumb.url }}"
+                    title="{% if photo.title %}{{ photo.title }} - {% endif %}{% if photo.description %}{{ photo.description }} {% endif %}"
+                    />
+            {% else %}
+                <img src="{{ photo.path.url }}" />
+                <div class="gallery-preview-not-ready">Thumbnail is still being prepared.</div>
+            {% endif %}
+        </div>
+        {% if show_checkbox %}
+            </label>
+        {% endif %}
+        {% if show_link %}
+            </a>
+        {% endif %}
+      </div>
+    {% endif %}
+{% endfor %}
+
+

@@ -1,0 +1,14 @@
+
+{% load openlab_tags %}
+<form class="navbar-form" role="search" action="." method="GET">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search"
+        {% if search and search.search_terms %}
+            value="{{ search.search_terms|join:" "|lower }}"
+        {% endif %}
+        name="q" id="search">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="icon-search"></i></button>
+        </div>
+    </div>
+</form>

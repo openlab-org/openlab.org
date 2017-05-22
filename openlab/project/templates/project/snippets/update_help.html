@@ -1,0 +1,40 @@
+
+<!-- Button trigger modal -->
+<button class="tip btn btn-xs btn-default"
+    title="A little confused? Click here."
+    data-toggle="modal" data-target="#update_help_modal"><i class="icon-question"></i> Help</button>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="update_help_modal" tabindex="-1" role="dialog" aria-labelledby="updatehelpmodal_label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updatehelpmodal_label">Update</h4>
+      </div>
+      <div class="modal-body">
+          <p>Open Lab has a version history system. This lets you keep track of
+          old version of for reference, so that you can always peek back at how
+          you used to have things in a previous version.</p>
+
+          <ul>
+              <li>Updates to your project are done in "revisions". A revision
+              can add files, replace files, or delete files.</li>
+
+              <li>To add or replace a file, simply drag any number of files
+              into the browser window, and drop them on the box that will
+              appear. Alternatively, click the button that says "Upload
+              Files".</li>
+          </ul>
+          <p>Tip: The column on the left represents the existing files, the
+          column on the right represents the updates you are making with this
+          revision. If this is the first time you are adding files, there will
+          simply be a help message replacing the column on the left.  </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Got it</button>
+      </div>
+    </div>
+  </div>
+</div>

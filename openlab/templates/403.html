@@ -1,0 +1,10 @@
+{% extends "error/base.html" %}
+{% load i18n %}
+
+{% block title %}
+Page Not Available -
+{% endblock %}
+
+<h1>{% block error_code %}403{% endblock %}</h1>
+<h2>{% block message %}{% trans "Oops! The page you were looking for is not availale." %}{% endblock %}</h2>
+

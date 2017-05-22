@@ -1,0 +1,188 @@
+
+
+.release-top-info h1 {
+    text-align: center;
+    font-size: 32pt;
+    font-family: Lato, sans-serif;
+    color: #333;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+
+.release-top-info .btn-download {
+    text-align: center;
+    font-size: 24pt;
+    padding: 20px;
+    border-radius: 2px;
+}
+
+
+
+.release-gallery {
+    min-height: 500px;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+* -------------------------------------------------- */
+
+.release-panel {
+    min-height: 150px;
+    color: #fafafa;
+    overflow: hidden;
+    position: relative;
+    background: url('/static/core/images/bgs/use_your_illusion.png');
+}
+
+.release-panel h2 {
+    color: #fafafa;
+    text-transform: uppercase;
+    font-size: 15pt;
+}
+
+.release-panel .form-group {
+}
+
+.release-panel input.form-control {
+    background: none;
+    color: #eaeaea;
+    text-decoration: none;
+    font-size: 15pt;
+    margin-bottom: 3px;
+}
+
+.release-panel .form-group input:placeholder {
+    color: #bababa;
+}
+
+.release-panel .form-group button {
+    min-width: 40px;
+    display: inline-block;
+    color: #333;
+}
+.release-panel .form-group button:hover {
+    color: #000;
+}
+
+.release-panel a,
+.release-panel button {
+    color: #eaeaea;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15pt;
+}
+
+.release-panel a {
+    display: block;
+}
+
+.release-panel p {
+    margin-top: 10px;
+}
+
+.release-panel a:hover,
+.release-panel button:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.release-panel div.inner-text:hover {
+}
+
+.release-panel:hover img.panel-background {
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+    opacity: 0.5;
+}
+
+.release-panel div.inner-text {
+    min-height:  100%;
+}
+.release-panel img.panel-background {
+    margin-top: -50%;
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+    opacity: 0.4;
+}
+
+.release-panel div.inner-text,
+.release-panel img.panel-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+
+
+/* CUSTOMIZE THE CAROUSEL
+* -------------------------------------------------- */
+
+.release-gallery .carousel {
+    height: 430px;
+    margin-bottom: 20px;
+}
+
+.release-gallery .carousel-indicators {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 0;
+}
+
+.release-gallery .carousel-indicators li {
+    list-style: none;
+    width: 80px;
+    height: 80px;
+    background: none;
+    border: none;
+    overflow: hidden;
+}
+
+.release-gallery .carousel-indicators li.active {
+    border 1px solid #666;
+}
+
+.release-gallery .carousel-indicators li .thumbnail {
+    width: 80px;
+}
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    z-index: 10;
+}
+
+.carousel .item .btn-group ul.dropdown-menu {
+    width: 140px !important;
+    min-width: 140px !important;
+    padding: 5px !important;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+    height: 430px;
+    text-align: center;
+}
+
+/* RESPONSIVE CSS
+* -------------------------------------------------- */
+
+@media (min-width: 768px) {
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+}
+
+
+

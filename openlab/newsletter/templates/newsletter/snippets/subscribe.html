@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<form action="{% url "newsletter_subscribe_endpoint" "project" project_id %}" method="POST">
+    {% csrf_token %}
+    <input type="email" name="email_address" class="form-control" required />
+    <button type="submit" class="btn btn-default btn-inverse "><i class="icon icon-envelope"></i> Subscribe</button>
+</form>

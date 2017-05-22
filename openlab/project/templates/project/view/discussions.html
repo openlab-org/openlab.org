@@ -1,0 +1,20 @@
+{% extends "project/view/base.html" %}
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% include "discussion/snippets/discussions.html" %}
+        </div>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% include "discussion/snippets/new_thread.html" %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

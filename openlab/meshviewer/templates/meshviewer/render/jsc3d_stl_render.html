@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body,
+body * {
+    background: white;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+</style>
+{% comment %}
+<script src="{{ STATIC_URL}}/meshviewer/js/jsc3d/jsc3d.min.js"></script>
+{% endcomment %}
+</head>
+
+<body>
+
+
+<script>
+{{ jsc3d_js|safe }}
+</script>
+
+{% include "meshviewer/snippets/jsc3d_stl_viewer.html" with still=True %}
+</html>
+

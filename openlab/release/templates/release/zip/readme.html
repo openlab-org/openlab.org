@@ -1,0 +1,42 @@
+{% extends "release/zip/base.html" %}
+
+{% block body %}
+    <h1>{{ release }}</h1>
+    <p class="lead lead-big">{{ project.summary }}</p>
+
+    {{ release.text }}
+
+    <hr />
+
+    <h2>Table of Contents</h2>
+    <p>This package contains all the information
+    you'll need to make {{ project }}. In this package, you'll find:</p>
+    <ul class="toc">
+        <li><a href="readme.html">readme.html</a> - this file</li>
+        <li><a href="manifest.html">manifest.html</a> - Overview of
+        components, previews and information about all files included in
+        this package</li>
+        <li><a href="license.txt">license.txt</a> - full text of
+        {{ release.license }} license.</li>
+        <li><a href="openlab.txt">openlab.txt</a> - information about
+        Open Lab</li>
+    </ul>
+
+    <br />
+
+    {% if components|length == 1 %}
+        {# Singular, just display link to file data #}
+        <p>Necessary source files for completion of this project:</p>
+    {% else %}
+        <p>In addition, it contains a collection of sub-directories
+        representing different logical <em>components</em> of the
+        project.</p>
+    {% endif %}
+    <ul class="toc">
+        {% for component in components %}
+            <li><a href="./{{ component.folder }}/">{{ component.folder }}/</a>{% if component.description %} - {{ component.description }}{% endif %}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+

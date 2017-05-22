@@ -1,0 +1,18 @@
+{% extends "project/view/base.html" %}
+
+{% load i18n %}
+
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ thread.title }}</h2>
+            <p class="pull-right">{% include "discussion/snippets/tags.html" %}</p>
+        </div>
+    </div>
+</div>
+
+{% include "discussion/snippets/comments.html" %}
+
+{% endblock tabcontent %}

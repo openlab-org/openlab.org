@@ -1,0 +1,27 @@
+{% load openlab_tags %}
+<table class="table table-striped">
+{% for file in files %}
+    <tr>
+        <td><input id="file_check_{{ file.id }}" type="checkbox" name="files" value="{{ file.id }}" /></td>
+        <td>{{ forloop.counter }}</td>
+        <td>
+            <label for="file_check_{{ file.id }}">
+                {{ file.title }}
+            </label>
+        </td>
+        <td class="description">{{ file.description|truncatechars:20 }}</td>
+        <td class="credits">{{ file.credits|truncatechars:20 }}</td>
+        <td class="license">{{ file.license|truncatechars:20 }}</td>
+        <td class="size">{{ file.size|label_bytes }}</td>
+        <td class="download">
+            {% if file.path %}
+                <a href="{{ file.path.url }}" target="_blank"><i class="icon-download"></i></a>
+            {% else %}
+                <i class="icon-warning-sign" alt="File does not exist."></i>
+            {% endif %}
+        </td>
+    </tr>
+{% empty %}
+What.
+{% endfor %}
+</table>

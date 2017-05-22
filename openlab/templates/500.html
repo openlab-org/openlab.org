@@ -1,13 +1,247 @@
-{% extends "base.html" %}
-
-{% block title %}Server Error{% endblock %}
-
-{% block content %}
-<h1>Ooops!!! 500</h1>
-
-<h3>Looks like something went wrong!</h3>
-
-<p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</p>
-{% endblock content %}
 
 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/static/core/images/favicon.png">
+
+    <title>
+        Error -
+Open Lab
+    </title>
+
+    <!-- fonts 
+    <link href='http://fonts.googleapis.com/css?family=Share+Tech|Lato:400,700,400italic|Raleway' rel='stylesheet' type='text/css'>
+    -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic|Raleway' rel='stylesheet' type='text/css'>
+    <!-- TODO: download and self host fonts? (i guess)-->
+
+    
+        <!-- Bootstrap core CSS -->
+        <!--<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">-->
+        <link href="/static/core/css/magic-bootstrap.css" rel="stylesheet">
+
+        <!-- font-awesome -->
+        <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Fine Uploader -->
+        <link href="/static/ajaxuploader/css/fileuploader.css" rel="stylesheet" type="text/css" />
+
+        <!-- Select2 -->
+        <link href="/static/select2/css/select2-bootstrap.css" rel="stylesheet" type="text/css" />
+
+        <!-- pygments style -->
+        <link href="/static/pygments/css/friendly.css" rel="stylesheet" type="text/css" />
+
+        
+
+        <!-- OpenLab specific CSS -->
+        <link href="/static/core/css/openlab.css" rel="stylesheet">
+        <link href="/static/core/css/anthrome.css" rel="stylesheet">
+        <link href="/static/core/css/project.css" rel="stylesheet">
+        <link href="/static/core/css/icons.css" rel="stylesheet">
+        <link href="/static/olmarkdown/css/olmarkdown.css" rel="stylesheet">
+    
+
+    <!--[if lt IE 8]>
+        <link href="/static//font-awesome/css/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../core/js/html5shiv.js"></script>
+      <script src="../../core/js/respond.min.js"></script>
+    <![endif]-->
+
+    
+  </head>
+
+  <body>
+
+    
+    <script src="/static/jquery/js/jquery-1.9.0.min.js"></script>
+    
+
+    
+
+    
+    
+    <div class="navbar navbar-fixed-top navbar-default">
+      <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="/static/core/images/logo.png" alt="Open Lab"  />
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            
+            <ul class="nav navbar-nav main-nav">
+                <li ><a href="/" class="tab-planet tip"  data-placement="bottom" title="Planet">
+                    <i class="ol-icon ol-planet"></i>
+                    <span class="icon-label">Planet</span>
+                </a></li>
+                <li ><a href="/projects/" class="tab-projects tip" title="Projects" data-placement="bottom">
+                    <i class="ol-icon ol-project"></i>
+                    <span class="icon-label">Projects</span>
+                </a></li>
+                <li ><a href="/people/" class="tab-people tip" title="People" data-placement="bottom">
+                    <i class="ol-icon ol-person"></i>
+                    <span class="icon-label">People</span>
+                </a></li>
+            </ul>
+
+            
+
+            </div>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+    
+
+
+    
+
+        
+        <div class="jumbotitle " >
+            <div class="header-top">
+                <div id="messages">
+                    
+                </div>
+
+                
+                    
+                
+            </div>
+
+
+            <div class="container header-content">
+                
+<div class="col-md-12 text-center">
+    <h1>500</h1>
+    <h2>Uh oh! Something went wrong with your request.</h2>
+    <p>
+        <a 
+                class="btn btn-default btn-lg"
+                href="javascript:void(0);"
+                onClick="parent.history.back();"
+            >
+            <i class="icon-arrow-left"></i> Back</i>
+        </a>
+        </p>
+
+    
+<p>Something went wrong on our servers when you were doing that thing you just did. Sorry. You can try doing it again to see if it has gotten better.</p>
+<p>We'd really appreciate if you let us know what you were doing when this error occurred!</p>
+
+    <p>
+        <a 
+                class="btn btn-default tip"
+                href="javascript:void(0);"
+                onClick="window.open('http://webchat.freenode.net/?nick=visitor...&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
+                title="If an Open Lab staff member happens to be online, we can help you immediately!"
+            >
+            <i class="icon-comments"></i> Chat with us</i>
+        </a>
+        or
+        <a 
+                class="btn btn-default tip"
+                href="https://bitbucket.org/michaelb/openlab/issues/new"
+                target="_blank"
+                title="Filing a bug report explaining what you did and what happened will help us fix these issues in the future."
+            >
+            <i class="icon-bug"></i> File a bug</i>
+        </a>
+    </p>
+
+
+
+    <div style="margin-top: 200px"></div> <!-- spacing -->
+    <img src="/static/core/images/openlabrat_72x100.png" class="tip" title="Oops, I think I got carried away with my experiment!  &mdash;  &#128045; " />
+</div>
+
+            </div>
+
+            <div class="header-bottom">
+                
+                
+            </div>
+        </div>
+        
+
+        
+
+    
+
+    
+    <footer class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-10">
+            <p>
+                Open Lab
+                <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+                <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+                &copy;</span>
+                <!--[if lte IE 8]></span><![endif]-->
+                2013
+                <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons BY-SA</a>.
+                <a href="#">Credits & Special Thanks.</a>
+                Contact:
+                <a href="#">Contact us online</a>
+                
+            </p>
+        </div>
+
+
+            <div class="col-md-2">
+                <p><a 
+                        class="btn btn-default btn-xs tip"
+                        href="javascript:void(0);"
+                        onClick="window.open('http://webchat.freenode.net/?nick=visitor...&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
+                        title="Ran into a bug? Not sure what to do? Click here to chat with us in the chat channel! (freenode#openlab-dev)"
+                    >
+                    <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
+                </a></p>
+            </div>
+        </div>
+    </footer> <!-- /container -->
+    
+
+
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    
+        <!-- 3D stuff -->
+        <script src="/static/meshviewer/js/jsc3d/jsc3d.min.js"></script>
+
+        <!-- fineuploader -->
+        <script src="/static/ajaxuploader/js/fileuploader.js" ></script>
+
+        <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Open lab custom JS -->
+        <script src="/static/core/js/main.js"></script>
+    
+
+    <!-- jvectormap + raphael -->
+    
+
+
+    
+    
+    
+  </body>
+</html>

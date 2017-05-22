@@ -1,0 +1,32 @@
+
+.notification-details {
+    webkit-border-image: none;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px inset;
+    border-color: rgb(227, 227, 227);
+    border-radius: 1px;
+    border-style: solid;
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px inset;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.notification-details button {
+    font-size: 16pt;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.notification-details strong {
+    font-size: 110%;
+}
+
+.notification-details a .notification-preview {
+    color: #111;
+    opacity: 0.5;
+}
+
+.notification-details a:hover .notification-preview {
+    opacity: 0.9;
+}

@@ -1,0 +1,38 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block tabcontent %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {% if wikipage %}
+                <h2>Editing <small>{{ pageslug }} </small></h2>
+            {% else %}
+                <h2>New page <small>{{ pageslug }} </small></h2>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right wiki-controls btn-toolbar" role="toolbar">
+                <div class="btn-group">
+                    <a href="{% url "project_wiki" obj.hubpath pageslug %}" class="btn btn-default btn-xs">view</a>
+                </div>
+                {% if wikipage %}
+                    <div class="btn-group">
+                        <a href="{% url "project_wiki_edit_history" obj.hubpath pageslug %}" class="btn btn-default btn-xs">history</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% crispy form %}
+            {% include "core/snippets/infobase_olmarkdown_help.html" %}
+        </div>
+    </div>
+</div>
+{% endblock tabcontent %}
+

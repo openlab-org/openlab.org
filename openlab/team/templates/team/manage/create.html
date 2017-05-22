@@ -1,0 +1,45 @@
+{% extends "team/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="col-md-12">
+    <h1>Register a new organization</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+        {% crispy form %}
+    </div>
+    <div class="col-md-4">
+        <div class="well">
+            <h3>New to Open Lab?</h3>
+            <p>Here's some information about project creation.</p>
+            <ul>
+                <li>The final URL of a team is in the format
+                <tt>openlab.org/slug</tt></li>
+
+                <li>The <tt>slug</tt> is generated from the title.</li>
+
+                <li>After creating a team, you can create team projects that
+                are manageable by anyone who you add to the team.</li>
+            </ul>
+        </div>
+
+        <div class="well">
+            <h3>Just want to create a project?</h3>
+            <p>You don't have to create a team to create a project, if you are
+            the only person who will be contributing to that project. Click
+            below to create a new project instead.</p>
+            <p><a class="btn btn-primary" href="{% url "project_create" request.user.username %}"><i class="icon-plus-sign-alt"></i> New solo project</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

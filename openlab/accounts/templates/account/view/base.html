@@ -1,0 +1,45 @@
+{% extends "account/base.html" %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-md-11">
+            {% spaceless %}
+            <img class="img-rounded info-thumb top-thumb" src="{{ profile.avatar_url_150 }}" />
+            <h1 class="infobase-pagetitle">{{ profile.desired_name }}</h1>
+            <p class="infobase-summary lead">@{{ obj.username }}</p>
+            {% endspaceless %}
+        </div>
+        <div class="col-md-1">
+            {% if user.is_authenticated %}
+                <div class="pull-right infobase-actions">
+                    {% include "activity/snippets/star_icon.html" with noun=object_class %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block header_bottom %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+
+                <li {{ tab.profile }}><a href="{% url "user_profile" the_user.username %}">Profile</a></li>
+                <li {{ tab.activity }}><a href="{% url "user_activity" the_user.username %}">Activity</a></li>
+                <li {{ tab.followers }}><a href="{% url "user_followers" the_user.username %}">Followers</a></li>
+                {% if can_edit %}
+                    <li class="{{ tab.manage.as_class }} edit-tab pull-right"><a href="{% url "user_manage_edit" the_user.username %}"><i class="icon-pencil"></i> Edit my info</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock header_bottom %}
+
+{% block content %}
+    {% block tabcontent %}
+    {% endblock %}
+{% endblock content %}
+

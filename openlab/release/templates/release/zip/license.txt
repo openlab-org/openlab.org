@@ -1,0 +1,13 @@
+{{ project }} (C) {% now "Y" %} {% if project.team %}{{ project.team }}{% else %}{{ project.user.get_full_name }}{% endif %}
+
+{{ release }} - Released under the {{ release.license }}
+
+
+
+This project has been released under a free license, and as such
+guarantees you certain freedoms. For the full text of the license,
+please visit:
+{% include "licensefield/snippets/license_url" with license=release.license %}
+
+{#  TODO include licenses of dependent projects #}
+

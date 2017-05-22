@@ -1,0 +1,91 @@
+{% load i18n %}
+{% spaceless %}
+
+
+<li class="create-menu">
+    <div class="dropdown">
+        <a href="#" class="btn btn-primary dropdown-toggle " data-toggle="dropdown">Create  <i class="icon-caret-down"></i></a>
+        <ul class="dropdown-menu">
+
+            <li class="dropdown-header">Project</li>
+            <li>
+                <a href="{% url "project_create" user.username %}"><i class="icon-plus-sign-alt"></i> 
+                    Project {% if user.teams.all %}&mdash; <i class="icon-user"></i> {{ user.username|truncatechars:10 }}{% endif %}
+                </a>
+            </li>
+
+            {% for team in user.teams.all %}
+                <li> <a href="{% url "project_create" team.slug %}"><i class="icon-plus-sign-alt"></i> 
+                Team project  &mdash; <i class="icon-group"></i> {{ team|truncatechars:10 }}</a> </li>
+            {% endfor %}
+            
+            <li class="divider"></li>
+            <li class="dropdown-header">Organization</li>
+            <li> <a href="{% url "team_create" %}"><i class="icon-plus-sign-alt"></i> New
+                organization</a></li>
+
+
+            {% comment %}
+            <li class="divider"></li>
+            <li class="dropdown-header">Service</li>
+            <li> <a href="{% url "project_create" user.username %}"><i class="icon-plus-sign-alt"></i> 
+            Service {% if user.teams.all %}&mdash; <i class="icon-user"></i> {{ user.username|truncatechars:10 }}{% endif %}
+
+            {% for team in user.teams.all %}
+                <li> <a href="{% url "project_create" team.slug %}"><i class="icon-plus-sign-alt"></i>
+                Team service  &mdash; <i class="icon-group"></i> {{ team|truncatechars:10 }}</a> </li>
+            {% endfor %}
+            {% endcomment %}
+        </ul>
+    </div>
+</li>
+
+{% include "notifications/snippets/menu.html" %}
+
+<li class="{% if dashboard_tab %}active{% endif %} user-menu push-up">
+    <a href="/" class="btn" data-placement="left">
+        <img style="max-height: 40px" src="{{ user.profile.gravatar }}" class="img-rounded" />
+        <!--<i class="icon-caret-down"></i>-->
+        {% if dashboard_tab %}
+            <span>
+                {{ user.profile.desired_name }}
+            </span>
+        {% endif %}
+    </a>
+</li>
+
+{% comment %}
+<li class="user-menu">
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle btn tip" data-toggle="dropdown" data-placement="left">
+            <img style="max-height: 40px" src="{{ user.profile.gravatar }}" class="img-rounded" />
+            <i class="icon-caret-down"></i>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a href="{% url "user_profile" user.username %}"><i class="icon-user"></i> {{ user.profile.desired_name }}</a></li>
+
+            {% if user.project.all %}
+                <li class="divider"></li>
+                <li class="dropdown-header">Projects</li>
+                {% for project in user.project.all %}
+                    <li><a href="{% url "project" project.hubpath %}"><i class="icon-archive"></i> {{ project|truncatechars:30 }}</a></li>
+                {% endfor %}
+            {% endif %}
+
+            {% if user.team.all %}
+                <li class="divider"></li>
+                <li class="dropdown-header">Teams</li>
+                {% for team in user.team.all %}
+                    <li><a href="{% url "team" team.hubpath %}"><i class="icon-archive"></i> {{ team|truncatechars:10 }}</a></li>
+                {% endfor %}
+            {% endif %}
+
+            <li class="divider"></li>
+            <li class="dropdown-header">Account</li>
+            <li><a href="{% url "auth_logout" %}">{% trans "Log out" %}</a></li>
+        </ul>
+    </div>
+</li>
+{% endcomment %}
+{% endspaceless %}

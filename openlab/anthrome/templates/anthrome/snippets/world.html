@@ -1,0 +1,113 @@
+
+{% load openlab_tags %}
+
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-10 showcase showcase-top">
+    {% for project in showcase_projects %}
+        <a class="project" href="{{ project.get_absolute_url }}"
+            data-showcase-title="Project"
+            data-showcase-body="
+            <p>{{ project.summary }}</p>
+            <dl class='dl-horizontal'>
+                <dt>Location</dt>
+                <dd>{{ project.location_name }}</dd>
+                <dt>Biome</dt>
+                <dd>{{ project.get_biome_display }}</dd>
+            </dl>
+            "
+            >
+            <!--
+            title="{{ project.summary }}"
+            -->
+            <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+            <span>{{ project.title|truncatechars:"30" }}</span>
+        </a>
+    {% endfor %}
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+
+{% comment %}
+            {% for project in showcase_projects %}
+            <br />
+                left: {{ project.longitude_as_percent|truncatechars:"5" }}
+                top: {{ project.latitude_as_percent|truncatechars:"5" }} 
+            {% endfor %}
+{% endcomment %}
+<div class="row">
+    <div class="col-md-1 showcase">
+        {% for anthrome in anthrome_groups|first_half %}
+            {% include "anthrome/snippets/anthrome.html" %}
+        {% endfor %}
+    </div>
+    <div class="col-md-10">
+        <div class="map-wrapper">
+            <img src="{{ STATIC_URL }}anthrome/images/map_empty.png" class="map" />
+            {% for project in showcase_projects %}
+                <div class="project-map-marker tip"
+                    title="{{ project.city }}"
+                    style="
+                            left: {{ project.longitude_as_percent }}%;
+                            bottom: {{ project.latitude_as_percent_of_max_longitude }}%;
+                        ">
+                        <i class="icon-map-marker"></i>
+                </div>
+            {% endfor %}
+            {% for anthrome in anthrome_groups %}
+                <img data-number="{{ anthrome.number }}"
+                    src="{{ STATIC_URL }}anthrome/images/map_{{ anthrome.number }}_group.png"
+                    class="map overlay" />
+            {% endfor %}
+            <div class="showcase-info" id="showcase_infobox">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Anthrome</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Panel content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 showcase-right showcase">
+        {% for anthrome in anthrome_groups|second_half %}
+            {% include "anthrome/snippets/anthrome.html" %}
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('[data-showcase-title]').hover(function () {
+                var title = $(this).attr('data-showcase-title');
+                var body = $(this).attr('data-showcase-body');
+                if ($(this).hasClass('project')) {
+                    $('#showcase_infobox')
+                        .removeClass('infobox-anthrome')
+                        .addClass('infobox-project');
+                } else {
+                    $('#showcase_infobox')
+                        .removeClass('infobox-project')
+                        .addClass('infobox-anthrome');
+                }
+
+                $('#showcase_infobox .panel-title').html(title);
+                $('#showcase_infobox .panel-body').html(body);
+                $('#showcase_infobox').css("opacity", 1.0);
+            }, function () {
+                $('#showcase_infobox').css("opacity", 0.0);
+            });
+        $('.anthrome').hover(function () {
+                var num = $(this).attr('data-number');
+                $("img[data-number="+num+"]").css("opacity", 1.0);
+            }, function () {
+                var num = $(this).attr('data-number');
+                $("img[data-number="+num+"]").css("opacity", 0.1);
+            });
+    });
+</script>
+

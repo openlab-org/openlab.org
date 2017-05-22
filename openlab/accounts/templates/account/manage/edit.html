@@ -1,0 +1,23 @@
+{% extends "account/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+<h3>User profile</h3>
+    <form action="." class="form-horizontal" method="post" id="user_edit">
+        {% crispy form %}
+        {% crispy extra_form %}
+        <button type="submit" class="btn btn-primary btn-block">{% trans "Save profile settings" %}</button>
+    </form>
+{% endblock mid_content %}
+
+
+{% block right_content %}
+<h3>Avatar</h3>
+<p class="text-center"><img class="img-rounded" src="{{ profile.avatar_url_150 }}" /></p>
+<p><a class="btn btn-default btn-block" href="https://gravatar.com/" target="_blank">Change Gravatar</a></p>
+<p>Open Lab uses the avatar registered for your <abbr title="{{ the_user.email}}">email address</abbr> with Gravatar.</p>
+<p><em>Note:</em> If this is your first time signing up for Gravatar, make
+sure you use the same email address that you use for Open Lab.</p>
+{% endblock %}
+

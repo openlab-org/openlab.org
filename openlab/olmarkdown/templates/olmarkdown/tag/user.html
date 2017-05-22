@@ -1,0 +1,7 @@
+
+{% if user %}
+<a href="{% url "user_profile" user.username %}" class="olmd-username tip" title="{{ user.profile.desired_name }}" {% if clue %}{{ clue|safe }}{% endif %}>@{{ user.username }}</a> 
+{% else %}
+<span>@{{ username }}</span>
+{% endif %}
+

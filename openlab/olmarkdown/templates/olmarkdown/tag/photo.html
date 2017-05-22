@@ -1,0 +1,21 @@
+{% extends "olmarkdown/tag/_base.html" %}
+
+{% block contents %}
+<a href="{% spaceless %}
+        {% if context_class_name == "project" %}
+            {% url "project_photo" object.hubpath photo.number %}
+        {% elif context_class_name == "team" %}
+            {% url "team_photo" object.hubpath photo.number %}
+        {% elif context_class_name == "user" %}
+            {% url "user_photo" object.hubpath photo.number %}
+        {% elif context_class_name == "service" %}
+            {% url "user_photo" object.hubpath photo.number %}
+        {% endif %}
+    {% endspaceless %}">
+    {% if "full" in args %}
+        <img src="{{ photo.preview_image.url }}" class="img-rounded" />
+    {% else %}
+        <img src="{{ photo.preview_image_thumb.url }}" class="img-thumbnail {% if "right" in args %}pull-right{% else %}pull-left{% endif %}" />
+    {% endif %}
+</a>
+{% endblock contents %}

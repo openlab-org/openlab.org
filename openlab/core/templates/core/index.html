@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block tab_planet %}class="active"{% endblock tab_planet %}
+
+{% block middle %}
+    <div class="jumbotron">
+        <div class="container">
+            {% comment %}
+            <img id="map" src="{{ STATIC_URL }}jquery-jvectormap/img/worldmap.png" />
+            {% endcomment %}
+            {% include "anthrome/snippets/world.html" %}
+            {% comment %}
+            <div id="map"></div>
+            {% endcomment %}
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10 showcase showcase-bottom">
+                    <h1>Open Hardware - Open World</h1>
+                    <p>An online collaboration platform for freeing the source
+                    code to civilization.</p>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2>New projects</h2>
+        <div class="row">
+            <div class="col-md-12">
+                {% for project in new_projects %}
+                    <a class="project tip" href="{{ project.get_absolute_url }}"
+                        title="{{ project.summary }}">
+                        <img src="{{ project.get_thumb_url }}" class="img-circle info-thumb" />
+                        <span>{{ project.title|truncatechars:"30" }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>{% trans "Open Lab news" %}</h2>
+        <div class="row">
+            {% for post in new_posts %}
+                <div class="col-md-6">
+                    <div class="well">
+                        <a href="{% url "quickblog_post" post.slug %}">
+                        <h4>{{ post.title }} {% if post.caption and post.caption.strip %} &mdash; {{ post.caption }}{% endif %}</h4>
+                        </a>
+                        {{ post.content|truncatewords_html:100|striptags }}
+                        <a href="{% url "quickblog_post" post.slug %}">Read more...</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% comment %}
+{% block more_js %}
+    <script>
+        var projects = [];
+        var projects_by_position = {};
+
+        $('[data-project]').each(function () {
+            var proj = {};
+            proj.latitude  = $(this).attr('data-latitude');
+            proj.longitude = $(this).attr('data-longitude');
+            proj.id = $(this).attr('data-project');
+            projects.push(proj);
+            projects_by_position[proj.latitude + ":" + proj.longitude] = [];
+        });
+
+        // Sort it by longitude
+        projects.sort(function (a, b) {
+                return a.longitude-b.longitude;
+            });
+
+        $(document).ready(function () {
+            var margin = $("#map").offset().left;
+            //var margin = Math.floor($("#map").width()/2);
+            var paper = Raphael("map", "100%", 400, function () {
+                var r = this;
+                /*
+                r.rect(0, 0, 1000, 400, 10).attr({
+                    stroke: "none",
+                    fill: "0-#9bb7cb-#adc8da"
+                });
+                */
+                /*
+                var over = function () {
+                    this.c = this.c || this.attr("fill");
+                    this.stop().animate({fill: "#d2aa99"}, 500);
+                },
+                    out = function () {
+                        this.stop().animate({fill: this.c}, 500);
+                    };
+                */
+                r.setStart();
+                var hue = Math.random();
+
+                for (var country in worldmap.shapes) {
+                    // var c = Raphael.hsb(Math.random(), .5, .75);
+                    // var c = Raphael.hsb(.11, .5, Math.random() * .25 - .25 + .75);
+                    r.path(worldmap.shapes[country]).attr({
+                        stroke: "#d27d2c", fill: "#854c30", "stroke-opacity": 0.25});
+                }
+
+                var world = r.setFinish();
+
+                //world.hover(over, out);
+                // world.animate({fill: "#666", stroke: "#666"}, 2000);
+
+                world.getXY = function (lat, lon) {
+                    return {
+                        cx: lon * 2.6938 + 465.4,
+                        cy: lat * -2.6938 + 227.066
+                    };
+                };
+
+                world.getLatLon = function (x, y) {
+                    return {
+                        lat: (y - 227.066) / -2.6938,
+                        lon: (x - 465.4) / 2.6938
+                    };
+                };
+
+                var latlonrg = /(\d+(?:\.\d+)?)[\xb0\s]?\s*(?:(\d+(?:\.\d+)?)['\u2019\u2032\s])?\s*(?:(\d+(?:\.\d+)?)["\u201d\u2033\s])?\s*([SNEW])?/i;
+                world.parseLatLon = function (latlon) {
+                    var m = String(latlon).split(latlonrg),
+                        lat = m && +m[1] + (m[2] || 0) / 60 + (m[3] || 0) / 3600;
+                    if (m[4].toUpperCase() == "S") {
+                        lat = -lat;
+                    }
+                    var lon = m && +m[6] + (m[7] || 0) / 60 + (m[8] || 0) / 3600;
+                    if (m[9].toUpperCase() == "W") {
+                        lon = -lon;
+                    }
+                    return this.getXY(lat, lon);
+                };
+
+                var total = projects.length;
+                var half_total = Math.floor(projects.length/5);
+
+                $(projects).each(function (i, p) {
+                    //var latitude  = $(this).attr('data-latitude');
+                    //var longitude = $(this).attr('data-longitude');
+                    //var style = { fill: "#dad45e", stroke: "#d27d2c", "stroke-width": 2, r: 5 }
+                    var style = { fill: "#d27d2c", stroke: "#fff", "stroke-width": 2, r: 8 }
+                    var circle = r.circle()
+                    circle.attr(style).attr(world.getXY(p.latitude, p.longitude));
+                    if (i < half_total) {
+                        var goes_on_left = true;
+                    } else {
+                        var goes_on_left = false;
+                    }
+
+                    var $elem = $('[data-project='+p.id+']');
+                    $elem.on('mouseout', function () {
+                        $elem.fadeOut();
+                    });
+
+                    $elem.detach();
+                    $('body').append($elem);
+                    var bbox = circle.getBBox();
+                    $elem.css({
+                            left: margin + bbox.x - Math.floor($elem.width()/2),
+                            position: 'absolute',
+                            top: bbox.y
+                        });
+
+                    circle.hover(function () {
+                            $elem.fadeIn();
+                        }, function () {
+                        });
+                });
+
+
+                /*
+                navigator.geolocation && navigator.geolocation.getCurrentPosition(function (pos) {
+                    r.circle().attr({fill: "none", stroke: "#f00", r: 5}).attr(world.getXY(pos.coords.latitude, pos.coords.longitude));
+                });
+                var frm = document.getElementById("latlon-form"),
+                    dot = r.circle().attr({fill: "r#FE7727:50-#F57124:100", stroke: "#fff", "stroke-width": 2, r: 0}),
+                    // dot2 = r.circle().attr({stroke: "#000", r: 0}),
+                    ll = document.getElementById("latlon"),
+                    cities = document.getElementById("cities");
+                frm.onsubmit = function () {
+                    var attr = world.parseLatLon(ll.value);
+                    attr.r = 0;
+                    dot.stop().attr(attr).animate({r: 5}, 1000, "elastic");
+                    // dot2.stop().attr(attr).animate({r: 10}, 1000, "elastic");
+                    return false;
+                };
+                cities.onclick = function (e) {
+                    e = e || window.event;
+                    var target = e.target || e.srcElement || document;
+                    if (target.tagName == "A") {
+                        var txt = decodeURIComponent(target.href.substring(target.href.indexOf("#") + 1)),
+                            attr = world.parseLatLon(txt);
+                        ll.value = txt;
+                        attr.r = 0;
+                        dot.stop().attr(attr).animate({r: 5}, 1000, "elastic");
+                        // dot2.stop().attr(attr).animate({r: 10}, 1000, "elastic");
+                        return false;
+                    }
+                };
+                */
+            });
+
+        });
+    </script>
+{% endblock %}
+{% endcomment %}
+

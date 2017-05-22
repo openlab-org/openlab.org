@@ -1,0 +1,65 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block tabcontent %}
+<br /> <!-- XXX -->
+<div class="container">
+    <div class="row">
+
+{% block mcontent %}
+
+<div class="col-md-12">
+    <h2>New release <small>{{ obj }}</small></h2>
+    <hr />
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs release-tabs">
+        <li class="active"><a href="#information" data-toggle="tab">Edit</a></li>
+        <li><a href="#preview" data-toggle="tab"
+            data-jsview="release_preview_pane"
+            data-release-preview-url="{% url "project_release_preview" project.id %}"
+            data-release="">Preview</a></li>
+        {# <li><a href="#submit" data-toggle="tab">Submit <i class="icon-caret-right"></i></a></li> #}
+    </ul>
+
+    <!-- Tab panes -->
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="tab-content well release-tab-content">
+            {# FORM PANE #}
+            <div class="tab-pane active row" id="information">
+                <div class="col-md-6" class="form-horizontal">
+                    <h3>Information</h3>
+                    {% crispy form %}
+                </div>
+                <div class="col-md-6" class="form-horizontal">
+                    <h3>Gallery</h3>
+                    {% include "gallery/snippets/manage_slidegallery.html" with files=media %}
+                    <br style="clear:both" />
+                    <p class="help-block">Click to toggle which files or photos
+                    should appear in the release page's gallery. Try to choose
+                    5-10 files that are most impressive or best represent the
+                    project and its goals.</p>
+                </div>
+            </div>
+
+            {# Preview MANAGER PANE #}
+            <div class="tab-pane" id="preview">
+                <p class="text-muted">
+                    <i class="icon-spinner icon-spin icon-4x"></i>
+                </p>
+            </div>
+        </div>
+        <p class="text-center">
+            <button type="submit" class="btn btn-success btn-lg"><i class="icon-check-sign"></i> Release {{ project }}</button>
+        </p>
+    </form>
+
+</div>
+
+{% endblock mcontent %}
+</div>
+</div>
+
+{% endblock tabcontent %}

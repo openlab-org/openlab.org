@@ -1,0 +1,22 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Project contributors</h2>
+            {% for type, user_list in member_types.items %}
+                {% if user_list %}
+                    <h5>{{ type|beautify }}</h5>
+                    {% for u in user_list %}
+                        {% include "account/snippets/profile.html" with profile=u.profile %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

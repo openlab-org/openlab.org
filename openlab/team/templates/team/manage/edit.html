@@ -1,0 +1,17 @@
+{% extends "team/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block teamtab_about %}class="active"{% endblock %}
+
+{% block mid_content %}
+    {% crispy form %}
+{% endblock mid_content  %}
+
+{% block right_content %}
+<div class="well">
+    <h3>Project details</h3>
+    <p>Edit the details about your team. Also, change the photo that represents your team.</p>
+</div>
+{% endblock %}

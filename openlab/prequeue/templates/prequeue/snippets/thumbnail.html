@@ -1,0 +1,7 @@
+
+{% if object.preview_ready %}
+    <img class="img-rounded" src="{{ object.preview_image_thumb.url }}" />
+{% else %}
+    <div class="prequeue-preview">{{ object.get_extension }}</div>
+{% endif %}
+

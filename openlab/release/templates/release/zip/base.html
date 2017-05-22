@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="title" content="{{ project }} - Open Lab" />
+        <meta name="description" content="{{ project.summary }} - Open Lab: Open source hardware projects for a greener future." />
+        <title>{{ project }}</title>
+    </head>
+
+    <style>
+        /* YUI 3.5.0 reset.css (http://developer.yahoo.com/yui/3/cssreset/) - http://cssreset.com */
+        html{color:#000;background:#FFF}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}q:before,q:after{content:''}abbr,acronym{border:0;font-variant:normal}sup{vertical-align:text-top}sub{vertical-align:text-bottom}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit}input,textarea,select{*font-size:100%}legend{color:#000}#yui3-css-stamp.cssreset{display:none}
+
+        {% spaceless %}
+
+        html {
+            background: #fafafa;
+        }
+
+        body {
+            padding: 50px;
+            padding-top: 10px;
+            background: #fafafa;
+            color: #222;
+            font-family: "Open Sans", sans-serif;
+            font-size: 12.5pt;
+            min-height: 100%;
+        }
+
+        h1 { font-size: 32pt; }
+        h2 { font-size: 24pt; }
+        h3 { font-size: 16pt; }
+        h4 { font-size: 12pt; }
+        h5 { font-size: 11pt; }
+        h6 { font-size: 10pt; }
+
+        h2, h3, h4, h5, h6 { font-weight: bold; margin-top: 1em; }
+
+        p.lead { font-size: 16pt; color: #666; }
+        p.lead-medium { font-size: 12pt; color: #666; }
+
+        p { 
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        li { list-style: square; margin-left: 40px; }
+
+        .toc li {
+            font-size: 14pt;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 2px solid #aaa;
+        }
+        table {
+            min-width: 20%;
+        }
+
+        table th {
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        table td {
+            padding: 5px;
+            background: #eaeaea;
+            text-align: center;
+        }
+
+        table tr {
+            margin: 5px;
+        }
+
+        table td.filename {
+            font-size: 16pt;
+        }
+
+        table td img {
+            max-width: 100px;
+            width: 100px;
+            max-height: 100px;
+        }
+        {% endspaceless %}
+    </style>
+
+    <body>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
+

@@ -1,0 +1,16 @@
+{% load openlab_tags %}
+
+<div class="file-thumbnail"
+        {% if not skip_data %}
+            data-file="{{ file.id }}"
+            data-filemodel-serialized="{{ file|to_json }}"
+        {% endif %}>
+    {% if file.photo_thumb %}
+        <img src="{{ file.photo_thumb }}" />
+    {% elif file.preview_ready %}
+        <img src="{{ file.preview_image_thumb }}" />
+    {% else %}
+        <div class="img-unknown-extension">{{ file.get_extension }}</div>
+    {% endif %}
+    <p class="title">{{ file.filename }}</p>
+</div>

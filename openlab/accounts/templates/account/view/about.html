@@ -1,0 +1,24 @@
+{% extends "account/view/base.html" %}
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            {{ project.rendered_markdown }}
+        </div>
+        <div class="col-md-4">
+            <h2>Information</h2>
+            <dl class="dl-horizontal">
+                <dt>Path</dt>    <dd>{{ project.hubpath }}</dd>
+                <dt>Title</dt>   <dd>{{ project.title }}</dd>
+                <dt>Owner</dt>   <dd>{% firstof project.team project.user %}</dd>
+                <dt>First created</dt>   <dd>{{ project.creation_date }}</dd>
+                <dt>Last updated</dt>   <dd>{{ project.updated_date }}</dd>
+                <dt>Tags</dt>   <dd>{% for tag in project.tags.all %}{{ tag }} {% empty %}None{% endfor %}</dd>
+                <dt>Location</dt>   <dd>{% firstof project.city project.region project.country "Unspecified" %}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+{% endblock tabcontent %}

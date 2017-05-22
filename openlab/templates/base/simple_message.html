@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header_content %}
+<div class="container">
+    <h1>{% block mtitle %} {% endblock mtitle %}</h1>
+    <p>{% block message %}
+    {% endblock message %}</p>
+    {% block extra %}
+    {% endblock extra %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            {% block centered_content %}
+            {% endblock centered_content %}
+        </div>
+    </div>
+</div>
+{% endblock header_content %}
+
+

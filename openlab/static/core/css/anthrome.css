@@ -1,0 +1,145 @@
+
+/* ******************************** */
+/* * Showcase stuff               * */
+/* ******************************** */
+.map {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.map-wrapper {
+    position: relative;
+}
+
+.project-map-marker {
+    position: absolute;
+    color: #d27d2c;
+    display: block;
+    z-index: 20;
+}
+
+.project-map-marker i,
+.project-map-marker img {
+    margin-top: -20px;
+    margin-left: -6px;
+    display: block;
+}
+
+
+.map.overlay.opaque {
+    opacity: 1.0;
+}
+
+.map.overlay {
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0.1;
+    transition: opacity 0.5s ease;
+    -mozilla-transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
+}
+
+.showcase-right a {
+    margin-left: -75px;
+}
+
+
+
+.showcase-top a {
+    margin-bottom: -25px;
+    margin-top: 20px;
+}
+.showcase  .anthrome img {
+    min-height: 120px;
+    min-width: 120px;
+    max-height: 120px;
+    max-width: 120px;
+}
+
+.showcase-smaller  .anthrome img {
+    min-height: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+}
+.showcase a,
+.showcase a {
+    z-index: 10;
+}
+
+#showcase_infobox {
+    transition: 0.2s ease;
+    -mozilla-transition: 0.2s ease;
+    -webkit-transition: 0.2s ease;
+    position: absolute;
+    top: 60%;
+    left: 5%;
+    width: 20%;
+    /*height: 10%;*/
+    opacity: 0.0;
+}
+
+#showcase_infobox.fixed {
+    opacity: 1.0;
+}
+
+div.showcase-info dt {
+    width: 30%;
+}
+div.showcase-info dd {
+    margin-left: 33%;
+}
+
+div.showcase-info {
+    display: block;
+    font-size: 10pt;
+}
+
+div.showcase-info .panel-body,
+div.showcase-info .panel-heading {
+    padding: 5px;
+}
+
+div.infobox-project .panel-heading {
+    background-color: #d27d2c;
+}
+
+div.showcase-info h3 {
+    color: white;
+}
+
+div.infobox-anthrome .panel-heading {
+    background-color: #6daa2c;
+}
+
+
+div.showcase-info .panel-body {
+    margin: 1px;
+    padding-top: 1px;
+}
+
+
+
+/* ******************************** */
+/* * Individual anthrome stuff    * */
+/* ******************************** */
+
+.anthrome-header .anthrome-info {
+    left: 0;
+    bottom: 0;
+    color: #000;
+    background-color: white;
+    opacity: 0.8;
+    padding: 5px;
+}
+
+
+.anthrome-header .breadcrumb {
+    color: #000;
+    background: white;
+    opacity: 0.8;
+    padding: 5px;
+}
+

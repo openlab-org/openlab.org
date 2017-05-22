@@ -1,0 +1,7 @@
+{% extends "team/view/base.html" %}
+{% load i18n %}
+
+
+{% block tabcontent %}
+    {% include "gallery/snippets/photo_full.html" with show_link="team_photo" link_arg=team.slug  %}
+{% endblock %}

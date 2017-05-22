@@ -1,0 +1,28 @@
+{% extends "project/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block mid_content %}
+{% if wikisite %}
+    {% crispy form %}
+{% else %}
+    <p>The Wiki feature is currently disabled for this {{ object_class }}.</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-lg btn-default" name="action" value="create" type="submit"><i class="icon-check"></i> Enable wiki site</button>
+    </form>
+{% endif %}
+{% endblock mid_content  %}
+
+{% block right_content %}
+<div class="well">
+    <h3>Wiki Settings</h3>
+    <p>Edit settings and permission about this {{ object_class }}'s wiki.</p>
+    <p>A "Wiki" is a style of collaborative documentation where {{ object_class }}
+    contributors, and also if you want Open Lab users in general, can easily 
+    contribute nicely formatted documentation related to this {{ object_class }}.<p>
+    <p>As with all Open Lab Markdown, you can insert references to images,
+    files, and other such rich media.</p>
+</div>
+{% endblock %}

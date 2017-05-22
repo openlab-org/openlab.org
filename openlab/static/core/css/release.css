@@ -1,0 +1,236 @@
+
+.release-jumbotron {
+    text-align: center;
+}
+
+.release-jumbotron h1 {
+    font-size: 48pt;
+    text-transform: uppercase;
+}
+
+.release-jumbotron a.btn.download-button {
+    height: 200px;
+    width: 200px;
+    border-radius: 100px;
+    text-align: center;
+}
+
+.release-jumbotron .download-button span.small-info {
+    display: block;
+    opacity: 0.2;
+    padding-top: 2px;
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
+}
+
+.release-jumbotron .download-button:hover span.small-info {
+    opacity: 1.0;
+}
+
+.release-jumbotron .download-button i {
+    font-size: 128pt;
+}
+
+.release-jumbotron .release-summary {
+    font-size: 16pt;
+    text-align: left;
+}
+.release-jumbotron .license-summary {
+    text-align: right;
+}
+
+.release-jumbotron .license-summary p {
+    text-align: right;
+}
+
+.release-jumbotron .license-summary img {
+    max-width: 150px;
+}
+
+
+.license-noimage {
+    color: black;
+    font-family: sans-serif;
+    border: 1px solid black;
+    text-decoration: none !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.license-noimage-large {
+    font-size: 24pt;
+    padding: 10px;
+    border-radius: 100px;
+}
+
+.license-noimage-small {
+    font-size: 12pt;
+}
+
+/* ***************************
+ * COMPONENT DIAGRAM
+ * *************************** */
+.component-diagram img.project-image {
+    width: 100%;
+}
+
+.component-diagram .component-line {
+    position: absolute;
+    display: block;
+    /*border-right: 4px solid #d27d2c;*/
+    border-bottom: 4px solid #d27d2c;
+    z-index: 10;
+}
+
+/*
+.component-diagram .left-components { text-align: left; }
+.component-diagram .right-components { text-align: right; }
+*/
+
+.component-diagram .c-l-right { top: 0; left: 0; }
+.component-diagram .c-l-left { top: 0; right: 0; }
+
+
+/***************************
+ * Release management
+ ***************************/
+
+.release-tabs a {
+    color: #0a0a0a;
+    font-size: 12pt;
+}
+
+.release-tabs li.active > a {
+    background-color: #eee;
+}
+
+.release-tabs a {
+    color: #0a0a0a;
+    font-size: 12pt;
+}
+
+.release-tab-content {
+    /* so it doesnt changem uch on tab change */
+    min-height: 900px;
+}
+
+
+.component-box {
+    /*max-width: 800px;*/
+    /*border: 2px solid #d27d2c;*/
+   /*rgb(210, 125, 44)    #d27d2c     Light2   - Orange*/
+    border: 1px solid #d27d2c;
+    vertical-align: top;
+    padding: 10px;
+    margin: 10px;
+    display: block;
+    background: #fff;
+    background: url("/static/core/images/graphy.png") 10px;
+    border-radius: 5px;
+    min-height: 200px;
+    position: relative;
+    -webkit-box-shadow: inset 0px 1px 10px 0px rgba(210,125,44,0.75);
+    -moz-box-shadow: inset 0px 1px 10px 0px rgba(210,125,44,0.75);
+    box-shadow: inset 0px 1px 10px 0px rgba(210,125,44,0.75);
+}
+
+.component-box .placeholder {
+    background-color: #d27d2c;
+}
+
+.component-box .c-title {
+    border: 0;
+    font-size: 24px;
+    font-family: "Pathway Gothic One", sans-serif;
+    display: block;
+    width: 50%;
+}
+
+.component-box input {
+    border-bottom: 1px dotted #fff !important;
+}
+
+.component-box input:focus,
+.component-box input:focus {
+    border: none !important;
+    border-bottom: 1px dotted #aaa !important;
+    outline: none;
+}
+
+.component-box .c-summary {
+    border: 0;
+    font-size: 14px;
+    font-family: Lato, sans-serif;
+    float: right;
+    border: none;
+    text-align: right;
+    width: 50%;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.component-box > p.component-handle {
+    text-align: center;
+    display: block;
+    color: #ccc;
+    font-weight: bold;
+}
+
+.component-box > p.component-handle > i {
+    float: right;
+}
+
+
+.component-box > p.empty-placeholder {
+    text-align: center;
+    color: #aaa;
+    font-size: 16pt;
+    display: block;
+    font-weight: bold;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    margin-left: -75px;
+    width: 150px;
+}
+
+
+/***************************
+ * Component file thumbnail
+ ***************************/
+
+div.file-thumbnail {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 1px solid #aeaeae;
+    padding: 1px;
+    margin: 1px;
+    text-align: center;
+    position: relative;
+    vertical-align: top;
+}
+
+div.file-thumbnail {
+}
+
+div.file-thumbnail p.title {
+    position: absolute;
+    text-align: center;
+    top: 100px;
+    width: 100px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+div.file-thumbnail:hover p.title {
+    top: 50px;
+}
+
+
+
+

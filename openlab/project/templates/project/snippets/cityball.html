@@ -1,0 +1,6 @@
+
+<a href="{% url "project_list" country=project.country.code2|lower %}" class="countryball">
+    <img src="{{ project.get_location_image_url }}" class="img-circle info-thumb" />
+    <span>{{ project.city }}</span>
+</a>
+

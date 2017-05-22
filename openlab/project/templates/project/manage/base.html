@@ -1,0 +1,110 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+
+{% block header_class %}cozy{% endblock %}
+
+{% block header_content %}
+{% include "core/snippets/infobase_page_header_light.html" %}
+{% endblock %}
+
+
+{% block tabcontent %}
+<br /> <!-- XXX -->
+<div class="container">
+    <div class="row">
+        <!--
+            Sidebar
+        -->
+        <div class="col-md-2" id="management_nav">
+            <ul class="nav nav-pills nav-stacked">
+                {% comment %}
+                <li {{ tab_manage.files }}{{ tab_manage.files_edit }}>
+                    <a href="{% url "project_manage_files" project.hubpath %}"><i class="icon-upload-alt"></i> Files</a>
+                </li>
+                {% endcomment %}
+                <li {{ tab_manage.edit }}>
+                    <a href="{% url "project_manage_edit" project.hubpath %}"><i class="icon-info"></i> Description</a>
+                </li>
+                <li {{ tab_manage.dependencies }}>
+                    <a href="{% url "project_manage_dependencies" project.hubpath %}"><i class="icon-cogs"></i> Sub-projects</a>
+                </li>
+                <li {{ tab_manage.gallery }}{{ tab_manage.gallery_edit }}>
+                    <a href="{% url "project_manage_gallery" project.hubpath %}"><i class="icon-camera"></i> Media</a>
+                </li>
+                <li {{ tab_manage.members }}>
+                    <a href="{% url "project_manage_members" project.hubpath %}"><i class="icon-key"></i> Access</a>
+                </li>
+                <li {{ tab_manage.wiki }}>
+                    <a href="{% url "project_manage_wiki" project.hubpath %}"><i class="icon-file-text"></i> Wiki</a>
+                </li>
+                <hr />
+
+                <li {{ tab_manage.releases }}{{ tab_manage.releases_new }} title="{% trans "Manage releases for this project. Go here when your project is ready for the prime-time!" %}" class="tip">
+                    <a href="{% url "project_manage_releases" project.hubpath %}"><i class="icon-check"></i> Release</a>
+                </li>
+            </ul>
+        </div>
+
+        {% block mcontent %}
+            <div class="col-md-7">
+                {% block mid_content %}
+                {% endblock mid_content %}
+            </div>
+            <div class="col-md-3">
+                {% block right_content %}
+                {% endblock right_content %}
+            </div>
+        {% endblock mcontent %}
+    </div>
+</div>
+
+{% endblock tabcontent %}
+
+
+
+
+
+
+{% comment %}
+{% extends "team/view/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block teamtab_about %}class="active"{% endblock %}
+
+{% block tabcontent %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2" id="management_nav">
+            {% block sidebar %}
+                <ul class="nav nav-pills nav-stacked">
+                    <li {{ tab_manage.members }}>
+                        <a href="{% url "team_manage_members" team.slug %}"><i class="icon-group"></i> Users</a>
+                    </li>
+                    <li {{ tab_manage.gallery }}>
+                        <a href="{% url "team_manage_gallery" team.slug %}"><i class="icon-camera"></i> Media</a>
+                    </li>
+                    <li {{ tab_manage.edit }}>
+                        <a href="{% url "team_manage_edit" team.slug %}"><i class="icon-info"></i> Description</a>
+                    </li>
+                </ul>
+            {% endblock %}
+        </div>
+        {% block mcontent %}
+            <div class="col-md-7">
+                {% block mid_content %}
+                {% endblock mid_content %}
+            </div>
+            <div class="col-md-3">
+                {% block right_content %}
+                {% endblock right_content %}
+            </div>
+        {% endblock mcontent %}
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% endcomment %}

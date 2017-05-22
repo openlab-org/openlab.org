@@ -1,0 +1,16 @@
+
+{% with prefix=license|slice:":3" suffix=license|slice:"3:" size=img_size|default:"small" %}
+    <a target="_blank" href="{% include "licensefield/snippets/license_url" %}"
+        title="{{ license_display }} - click for full license legal information" 
+        class="tip">
+        {% if prefix == "cc-" %}
+            <img src="{{ STATIC_URL }}licensefield/img/cc/{% if size == "small" %}80x15{% else %}403x141{% endif %}/{{ suffix }}.png" class="tip" />
+        {% elif license == "pd" %}
+            <img src="{{ STATIC_URL }}licensefield/img/cc/{% if size == "small" %}80x15{% else %}403x141{% endif %}/pd.png"  title="{{ license_display }}" class="tip" />
+            {# {% elif license_display %} #}
+        {% else %}
+            <span class="license-noimage license-noimage-{{ size }} icense-{{ license }}">{{ license }}</span>
+        {% endif %}
+    </a>
+{% endwith %}
+

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1>Notifications</h1>
+    </div>
+    <div class="col-md-4">
+        {% if unread or read %}
+            <form action="." method="POST">
+                {% csrf_token %}
+                <p><br /><br /> <button type="submit" name="action" value="clear_all" class="btn btn-large btn-default pull-right">Clear all</button> </p>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block header_bottom %}
+{% comment %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">All</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endcomment %}
+{% endblock header_bottom %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% if not unread and not read %}
+            <!--<p><em>You do not have any notifications.</em></p>-->
+                <p class="no-files-notice">You do not have any notifications.</p>
+            {% else %}
+            {% endif %}
+            {% for notification in unread %}
+                {% include "notifications/snippets/notification.html" %}
+            {% endfor %}
+            {% for notification in read %}
+                {% include "notifications/snippets/notification.html" %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+

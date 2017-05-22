@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load openlab_tags %}
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a style="display: block" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    {% if search and search.tag %}<small>{{ search.tag|beautify }}:</small>{% endif %} {% trans "New discussion" %} 
+                <i class="icon-comments pull-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                {% crispy new_thread_form %}
+            </div>
+        </div>
+    </div>
+</div>
+
+

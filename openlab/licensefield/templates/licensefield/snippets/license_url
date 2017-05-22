@@ -1,0 +1,20 @@
+
+{% with prefix=license|slice:":3" suffix=license|slice:"3:" size=img_size|default:"small" %}
+    {% spaceless %}
+        {% if prefix == "cc-" %}
+            http://creativecommons.org/licenses/{{ suffix }}/3.0/
+        {% elif license == "gpl3" %}
+            http://www.gnu.org/licenses/gpl-3.0-standalone.html
+        {% elif license == "lgpl3" %}
+            http://www.gnu.org/licenses/lgpl-3.0-standalone.html
+        {% elif license == "tapr" %}
+            http://www.tapr.org/TAPR_Open_Hardware_License_v1.0.txt
+        {% elif license == "cern" %}
+            http://www.ohwr.org/attachments/2388/cern_ohl_v_1_2.txt
+        {% elif license == "pd" %}
+            http://creativecommons.org/publicdomain/zero/1.0/
+        {% else %}
+        {% endif %}
+    {% endspaceless %}
+{% endwith %}
+

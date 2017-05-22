@@ -1,0 +1,26 @@
+{% extends "project/snippets/flp_changed_files.html" %}
+{% load i18n %}
+{% load openlab_tags %}
+{% load crispy_forms_tags %}
+
+{% block file_icon %}
+    <div class="unknown-extension extension-{{ file.get_extension }}"><big>
+        <i class="icon icon-plus"></i>
+    </big></div>
+{% endblock %}
+
+{% block file_attribrutes %}
+    data-placement="left"
+    title="New"
+    class="tip file-list-item"
+{% endblock %}
+
+{% block right_deets %}
+<span class="size">
+    <a href="{% url "project_update_delete_file" file.id %}"><i class="icon-trash"></i></a>
+</span>
+{% endblock right_deets %}
+
+
+
+

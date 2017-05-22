@@ -1,0 +1,91 @@
+
+/* ****************************************************************** */
+/* * Follow / activity stuff (actions in the upper right of infobase) */
+/* ****************************************************************** */
+.infobase-actions form {
+    display: inline;
+}
+
+.infobase-actions a,
+.infobase-actions button.btn-link {
+    text-decoration: none !important;
+    font-size: 1.1em;
+    display: inline;
+}
+
+.activity-stream .date-info h4 {
+    font-weight: normal;
+    opacity: 0.6;
+}
+
+.activity-stream .action {
+    min-height: 60px;
+    /* (top, right, bottom, left) */
+    margin: 5px 0;
+    position: relative;
+}
+
+.activity-stream .action-actor img {
+    max-height: 50px;
+    min-height: 50px;
+}
+
+.activity-stream .action-icon {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid #deeed6;
+    background-color: #deeed6;
+    text-align: center;
+}
+
+/* add "stream" line 
+.activity-stream .action.notfirst .action-icon:before {
+    content: " ";
+    border: none;
+    border-right: 3px solid #deeed6;
+    display: block;
+    height: 70px;
+    position: absolute;
+    left: 19px;
+    bottom: 10px;
+    z-index: -10;
+}
+*/
+.activity-stream .action-icon i {
+    font-size: 16pt;
+    line-height: 16pt;
+    display: block;
+    margin-top: 5px;
+}
+
+
+.activity-stream .action .action-left-border {
+    background: none;
+    position: absolute;
+    display: block;
+    height: 110%;
+    z-index: -10;
+    border: none;
+    border-left: 3px solid #deeed6;
+    left: 19px;
+    top: -5px;
+    padding: 10px;
+    width: 100px;
+}
+
+.activity-stream .action .action-summary {
+    margin-left: 70px;
+    font-size: 10.5pt;
+    opacity: 0.8;
+    padding: 10px;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.activity-stream .action .action-summary:hover {
+    opacity: 1.0;
+}
+
+

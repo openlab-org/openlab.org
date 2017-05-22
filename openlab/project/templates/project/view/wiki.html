@@ -1,0 +1,65 @@
+{% extends "project/view/base.html" %}
+{% load i18n %}
+
+{% block tabcontent %}
+
+{% if not wikisite %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Disabled</h2>
+            <div class="alert alert-danger">
+                <p>This wiki is disabled. If you are this {{ object_class }}'s
+                administrator, then you can enable the wiki for this {{ object_class }}
+                from the {{ object_class }} administration panel.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% elif not wikipage %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Empty page</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="alert">
+                <p><strong>{{ pageslug }}</strong>: This Wiki page has not yet been created.</p>
+                {% if can_edit_wiki %}
+                    <p><a class="btn btn-success btn-lg" href="{% url "project_wiki_edit" obj.hubpath pageslug %}">Create</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{ wikipage.title }}</h2>
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right wiki-controls">
+                {% if can_edit_wiki %}
+                    <div class="pull-right wiki-controls btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a href="{% url "project_wiki_edit" obj.hubpath pageslug %}" class="btn btn-default btn-xs">edit</a>
+                            <a href="{% url "project_wiki_edit_history" obj.hubpath pageslug %}" class="btn btn-default btn-xs">history</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ wikipage.rendered_markdown }}
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock tabcontent %}

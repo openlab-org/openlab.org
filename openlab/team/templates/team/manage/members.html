@@ -1,0 +1,24 @@
+{% extends "team/manage/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block mid_content %}
+
+{% include "account/snippets/user_management.html" %}
+
+{% endblock mid_content %}
+
+
+{% block right_content %}
+<div class="well">
+    <h3>Manage members</h3>
+    <p>From this page, you can manage the members of this team. Members of the team
+    get the same privileges as you: whatever Projects that this team owns or is
+    given access to, all of its members can access.</p>
+    <p>Additionally, team members can invite other members, upload photos to
+    the team media gallery, write team news posts, and manage the team profile
+    settings.</p>
+</div>
+{% endblock right_content %}
+
+
