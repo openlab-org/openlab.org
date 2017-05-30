@@ -6,7 +6,7 @@ Project under development!
 
 Discover and collaborate on open hardware
 
-!(Built with Cookiecutter Django)[https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg]
+![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg)
 
 # Getting started
 
@@ -36,10 +36,10 @@ setup and is good enough for most development.
 
 ## With Docker
 
+TODO: Unfinished
+
 1. Install and set up system packages for `docker` and `docker-compose`:
     * On Debian-based distros:
         * `sudo apt-get install docker docker-compose`
     * [On macOS, follow this guide](https://docs.docker.com/docker-for-mac/)
-2. Setup environmental variables to point to your `dockerd` sockets
-3. ...TODO: finish this list
 
