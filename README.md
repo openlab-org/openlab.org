@@ -14,8 +14,8 @@ Discover and collaborate on open hardware
 
 It's much simpler to run a dev environment without Docker, just using
 `virtualenv` and using `sqlite3` as the backend. This *will not* resemble
-production environments. However, it is lighter-weight and often easier to
-setup and is good enough for most development.
+production environments. However, it is very light and often easier to setup
+and is good enough for most development.
 
 1. Install Python 3, including `pip` and `venv`, and system packages for sqlite3
     * On Debian-based distros:
@@ -42,4 +42,16 @@ TODO: Unfinished
     * On Debian-based distros:
         * `sudo apt-get install docker docker-compose`
     * [On macOS, follow this guide](https://docs.docker.com/docker-for-mac/)
+
+
+# Useful tools
+
+* `./utility/dev/delete_db_and_remake_migrations.sh` -- Running this will
+  delete the Sqlite database, delete all migration code for Open Lab apps, then
+  rebuild all migration code. Until we have a stable prod environment that we
+  don't want to trash, this keeps our migrations tidy as we iterate over
+  schema.
+
+
+
 
