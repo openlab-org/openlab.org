@@ -41,6 +41,7 @@ from openlab.release.views import ManageReleasesBase, ManageReleasesNewBase,\
 from .forms import CreateProjectForm, EditProjectForm,\
         EditFileForm, AddDependencyForm, RevisionForm, RenameFileForm
 from .models import Project, FileModel, Revision, UserPermission
+from . import view_helpers
 
 
 
@@ -155,7 +156,10 @@ class ProjectViewFiles(ViewInfo, Base):
         return str(ctx.get('obj'))
 
     def get_more_context(self, request, obj):
-        files_by_folder = obj.get_files_by_folder()
+        if obj.git_url:
+            files_by_folder = view_helpers.git_tree_by_dir(obj.git_url)
+        else:
+            files_by_folder = obj.get_files_by_folder()
 
         return {
                 'files_by_folder': files_by_folder,

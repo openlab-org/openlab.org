@@ -55,7 +55,11 @@ def first_of(value, arg=10):
 
 @register.filter
 def label_bytes(b):
-    b = float(b)
+    try:
+        b = float(b)
+    except ValueError:
+        return b
+
     #if b >= 1099511627776:
     #    terab = b / 1099511627776
     #    size = '%.2fT' % terab

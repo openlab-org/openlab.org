@@ -45,6 +45,8 @@ TODO: Unfinished
 
 
 # Useful tools
+* `python manage.py testreset --traceback` -- Populates the DB with a bunch of
+  test data
 
 * `./utility/dev/delete_db_and_remake_migrations.sh` -- Running this will
   delete the Sqlite database, delete all migration code for Open Lab apps, then

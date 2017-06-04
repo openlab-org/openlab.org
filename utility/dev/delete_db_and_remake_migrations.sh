@@ -5,7 +5,6 @@
 cd $MY_PATH
 cd ../..
 
-set -e # die on err
 
 if [[ "no" == $(ask_yes_or_no "Delete migration code and wipe DB?") ]]
 then

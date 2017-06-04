@@ -14,7 +14,7 @@ from crispy_forms.layout import Submit, Layout
 class CreateProjectForm(InfoBaseForm):
     name = "Project"
     class Meta:
-        fields = InfoBaseForm._fields + ('license',)
+        fields = ('git_url',) + InfoBaseForm._fields + ('license',)
         widgets = InfoBaseForm._widgets
         widgets['license'] = forms.RadioSelect
         model = Project

@@ -3,6 +3,7 @@ from django.db import models
 from openlab.users.models import User
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.core.validators import RegexValidator
 from django.conf import settings
 
 # 1st party
@@ -13,6 +14,7 @@ from openlab.anthrome import anthrome_types
 # local
 from .fields import LicenseField
 from .file_models import FileModel, Revision
+
 
 class ProjectPermission(models.Model):
     project    = models.ForeignKey("Project", related_name='%(class)s_permission')
@@ -48,11 +50,15 @@ class Project(InfoBaseModel):
             help_text=_("Team that can manage the project"))
 
     # The latest stable release, blank if it has not yet been released
-    # TODO: uncomment out after initial migrations are made
     release = models.ForeignKey("release.Release",
             related_name="latest_stable",
             null=True, blank=True,
             help_text=_("Latest stable release"))
+
+    # The latest stable release, blank if it has not yet been released
+    git_url = models.URLField(
+            null=True, blank=True,
+            help_text=_("URL to Git repository"))
 
     license = LicenseField(
             default="pd",

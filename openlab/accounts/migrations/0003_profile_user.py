@@ -12,14 +12,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('moderation', '0002_featuredproject_project'),
+        ('accounts', '0002_auto_20170604_1104'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='featuredproject',
+            model_name='profile',
             name='user',
-            field=models.ForeignKey(help_text='User who last updated feature (ie admin)', on_delete=django.db.models.deletion.CASCADE, related_name='featured_projects', to=settings.AUTH_USER_MODEL),
+            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL),
         ),
     ]
