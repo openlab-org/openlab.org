@@ -108,6 +108,9 @@ class InfoBaseModel(LocatableBaseModel, UpdateMixin, OLMarkdownBase, HubPathBase
         return self.title
 
     def get_thumb_url(self):
+        return self.PLACEHOLDER_IMAGE_URL
+
+        # TODO: Disabled
         if self.photo and self.photo.preview_ready:
             # Use specified photo
             return self.photo.preview_image_thumb.url

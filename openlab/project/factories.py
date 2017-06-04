@@ -17,7 +17,7 @@ class ProjectTestFactory(InfoBaseTestFactory):
 
 def make_random(count, users, teams):
     results = []
-    for i in xrange(count):
+    for i in range(count):
         owner = choice(users)
         team_owner = choice(teams)
         if i % 3 == 0:

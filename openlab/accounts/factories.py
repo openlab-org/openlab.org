@@ -15,10 +15,7 @@ rn = RandomNicknames()
 def bio():
     paras = []
     for i in range(halfrand(4)):
-        if randint(0, 3): # 3/4 time use lorem ipsum
-            para = li.get_sentences(halfrand(20))
-        else:
-            para = rikeripsum.generate_paragraph()
+        para = li.get_sentences(halfrand(20))
 
         if randint(0, 4):
             # insert first a "title"

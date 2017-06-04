@@ -2,8 +2,8 @@ from django.conf.urls import url
 from openlab.core.generic_views import url_helper as u
 from . import views
 
-PROJECT_PATH = r'^(?P<hubpath>[\w-]+/[\w-]+)'
-PROJECT_ACTION_PREFIX = r'^(?P<hubpath>[\w-]+/[\w-]+)'
+PROJECT_PATH = r'^(?P<hubpath>[\.\w-]+/[\.\w-]+)'
+PROJECT_ACTION_PREFIX = r'^(?P<hubpath>[\.\w-]+/[\.\w-]+)'
 
 urlpatterns = [
     ###########################

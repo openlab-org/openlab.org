@@ -28,14 +28,16 @@ def first_half(value):
     """
     Only returns first half of list
     """
-    return value[:len(value)/2]
+    if not value:
+        return []
+    return value[:int(len(value)/2)]
 
 @register.filter
 def second_half(value):
     """
     Only returns second half of list
     """
-    return value[len(value)/2:]
+    return value[int(len(value)/2):]
 
 @register.filter
 def first_of(value, arg=10):
