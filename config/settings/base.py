@@ -81,6 +81,8 @@ LOCAL_APPS = [
     'openlab.licensefield',
     'openlab.docviewer',
     'openlab.dashboard',
+    'openlab.activity',
+    'openlab.location',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
