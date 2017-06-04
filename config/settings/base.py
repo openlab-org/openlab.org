@@ -80,6 +80,7 @@ LOCAL_APPS = [
     'openlab.prequeue',
     'openlab.licensefield',
     'openlab.docviewer',
+    'openlab.dashboard',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
