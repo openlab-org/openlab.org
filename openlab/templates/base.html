@@ -44,11 +44,11 @@
                 {# user tools #}
                 {% if not user.is_authenticated %}
                     <div class="navbar-form navbar-right navbar-login hidden-print">
-                        {% include "account/snippets/login.html" %}
+                        {% include "accounts/snippets/login.html" %}
                     </div>
                 {% else %}
                     <ul class="nav navbar-nav navbar-right">
-                        {% include "account/snippets/user_menu.html" %}
+                        {% include "accounts/snippets/user_menu.html" %}
                     </ul>
                 {% endif %}
             {% endblock nav_user_menu %}

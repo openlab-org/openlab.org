@@ -1,5 +1,5 @@
 {% for user in followers %}
-    {% include "account/snippets/profile.html" with profile=user.profile %}
+    {% include "accounts/snippets/profile.html" with profile=user.profile %}
 {% empty %}
     <em>No followers yet.</em>
 {% endfor %}

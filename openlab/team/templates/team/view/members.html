@@ -11,7 +11,7 @@
                 {% if user_list %}
                     <h5>{{ type|beautify }}</h5>
                     {% for u in user_list %}
-                        {% include "account/snippets/profile.html" with profile=u.profile %}
+                        {% include "accounts/snippets/profile.html" with profile=u.profile %}
                     {% endfor %}
                 {% endif %}
             {% endfor %}

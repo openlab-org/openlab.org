@@ -13,7 +13,7 @@
     </div>
     <div class="col-md-5">
         {% for user in team.members.all %}
-            {% include "account/snippets/profile.html" with profile=user.profile %}
+            {% include "accounts/snippets/profile.html" with profile=user.profile %}
         {% empty %}
             <br /> <br /> <br />
             <p class="text-muted"><em>The team is currently empty.</em></p>
