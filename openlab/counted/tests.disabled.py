@@ -15,7 +15,7 @@ from .models import ScopeBase, CountedBase
 
 class FakeGallery(ScopeBase):
     class Meta:
-        app_label = 'gallery'
+        app_label = 'fakegallery'
     data = models.CharField(default='x', max_length=12)
     pass
 
@@ -28,7 +28,7 @@ class FakePhoto(CountedBase):
     class Meta:
         unique_together = (CountedBase.unique_together('gallery'), )
         index_together = (CountedBase.unique_together('gallery'), )
-        app_label = 'gallery'
+        app_label = 'fakegallery'
 
     COUNTED_SCOPE = 'gallery'
     gallery = models.ForeignKey(FakeGallery)

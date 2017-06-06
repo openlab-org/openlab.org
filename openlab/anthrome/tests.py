@@ -1,3 +1,5 @@
+from unittest import skip
+
 from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
 
@@ -21,6 +23,7 @@ class BasicViewsTestCase(TestCase):
         FeaturedProject.objects.create(user=self.user, project=self.project)
         self.client.login(username="testuser", password="asdf")
 
+    @skip
     def test_view_showcase(self):
         response = self.client.get(reverse('showcase'))
         self.assertEqual(200, response.status_code)
