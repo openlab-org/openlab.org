@@ -85,13 +85,13 @@ class Profile(LocatableBaseModel, OLMarkdownBase, HubPathBase):
         return self.GRAVATAR_URL % (digest, size_str)
 
     def avatar_url(self):
-        if self.photo and self.photo.preview_ready():
-            return self.photo.preview_image_thumb
+        #if self.photo and self.photo.preview_ready():
+        #    return self.photo.preview_image_thumb
         return self.gravatar()
 
     def avatar_url_150(self):
-        if self.photo and self.photo.preview_ready():
-            return self.photo.preview_image_thumb
+        #if self.photo and self.photo.preview_ready():
+        #    return self.photo.preview_image_thumb
         return self.gravatar(size=150)
 
     def get_absolute_url(self):

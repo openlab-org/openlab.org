@@ -77,9 +77,7 @@ LOCAL_APPS = [
     # no models
     'openlab.olmarkdown',
     'openlab.anthrome',
-    'openlab.prequeue',
     'openlab.licensefield',
-    'openlab.docviewer',
     'openlab.dashboard',
     'openlab.activity',
     'openlab.location',

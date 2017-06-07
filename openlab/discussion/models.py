@@ -18,7 +18,6 @@ from s3uploader.models import GenericUploadableMixin
 
 # first party
 from openlab.users.models import User
-from openlab.prequeue.models import PreviewBaseClass
 from openlab.olmarkdown.models import OLMarkdownBase
 from openlab.counted.models import ScopeBase, CountedBase
 
@@ -157,20 +156,10 @@ def id_path_builder(id_number):
     return os.path.join(s[:3], s[3:])
 
 
-class Attachment(PreviewBaseClass, GenericUploadableMixin):
+class Attachment(GenericUploadableMixin):
     """
     Generic uploadable attachment system for use with comments.
     """
-
-    class PrequeueMeta:
-        FILE_FIELD = 'path'
-
-        @staticmethod
-        def setup_file_data(obj, local_file_path):
-            # Sets up size variable
-            obj.size = os.path.getsize(local_file_path)
-
-
     class S3UploadableMeta:
         file_field = 'path'
         is_ready_field = 'is_uploaded'
@@ -228,8 +217,3 @@ class Attachment(PreviewBaseClass, GenericUploadableMixin):
 
     def __str__(self):
         return "%s:%s" % (self.user.username, self.original_filename)
-
-    class PrequeueMeta:
-        FILE_FIELD = 'path' 
-
-

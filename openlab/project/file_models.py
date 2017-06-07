@@ -15,7 +15,6 @@ from s3uploader.models import GenericUploadableMixin
 
 # 1st party
 from openlab.gallery.models import Photo
-from openlab.prequeue.models import PreviewBaseClass
 
 
 from .fields import LicenseField
@@ -207,35 +206,10 @@ class Revision(models.Model):
             self.save()
             self.project.save()
 
-        self.enqueue_previews()
-
-
-    def enqueue_previews(self, include_files=True):
-        files = self.files.all()
-        for f in files:
-            f.enqueue_preview_generation()
 
 
     def check_and_set_if_ready(self):
-        """
-        Called to check if we have generated all previews. If we have then we
-        set the bit to true to skip this check....
-
-        Side-effects: save if changed.
-        """
-        if self.is_ready:
-            return True
-        files = self.files.all()
-
-        for f in files:
-            if not f.preview_ready:
-                # Found an un-ready file
-                return False
-
-        # Didn't find any unready files, return true and mark as complete
-        self.is_ready = True
-        self.save()
-        return True
+        return self.is_ready # XXX delete
 
 
     def get_stat_diff_if_applied(self, include_files=True):
@@ -284,16 +258,9 @@ class Revision(models.Model):
 def file_path_builder(instance, filename):
     return instance.path_builder(filename)
 
-#class FileModel(PreviewBaseClass, CountedBase):
-class FileModel(PreviewBaseClass, GenericUploadableMixin):
-    class PrequeueMeta:
-        FILE_FIELD = 'path'
-
-        @staticmethod
-        def setup_file_data(obj, local_file_path):
-            # Sets up size variable
-            obj.size = os.path.getsize(local_file_path)
-
+class FileModel(GenericUploadableMixin):
+    class Meta:
+        app_label = 'project'
 
     class S3UploadableMeta:
         file_field = 'path'

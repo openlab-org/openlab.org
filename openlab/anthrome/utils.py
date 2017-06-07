@@ -229,7 +229,7 @@ def generate_maps():
 
 
 def convert_map(path, preview_override={}):
-    from prequeue import handlers
+    # from prequeue import handlers
     in_path             = path
     preview_path_prefix = os.path.splitext(path)[0].replace('_large', '')
     thumb_path_prefix   = os.path.splitext(path)[0].replace('_large', '') + ".thumb"

@@ -12,7 +12,6 @@ from django.utils.translation import ugettext as _
 from s3uploader.models import GenericUploadableMixin
 
 # first party
-from openlab.prequeue.models import PreviewBaseClass
 from openlab.counted.models import ScopeBase, CountedBase
 
 def file_path_builder(instance, filename):
@@ -34,14 +33,11 @@ class Gallery(ScopeBase):
             help_text=_("Default photo"))
 
 
-class Photo(PreviewBaseClass, CountedBase, GenericUploadableMixin):
+class Photo(CountedBase, GenericUploadableMixin):
     COUNTED_SCOPE = 'gallery'
     class Meta:
         unique_together = (CountedBase.unique_together('gallery'), )
         index_together = (CountedBase.unique_together('gallery'), )
-
-    class PrequeueMeta:
-        FILE_FIELD = 'path'
 
     class S3UploadableMeta:
         file_field = 'path'
@@ -144,28 +140,9 @@ class Photo(PreviewBaseClass, CountedBase, GenericUploadableMixin):
 
 
 
-#class Media(PreviewBaseClass): # disabled
-#    gallery = models.ForeignKey(Gallery,
-#            help_text=_("Parent gallery"))
-#
-#    path = models.FileField(
-#            upload_to=path_builder,
-#            help_text=_("Actual file"))
-#
-#    title = models.CharField(max_length=255,
-#            blank=True,
-#            help_text=_("Title of this photo"))
-#
-#    description = models.TextField(max_length=2048,
-#            blank=True,
-#            help_text=_("A longer description, or notes about this photo"))
-#
-#    class PrequeueMeta:
-#        FILE_FIELD = 'path'
 
 
-
-class MediaLink(PreviewBaseClass):
+class MediaLink(models.Model):
     """
     MediaLink is useful for 3rd party hosted videos.
     """
@@ -193,7 +170,3 @@ class MediaLink(PreviewBaseClass):
     )
     source = models.CharField(max_length=16,
                         choices=SOURCES)
-
-    class PrequeueMeta:
-        URL_FIELD = 'url' 
-

@@ -40,7 +40,7 @@ class EditFileForm(forms.ModelForm):
                 'photo': PhotoSelect2Widget,
             }
 
-        model = FileModel
+        #model = FileModel # XXX
 
     def __init__(self, *a, **k):
         super(EditFileForm, self).__init__(*a, **k)
@@ -86,7 +86,7 @@ class RenameFileForm(forms.ModelForm):
     """
     class Meta:
         fields = ('filename', 'folder', 'replaces', 'removed')
-        model = FileModel
+        # model = FileModel # XXX
 
     def __init__(self, *a, **k):
         tip_files = k.pop('tip_files')
