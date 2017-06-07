@@ -59,13 +59,11 @@ node_modules/
 .env
 
 default.sqlite3.db
+default.sqlite3.db.backup
 
 # User-uploaded media
 openlab/media/
 
-
-
 staticfiles/
 
 .cache/
-

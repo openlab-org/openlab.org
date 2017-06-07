@@ -38,9 +38,8 @@ from openlab.release.views import ManageReleasesBase, ManageReleasesNewBase,\
 
 # local
 # Imports from this app
-from .forms import CreateProjectForm, EditProjectForm,\
-        EditFileForm, AddDependencyForm, RevisionForm, RenameFileForm
-from .models import Project, FileModel, Revision, UserPermission
+from .forms import CreateProjectForm, EditProjectForm, AddDependencyForm
+from .models import Project, UserPermission
 from . import view_helpers
 
 
@@ -156,10 +155,11 @@ class ProjectViewFiles(ViewInfo, Base):
         return str(ctx.get('obj'))
 
     def get_more_context(self, request, obj):
+        files_by_folder = []
         if obj.git_url:
             files_by_folder = view_helpers.git_tree_by_dir(obj.git_url)
-        else:
-            files_by_folder = obj.get_files_by_folder()
+        #else:
+        #    files_by_folder = obj.get_files_by_folder()
 
         return {
                 'files_by_folder': files_by_folder,
@@ -180,7 +180,8 @@ class ProjectViewFile(ViewInfo, DiscussableMixin, Base):
 
     def get_more_context(self, request, obj):
         file_id = self.kwargs.get('file_id')
-        f = get_object_or_404(FileModel, project=obj, deleted=False, id=file_id)
+        #f = get_object_or_404(FileModel, project=obj, deleted=False, id=file_id)
+        f = file_id
         c = { 'file': f }
         c.update(self.get_discussion_context(request, f, context_object=obj))
         return c
@@ -266,12 +267,13 @@ class ProjectUpdate(ViewInfo, Base):
 
     def get_more_context(self, request, obj):
         ###### 0. Get revision in progress, creating if does not exist
-        revision = Revision.get_or_create_in_progress(obj, request.user)
-        revision_form = RevisionForm(instance=revision)
+        #revision = Revision.get_or_create_in_progress(obj, request.user)
+        #revision_form = RevisionForm(instance=revision)
+        revision = None
+        revision_form = None
 
         ###### 1. Get files for this particular revision
         files = list(revision.files.filter(deleted=False))
-        #files_by_folder = FileModel.by_folder(files)
         no_changes = not files
 
         ###### 2. Get existing files for tip revision
@@ -283,9 +285,9 @@ class ProjectUpdate(ViewInfo, Base):
         _all_files = files + existing_files
 
         fakeqs_files = FakeQS(existing_files)
-        for f in _all_files:
-            rename_file_forms[f.id] = RenameFileForm(instance=f,
-                    tip_files=fakeqs_files)
+        #for f in _all_files:
+        #    rename_file_forms[f.id] = RenameFileForm(instance=f,
+        #            tip_files=fakeqs_files)
         replacing_files = dict((f.replaces_id, f) for f in files if f.replaces_id)
 
         ###### 4. Tag existing (tip) files with "replaces_by" field, if it does
@@ -295,11 +297,6 @@ class ProjectUpdate(ViewInfo, Base):
                 f.replaced_by = replacing_files[f.id]
 
         brand_new_files = filter(lambda f: not f.replaces, files)
-        brand_new_files_by_folder = FileModel.by_folder(brand_new_files)
-
-        #combined_files = existing_files + brand_new_files
-        #combined_files_by_folder = FileModel.by_folder(combined_files)
-
         c = {
                 'revision': revision,
                 'no_changes':      no_changes,
@@ -321,7 +318,8 @@ class ProjectUpdate(ViewInfo, Base):
 
 
 def _get_and_check_revision(request, revision_id):
-    revision = get_object_or_404(Revision, id=revision_id)
+    #revision = get_object_or_404(Revision, id=revision_id)
+    revision = None
 
     if request.user != revision.user:
         raise Exception("Illegal attempt to modify revision.")
@@ -372,13 +370,14 @@ def project_update_rename_file(request):
 
     file_id = request.POST.get('file_id')
 
-    file_model = get_object_or_404(FileModel, id=file_id)
+    #file_model = get_object_or_404(FileModel, id=file_id)
+    file_model = None #XXX
     project = file_model.project
     #is_tip = _check_is_tip(request, file_model)
 
     tip_files = project.get_files()
-    form = RenameFileForm(request.POST, instance=file_model,
-                    tip_files=tip_files)
+    #form = RenameFileForm(request.POST, instance=file_model,
+    #                tip_files=tip_files)
     if form.is_valid():
         form.save()
 
@@ -392,7 +391,8 @@ def project_update_delete_file(request, file_id):
     """
     Endpoint to delete given file (for update management)
     """
-    file_model = get_object_or_404(FileModel, id=file_id)
+    #file_model = get_object_or_404(FileModel, id=file_id)
+    file_model = None#XXX
     is_tip = _check_is_tip(request, file_model)
     project_hubpath = file_model.project.hubpath
 
@@ -430,7 +430,8 @@ def project_update_revision_complete(request, revision_id):
     assert request.method == 'POST'
 
     revision = _get_and_check_revision(request, revision_id)
-    revision_form = RevisionForm(request.POST, instance=revision)
+    #revision_form = RevisionForm(request.POST, instance=revision)
+    revision_form = none
     project_hubpath = revision.project.hubpath
     if revision_form.is_valid():
         # Valid successful revision
@@ -597,7 +598,8 @@ class ProjectManageFiles(ManageUploadBaseInfo, Base):
     breadcrumb = _("Update")
     parent_view = ProjectViewFiles
     def get_queryset(self, obj):
-        return FileModel.objects.filter(project=obj, deleted=False)
+        #return FileModel.objects.filter(project=obj, deleted=False)
+        return []
 
     def get_more_context(self, request, obj):
         c = super(ProjectManageFiles, self).get_more_context(request, obj)
@@ -612,11 +614,12 @@ class ProjectManageFiles(ManageUploadBaseInfo, Base):
 class ProjectManageFilesEdit(ManageEditUploadBaseInfo, Base):
     template_basename = 'files_edit'
     breadcrumb = _("Edit file details")
-    form = EditFileForm
+    #form = EditFileForm
     parent_view = ProjectManageFiles
 
     def get_queryset(self, obj):
-        return FileModel.objects.filter(project=obj, deleted=False)
+        #return FileModel.objects.filter(project=obj, deleted=False)
+        return []
 
     def exclude_undeletable(self, obj, files):
         # no need at the moment for filtering or "undeletable objects", I

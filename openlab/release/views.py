@@ -10,14 +10,12 @@ from django.contrib.auth.decorators import login_required
 from openlab.core.generic_views import ManageInfo, RedirectException
 from openlab.project.models import Project
 from openlab.gallery.models import Photo, Gallery
-from openlab.project.file_models import FileModel
 from openlab.anthrome.anthrome_types import Anthrome
 
 # local
 from .util import auto_media
 from .forms import EditReleaseMediaForm
 from .models import Release
-
 
 
 def make_release_context(request, project, is_preview=False, version=None):
@@ -39,7 +37,7 @@ def make_release_context(request, project, is_preview=False, version=None):
         # XXX HACK default to urban biome, only for testing until we dont
         # allow unfinished project infos to be published
         project.biome = "11"
-    
+
     # fetch all relevant projects
     dependencies = list(project.dependencies.all())
     projects = [project] + dependencies
@@ -166,7 +164,6 @@ class ManageReleasesNewBase(ManageInfo):#, FormBaseMixin):
         """
         models = {
                 'photo': Photo,
-                'filemodel': FileModel,
             }
 
         # create new gallery

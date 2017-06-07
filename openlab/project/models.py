@@ -13,7 +13,6 @@ from openlab.anthrome import anthrome_types
 
 # local
 from .fields import LicenseField
-from .file_models import FileModel, Revision
 
 
 class ProjectPermission(models.Model):
@@ -72,11 +71,6 @@ class Project(InfoBaseModel):
                 related_name='permissions',
                 through=TeamPermission)
 
-    tip_revision = models.ForeignKey(Revision,
-            related_name="latest_stable",
-            null=True, blank=True,
-            help_text=_("Latest correct revision"))
-
     forked_from = models.ForeignKey('Project',
             related_name='forks',
             null=True, blank=True,
@@ -122,25 +116,6 @@ class Project(InfoBaseModel):
             p.copy_location_from(user.profile)
 
         p.save()
-        files = self.get_files()
-
-        revision = self.tip_revision
-
-        revision.id = None
-        revision.number = None
-        revision.hash_code = ""
-        revision.project = p
-        revision.save() # regen id, number, and hash_code
-
-        p.tip_revision = revision
-
-        for f in files:
-            # Set ID to "None" to effect a copy action
-            f.id = None
-            f.project = p
-            f.revision = revision
-            f.save()
-        p.save()
         return p
 
 
@@ -154,38 +129,6 @@ class Project(InfoBaseModel):
     def get_absolute_thread_url(self, thread):
         return reverse('project_thread', args=[str(self.hubpath), thread.id])
 
-    def get_files(self):
-        """
-        Returns "tip" revision of this project.
-        """
-        files = FileModel.objects.filter(
-                project=self,
-                deleted=False,
-                is_tip=True)
-        return files
-
-
-    def get_file(self, folder, filename):
-        """
-        Searches for a Tip FileModel or None if it cant find any.
-        """
-        kwds = dict(deleted=False, filename=filename)
-        if folder is not None:
-            kwds['folder'] = folder
-
-        try:
-            return self.get_files().get(**kwds)
-        except (FileModel.DoesNotExist, FileModel.MultipleObjectsReturned):
-            return None
-
-
-    def get_files_by_folder(self, files=None):
-        """
-        Returns "tip" of this project in a list grouped by folder
-        """
-        if files is None:
-            files = self.get_files()
-        return FileModel.by_folder(files)
 
 
     def editable_by_user_id_list(self):
