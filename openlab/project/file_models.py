@@ -258,7 +258,7 @@ class Revision(models.Model):
 def file_path_builder(instance, filename):
     return instance.path_builder(filename)
 
-class FileModel(GenericUploadableMixin):
+class FileModel(models.Model, GenericUploadableMixin):
     class Meta:
         app_label = 'project'
 

@@ -156,7 +156,7 @@ def id_path_builder(id_number):
     return os.path.join(s[:3], s[3:])
 
 
-class Attachment(GenericUploadableMixin):
+class Attachment(models.Model, GenericUploadableMixin):
     """
     Generic uploadable attachment system for use with comments.
     """
