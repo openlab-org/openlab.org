@@ -142,6 +142,7 @@ class AutoField(forms.ChoiceField):
         del k['from_field']
         super(AutoField, self).__init__(*a, **k)
 
+
 class SlugField(AutoField):
     regexp = re.compile('^[\w-]+$')
     _err = {
@@ -156,6 +157,7 @@ class SlugField(AutoField):
         if not regexp.match(value):
             raise ValidationError("Invalid slug.", _err['invalid'])
         return value
+
 
 class InfoBaseForm(forms.ModelForm):
     """

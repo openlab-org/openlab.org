@@ -66,22 +66,3 @@ def message_save(sender, **kwds):
 #post_save.connect(message_save, sender=Message)
 
 
-def revision_save(sender, **kwds):
-    revision = kwds['instance']
-    created = kwds['created']
-
-    if not revision.is_uploaded:
-        # just in progress of editing, ignore
-        return
-
-    if not revision.is_ready:
-        # Previews haven't been rendered yet, don't generate the event
-        return
-
-    # Nope we are actually updating stuff
-    action.send(revision.user, target=revision.project,
-                action_object=revision, verb='committed')
-
-post_save.connect(revision_save, sender=Revision)
-
-

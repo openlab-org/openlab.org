@@ -55,22 +55,15 @@ class Profile(LocatableBaseModel, OLMarkdownBase, HubPathBase):
 
     email_notification = models.BooleanField(default=True,
             verbose_name=_("Enable email notifications"),
-            help_text=_("You can disable email notifications altogether, but we promise we won't bug you."))
+            help_text=_("You can disable email notifications altogether, but "
+                "we promise we won't bug you."))
 
 
-    # Just use tags for badges
-    simple_badges = TaggableManager()
     def save(self, *a, **k):
         super(Profile, self).save(*a, **k)
 
         # Save to cache with every save
         self.save_cache()
-
-    @property
-    def badges(self):
-        # If we later want to add more proper badges, using "badges" as a
-        # placeholder
-        return self.simple_badges.all()
 
     GRAVATAR_URL = "http://gravatar.com/avatar/%s?d=identicon%s"
     def gravatar(self, size=None):
@@ -139,8 +132,6 @@ class Profile(LocatableBaseModel, OLMarkdownBase, HubPathBase):
         InfoBase objects generally should use themselves as the context.
         """
         return self
-
-
 
 
 def create_default(user):

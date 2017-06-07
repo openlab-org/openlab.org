@@ -5,8 +5,6 @@ import os
 from . import anthrome_types
 
 
-
-
 try:
     import Image
 except ImportError:
