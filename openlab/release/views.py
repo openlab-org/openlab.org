@@ -13,7 +13,6 @@ from openlab.gallery.models import Photo, Gallery
 from openlab.anthrome.anthrome_types import Anthrome
 
 # local
-from .util import auto_media
 from .forms import EditReleaseMediaForm
 from .models import Release
 
@@ -213,7 +212,8 @@ class ManageReleasesNewBase(ManageInfo):#, FormBaseMixin):
             self.handle_save(form, obj)
 
         #components = auto_componentize(obj, previous=obj.release)
-        media = auto_media(obj, previous=obj.release)
+        #media = auto_media(obj, previous=obj.release)
+        media = []
 
         return {
                 'form': form,

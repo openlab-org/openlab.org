@@ -9,7 +9,6 @@ from crispy_forms.helper import FormHelper
 
 # local
 from .models import Release
-#from .util import auto_version, auto_media
 from .util import auto_version
 
 
