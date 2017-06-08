@@ -58,9 +58,6 @@ class Photo(CountedBase):
             blank=True,
             help_text=_("A longer description, or notes about this photo"))
 
-    is_uploaded = models.BooleanField(default=False,
-            help_text=_('Has the file successfully finished uploading?'))
-
     def __str__(self):
         return self.nice_title()
 
@@ -83,9 +80,6 @@ class Photo(CountedBase):
         """
         # Go by gallery ID
         return gallery_path_builder(self.gallery_id, filename)
-
-
-
 
 
 class MediaLink(models.Model):
@@ -114,5 +108,4 @@ class MediaLink(models.Model):
         (VIMEO,   "Vimeo"),
         (FLICKR,  "Flickr"),
     )
-    source = models.CharField(max_length=16,
-                        choices=SOURCES)
+    source = models.CharField(max_length=16, choices=SOURCES)

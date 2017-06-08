@@ -16,4 +16,3 @@ class EditPhotoForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = False
 
-
