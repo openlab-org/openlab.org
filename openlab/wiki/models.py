@@ -6,15 +6,6 @@ from hubpath.models import hubpath_objects
 
 
 class WikiSite(models.Model):
-    # WikiSite is a collection of wiki pages
-
-
-    # TODO next ORM change delete this --v-- and enable the bottom 3
-    index = models.ForeignKey('WikiPage', null=True, blank=True,
-                    related_name="index_page",
-                    help_text=_("The index page for this site"))
-
-    # if the wiki can be edited by any user
     public_editable = models.BooleanField(default=True,
                     verbose_name=_("Enable public editing"),
                     help_text=_("Turn this on to enable the wiki to be editable by anyone"))
@@ -56,8 +47,7 @@ class WikiPage(OLMarkdownBase):
 
     def fetch_olmarkdown_context_object(self):
         """
-        Get the Team, Project, or Service that this wikipage is in the context
-        of.
+        Get the Team, Project, or Service that this wikipage is in context.
         """
         try:
             obj = hubpath_objects.arbitrary_get(site_id=self.site_id)
