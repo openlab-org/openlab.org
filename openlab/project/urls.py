@@ -15,7 +15,8 @@ urlpatterns = [
     u(r'^projects/(?P<country>[a-z][a-z])/$', views.ProjectList),
     u(r'^projects/(?P<country>[a-z][a-z])/(?P<region>[\w-]+)/$', views.ProjectList),
     u(r'^projects/(?P<country>[a-z][a-z])/(?P<region>[\w-]+)/(?P<city>[\w-]+)/$', views.ProjectList),
-    u(r'^(?P<project_namespace>[\w._-]+)/new/$', views.ProjectCreate),
+    u(r'^(?P<project_namespace>[\w._-]+)/creating/$', views.ProjectCreate),
+    u(r'^(?P<project_namespace>[\w._-]+)/new/$', views.ProjectPreCreate),
 
     # Bare project view - this either displays release or redirects to view files
     url(PROJECT_PATH+'/$', views.project_release, {}, 'project'),

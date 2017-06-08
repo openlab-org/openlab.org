@@ -24,6 +24,16 @@ class CreateProjectForm(InfoBaseForm):
         return instance.team or instance.user or instance.team.user
 
 
+class PreCreateForm(forms.Form):
+    '''
+    Non-crispy form (to have more control) for the initial experience of
+    "importing" a project from an existing source (and, eventually, creating
+    one from scratch utilizing OL's flat file system)
+    '''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 class EditProjectForm(CreateProjectForm):
     class Meta:
         fields = InfoBaseForm._edit_fields + ('license',)
@@ -44,7 +54,7 @@ class AddDependencyForm(forms.Form):
                 '"component dependency" for this project.'))
 
     def __init__(self, *a, **k):
-        super(AddDependencyForm, self).__init__(*a, **k)
+        super().__init__(*a, **k)
         self.helper = FormHelper()
         self.helper.form_tag = False
 

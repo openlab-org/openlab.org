@@ -14,7 +14,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from taggit.models import Tag
 
-
 # first party
 from openlab.gallery.models import Photo
 

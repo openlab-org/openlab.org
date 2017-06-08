@@ -1,4 +1,3 @@
-
 # django
 from django.shortcuts import render, get_object_or_404
 from django.utils.translation import ugettext as _
@@ -38,11 +37,9 @@ from openlab.release.views import ManageReleasesBase, ManageReleasesNewBase,\
 
 # local
 # Imports from this app
-from .forms import CreateProjectForm, EditProjectForm, AddDependencyForm
+from .forms import PreCreateForm, CreateProjectForm, EditProjectForm, AddDependencyForm
 from .models import Project, UserPermission
 from . import view_helpers
-
-
 
 
 class Base(object):
@@ -88,6 +85,12 @@ class ProjectCountryList(CountryListBase, Base):
     parent_view = ProjectList
 
 
+class ProjectPreCreate(PreCreateInfo, Base):
+    parent_view = ProjectList
+    form = PreCreateForm
+    redirect_view_name = 'project_create'
+
+
 class ProjectCreate(CreateInfo, Base):
     CREATION_MESSAGE = _("Awesome! You've created a new project. Now upload "
                         "relevant files in the Update tab.")
@@ -95,6 +98,13 @@ class ProjectCreate(CreateInfo, Base):
     parent_view = ProjectList
     form = CreateProjectForm
     extra_form = None
+
+    def get_initial(self, request):
+        git_url = request.GET.get('git_url')
+        if git_url:
+            # Do Git API search
+            return {'git_url': git_url}
+        return {}
 
     def after_creation(self, obj):
         """
@@ -120,14 +130,11 @@ class ProjectCreate(CreateInfo, Base):
 
         obj.team = team
 
-####################################
 ## Project release views
-
-# For now, we use flat, normal views for this. This will make tweaking / cache
-# optimizing easier in the future, since we can very granularly control the
-# logic
-
 def project_release(request, hubpath, template="project/release/release.html"):
+    # For now, we use flat, normal views for this. This will make tweaking /
+    # cache optimizing easier in the future, since we can very granularly
+    # control the logic
     project = get_object_or_404(Project, hubpath=hubpath)
     if not project.release:
         # Project has not yet been released, just redirect to file view

@@ -1,0 +1,33 @@
+{% extends "project/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header_class %}compact{% endblock %}
+
+{% block header_content %}
+<div class="col-md-12">
+    <h1>Create a project</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Paste in a GitHub URL</h1>
+        </div>
+    </div>
+    <div class="row">
+        <form action='' method='POST'>
+            {% csrf_token %}
+            <div class="col-md-10">
+                <div class="form-group">
+                    <input style="font-size: 22pt; padding: 30px;" placeholder="http://github.com/yourname/yourproject/" type="input" class="form-control" id="pwd">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-lg btn-success">Import</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

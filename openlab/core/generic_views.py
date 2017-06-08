@@ -434,6 +434,8 @@ class FormBaseMixin(object):
         existing one
         """
         instance = self.get_object(request)
+
+        # Mixin in any prefilled fields (used by PreCreate UX path)
         form = self.get_form(request, instance=instance)
         extra_form = None
         valid = form.is_valid()
@@ -483,10 +485,15 @@ class FormBaseMixin(object):
 
 
     def get_form(self, request, instance=None):
-        if request.method == 'POST':
-            form = self.form(request.POST, instance=instance)
+        if hasattr(self, 'get_initial'):
+            initial = self.get_initial(request)
         else:
-            form = self.form(instance=instance)
+            initial = {}
+
+        if request.method == 'POST':
+            form = self.form(request.POST, instance=instance, initial=initial)
+        else:
+            form = self.form(instance=instance, initial=initial)
         form.helper.form_id = "%s_edit" % self.noun
         form.helper.form_action = ''
         return form
@@ -494,12 +501,40 @@ class FormBaseMixin(object):
     def after_creation(self, request):
         pass
 
+
+class PreCreateInfo(Info, LoginRequiredMixin):
+    '''
+    For Project views: Basically offers various creation step options,
+    either from GitHub, or from scratch
+
+    (Eventually may allow Team import from GitHub, also)
+    '''
+    template_interfix = "manage/"
+    template_basename = "precreate"
+    breadcrumb = _('Create')
+
+    def get_form(self, request):
+        if request.method == 'POST':
+            form = self.form(request.POST)
+        else:
+            form = self.form()
+        return form
+
+    def post(self, request, *a, **k):
+        form = self.form(request.POST)
+        if not form.is_valid():
+            return self.get(request)
+
+        # TODO: turn look POST variables into GET variables
+        # request.POST
+        return redirect(self.redirect_view_name, *a, **k)
+
+
 class CreateInfo(Info, LoginRequiredMixin, FormBaseMixin):
     template_interfix = "manage/"
     template_basename = "create"
     breadcrumb = _('Create')
     CREATION_MESSAGE = ''
-
 
     def get_object(self, request):
         """
@@ -512,7 +547,6 @@ class CreateInfo(Info, LoginRequiredMixin, FormBaseMixin):
         return {
                 'form': form,
             }
-
 
 
 class ManageInfo(ViewInfo, LoginRequiredMixin):

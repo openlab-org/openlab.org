@@ -60,8 +60,6 @@ urlpatterns = [
     url(r'^location/', include('openlab.location.urls')),
     url(r'^release/', include('openlab.release.urls')),
     url(r'^select2/', include('django_select2.urls')), # Select 2 URLs
-
-    url(r'^direct-upload/', include('s3uploader.urls')),
     ##### ##### #####
 
     # NOTE: v- hardcoded in base.html
