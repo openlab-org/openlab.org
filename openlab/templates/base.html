@@ -129,18 +129,12 @@
                 <a href="{% url "core_site_credits" %}">{% trans "Credits & Special Thanks." %}</a>
                 {% trans "Contact:" %}
                 <a href="/contact/">{% trans "Contact us online" %}</a>
-                {% if user.is_authenticated and user.is_superuser %}
-                <div class="pull-right well">
-                <strong>ADMIN OPTIONS</strong> |
-                <a href="/labrat/admin/">Admin panel</a> |
-                <strong>Site blog:</strong> <a href="/labrat/admin/quickblog/post/add/">Write post</a>
-                | <a href="/labrat/admin/quickblog/post/">Manage post</a>
-                </div>
-                {% endif %}
+                {% include "su/statusbar.html" %}
             </p>
         </div>
 
 
+            {% comment %}
             <div class="col-md-2">
                 <p><a 
                         class="btn btn-default btn-xs tip"
@@ -151,6 +145,7 @@
                     <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
                 </a></p>
             </div>
+            {% endcomment %}
         </div>
     </footer> <!-- /container -->
     {% endblock footer %}

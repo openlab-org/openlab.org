@@ -12,34 +12,35 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs">
-
+                <li {{ tab.about }}><a href="{% url "project_about" project.hubpath %}">Description</a></li>
                 <li {{ tab.files }}{{ tab.file }}><a href="{% url "project_files" project.hubpath %}">Files</a></li>
-                {% comment %}
-                <li {{ tab.about }}><a href="{% url "project_about" project.hubpath %}">Overview</a></li>
-                {% endcomment %}
-                <li {{ tab.activity }}><a href="{% url "project_activity" project.hubpath %}">History</a></li>
+                <li {{ tab.files }}><a href="{% url "project_files" project.hubpath %}">Dependencies</a></li>
                 <li {{ tab.discussions }}{{ tab.thread }}><a href="{% url "project_discussions" project.hubpath %}">Discussions</a></li>
-                {% if project.wikisite and not project.wikisite.is_disabled %}
-                    {% if project.wikisite.is_public or can_edit %}
-                        <li {{ tab.wiki }}{{ tab.wiki_edit }}{{ tab.wiki_edit_history}}><a href="{% url "project_wiki" project.hubpath %}">Wiki</a></li>
-                    {% endif %}
-                {% endif %}
-                <li {{ tab.forks }}><a href="{% url "project_forks" project.hubpath %}">Forks</a></li>
-                {% if tab.photo or tab.gallery or can_edit %}
-                    <li {{ tab.gallery }}{{ tab.photo }}><a href="{% url "project_gallery" project.hubpath %}">Gallery</a></li>
-                {% endif %}
-                <li {{ tab.members }}><a href="{% url "project_members" project.hubpath %}">Contributors</a></li>
                 <li {{ tab.followers }}><a href="{% url "project_followers" project.hubpath %}">Followers</a></li>
 
                 {% if can_edit %}
-                    <li  class="{{ tab.manage.as_class }} edit-tab pull-right tip"
-                        title="{% trans "You have access to this project, edit details about it." %}">
-                        <a href="{% url "project_manage_edit" project.hubpath %}"><i class="icon-pencil"></i> Edit</a></li>
-
-                    <li  class="{{ tab.update.as_class }} edit-tab pull-right tip"
+                    <li class="{{ tab.update.as_class }} edit-tab pull-right tip"
                         title="{% trans "Upload a new revision of this project." %}">
                         <a href="{% url "project_update" project.hubpath %}"><i class="icon-upload-alt"></i> Update</a></li>
                 {% endif %}
+
+                {% comment %}
+                    <!-- DISABLED TABS -->
+                    <li {{ tab.activity }}><a href="{% url "project_activity" project.hubpath %}">History</a></li>
+                    {% if project.wikisite and not project.wikisite.is_disabled %}
+                        {% if project.wikisite.is_public or can_edit %}
+                            <li {{ tab.wiki }}{{ tab.wiki_edit }}{{ tab.wiki_edit_history}}><a href="{% url "project_wiki" project.hubpath %}">Wiki</a></li>
+                        {% endif %}
+                    {% endif %}
+                    <li {{ tab.forks }}><a href="{% url "project_forks" project.hubpath %}">Forks</a></li>
+                    {% if tab.photo or tab.gallery or can_edit %}
+                        <li {{ tab.gallery }}{{ tab.photo }}><a href="{% url "project_gallery" project.hubpath %}">Gallery</a></li>
+                    {% endif %}
+                    <li {{ tab.members }}><a href="{% url "project_members" project.hubpath %}">Contributors</a></li>
+                    <li  class="{{ tab.manage.as_class }} edit-tab pull-right tip"
+                        title="{% trans "You have access to this project, edit details about it." %}">
+                        <a href="{% url "project_manage_edit" project.hubpath %}"><i class="icon-pencil"></i> Edit</a></li>
+                {% endcomment %}
             </ul>
         </div>
     </div>
