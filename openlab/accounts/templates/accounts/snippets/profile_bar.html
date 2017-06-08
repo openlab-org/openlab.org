@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-sm-1">
+        <a href="{{ profile.get_absolute_url }}">
+            <img class="img-rounded" src="{{ profile.avatar_url }}" />
+        </a>
+    </div>
+    <div class="col-sm-5">
+        <p><a href="{{ project.get_absolute_url }}">{{ profile.desired_name }}</a></p>
+        <p class="text-muted">
+            <tt>@{{ profile.user.username }}</tt>
+            {% if type == "owner" %}
+                (admin)
+            {% endif %}
+        </p>
+    </div>
+</div>

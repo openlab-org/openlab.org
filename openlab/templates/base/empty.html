@@ -87,46 +87,40 @@
   <body {% block bodyattributes %}{% endblock %}>
 
     {% block startjavascript %}
-
-    <script src="{{ STATIC_URL }}jquery/js/jquery-1.11.0.min.js"></script>
-
+        <script src="{{ STATIC_URL }}jquery/js/jquery-1.11.0.min.js"></script>
     {% endblock startjavascript %}
 
     {% block body %}
     {% endblock body %}
 
     {% block endjavascript %}
-    {% compress js %}
-        <!-- jquery ui (core & interactions only) -->
-        <script src="{{ STATIC_URL }}jquery/js/jquery-ui-1.10.4.custom.js"></script>
+        {% compress js %}
+            <!-- jquery ui (core & interactions only) -->
+            <script src="{{ STATIC_URL }}jquery/js/jquery-ui-1.10.4.custom.js"></script>
 
-        <!-- 3D stuff -->
-        <script src="{{ STATIC_URL}}meshviewer/js/jsc3d/jsc3d.min.js"></script>
+            <!-- 3D stuff -->
+            <script src="{{ STATIC_URL}}meshviewer/js/jsc3d/jsc3d.min.js"></script>
 
-        <!-- document viewing stuff-->
-        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.svgpan.js"></script>
+            <!-- document viewing stuff-->
+            <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.svgpan.js"></script>
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- textarea plugins -->
-        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.autosize.js"></script>
-        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.caret.js"></script>
-        <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.atwho.js"></script>
+            <!-- textarea plugins -->
+            <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.autosize.js"></script>
+            <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.caret.js"></script>
+            <script src="{{ STATIC_URL }}jqueryplugins/js/jquery.atwho.js"></script>
+            <script src="{{ STATIC_URL }}bootstrap-markdown/js/bootstrap-markdown.js"></script>
 
-        <script src="{{ STATIC_URL }}bootstrap-markdown/js/bootstrap-markdown.js"></script>
-
-        {# {% s3uploader_js %} #}
-
-        <!-- Open lab custom JS -->
-        <script src="{{ STATIC_URL }}core/js/main.js"></script>
-        <script src="{{ STATIC_URL }}core/js/components.js"></script>
-        <script src="{{ STATIC_URL }}core/js/docviewer.js"></script>
-        <script src="{{ STATIC_URL }}core/js/olmarkdown.js"></script>
-        <script src="{{ STATIC_URL }}core/js/gallery.js"></script>
-        <script src="{{ STATIC_URL }}core/js/newrelease.js"></script>
-    {% endcompress %}
-
+            <!-- Open lab custom JS -->
+            <script src="{{ STATIC_URL }}core/js/main.js"></script>
+            <script src="{{ STATIC_URL }}core/js/components.js"></script>
+            <script src="{{ STATIC_URL }}core/js/docviewer.js"></script>
+            <script src="{{ STATIC_URL }}core/js/olmarkdown.js"></script>
+            <script src="{{ STATIC_URL }}core/js/gallery.js"></script>
+            <script src="{{ STATIC_URL }}core/js/newrelease.js"></script>
+        {% endcompress %}
     {% endblock %}
     {% block more_js %}
     {% endblock %}

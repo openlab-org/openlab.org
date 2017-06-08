@@ -59,62 +59,60 @@
     {% endblock %}
 
 
-    {% block middle %}
-
-        {% block header %}
-        <div class="jumbotitle {% block header_class %}{% endblock %}" {% block header_attr %}{% endblock %}>
-            <div class="header-top">
-
-
-                {% block breadcrumbs %}
-                    {% if request.breadcrumbs and request.breadcrumbs|length > 1 %}
-                        <div class="container">
-                            <ol class="breadcrumb">
-                                {% for breadcrumb in request.breadcrumbs %}
-                                    {% if forloop.last %}
-                                        <li class="active">{{ breadcrumb.name }}</li>
-                                    {% else %}
-                                        <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ol>
-                        </div>
-                    {% endif %}
-                {% endblock breadcrumbs %}
-                <div id="messages">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="container">
-                                <div class="alert alert-info alert-{{ message.tags }}">
-                                    <a class="btn btn-large btn-warning pull-right" data-dismiss="alert">&times;</a>
-                                    <p><big>{{ message }}</big></p>
+    <div class="main-wrapper">
+        {% block middle %}
+            {% block header %}
+                <div class="jumbotitle {% block header_class %}{% endblock %}" {% block header_attr %}{% endblock %}>
+                    <div class="header-top">
+                        {% block breadcrumbs %}
+                            {% if request.breadcrumbs and request.breadcrumbs|length > 1 %}
+                                <div class="container">
+                                    <ol class="breadcrumb">
+                                        {% for breadcrumb in request.breadcrumbs %}
+                                            {% if forloop.last %}
+                                                <li class="active">{{ breadcrumb.name }}</li>
+                                            {% else %}
+                                                <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ol>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                            {% endif %}
+                        {% endblock breadcrumbs %}
+                        <div id="messages">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="container">
+                                        <div class="alert alert-info alert-{{ message.tags }}">
+                                            <a class="btn btn-large btn-warning pull-right" data-dismiss="alert">&times;</a>
+                                            <p><big>{{ message }}</big></p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <div class="container header-content">
+                        {% block header_content %}
+                        {% endblock %}
+                    </div>
+
+                    <div class="header-bottom">
+                        {% block header_bottom %}
+                        {% endblock %}
+                    </div>
                 </div>
-            </div>
-
-
-            <div class="container header-content">
-                {% block header_content %}
                 {% endblock %}
-            </div>
 
-            <div class="header-bottom">
-                {% block header_bottom %}
-                {% endblock %}
-            </div>
-        </div>
-        {% endblock %}
-
-        {% block content %}
-        {% endblock content %}
-    {% endblock middle %}
+                {% block content %}
+                {% endblock content %}
+        {% endblock middle %}
+    </div>
 
     {% block footer %}
-    <footer class="container">
-        <p style="text-align: center">
+        <footer class="sticky-footer">
             Open Lab
             <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
             <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
@@ -124,20 +122,19 @@
             -
             <a href="{% url "core_site_credits" %}">{% trans "Credits" %}</a> -
             <a href="/contact/">{% trans "Contact" %}</a>
-        </p>
-        {% comment %}
-            <div class="col-md-2">
-                <p><a 
-                        class="btn btn-default btn-xs tip"
-                        href="javascript:void(0);"
-                        onClick="window.open('http://webchat.freenode.net/?nick={% firstof user.username 'visitor...' %}&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
-                        title="Ran into a bug? Not sure what to do? Click here to chat with us in the chat channel! (freenode#openlab-dev)"
-                    >
-                    <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
-                </a></p>
-            </div>
-        {% endcomment %}
-    </footer> <!-- /container -->
+            {% comment %}
+                <div class="col-md-2">
+                    <p><a 
+                            class="btn btn-default btn-xs tip"
+                            href="javascript:void(0);"
+                            onClick="window.open('http://webchat.freenode.net/?nick={% firstof user.username 'visitor...' %}&channels=openlab-dev&uio=Mj10cnVlJjM9ZmFsc2UmMTA9dHJ1ZSYxMT0yMjYmMTM9ZmFsc2U9b','Open Lab Dev Chat','height=400,width=450');"
+                            title="Ran into a bug? Not sure what to do? Click here to chat with us in the chat channel! (freenode#openlab-dev)"
+                        >
+                        <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
+                    </a></p>
+                </div>
+            {% endcomment %}
+        </footer> <!-- /container -->
     {% endblock footer %}
 {% endblock body %}
 
