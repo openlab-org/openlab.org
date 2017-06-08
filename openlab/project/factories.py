@@ -9,7 +9,6 @@ from random import choice, randint
 
 class ProjectTestFactory(InfoBaseTestFactory):
     FACTORY_FOR = models.Project
-    #version = factory.Sequence(lambda n: "0." + ".".join(str(n)))
 
     @factory.lazy_attribute
     def biome(a):

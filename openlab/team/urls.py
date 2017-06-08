@@ -7,8 +7,6 @@ from . import views
 TEAM_REGEXP = r'^(?P<slug>[\w-]+)/'
 
 urlpatterns = [
-    # List view
-    #url(r'^$', views.TeamList.as_view(), {}, views.TeamList.url_name),
     u(r'^$', views.TeamList),
     u(r'^(?P<tab>[a-z][a-z][a-z]+)$', views.TeamList, url_name_suffix="_tab"),
     u(r'^countries/$', views.TeamCountryList),
@@ -29,11 +27,4 @@ urlpatterns = [
     u(TEAM_REGEXP+'manage/edit/$', views.TeamManageEdit),
     u(TEAM_REGEXP+'manage/members/$', views.TeamManageMembers),
     u(TEAM_REGEXP+'manage/gallery/$', views.TeamManageGallery),
-    u(TEAM_REGEXP+'manage/gallery/edit/$', views.TeamManageGalleryEdit),
-
-    #url(r'^$', 'index', {}, "team_list"),
-    #(r'^edit/(?P<team_slug>[\w-]+)/$',   'edit_team', {}, 'team_edit'),
-
-    #(r'^new/$',                          'create_team', {}, 'team_new'),
-    ###########################
 ]

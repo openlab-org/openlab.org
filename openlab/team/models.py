@@ -11,7 +11,6 @@ from taggit.managers import TaggableManager
 import actstream
 
 # 1st party
-#from core.models import LocatableBaseModel
 from openlab.core.models import InfoBaseModel
 
 
@@ -33,6 +32,6 @@ class Team(InfoBaseModel):
         """
         Initial team view
         """
-        from . import views
+        from . import views # TODO Fix this
         return reverse(views.TeamView.get_url_name(), args=[self.hubpath])
 

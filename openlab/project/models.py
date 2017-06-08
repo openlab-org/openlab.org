@@ -26,8 +26,10 @@ class ProjectPermission(models.Model):
     class Meta:
         abstract = True
 
+
 class TeamPermission(ProjectPermission):
     team = models.ForeignKey(Team, related_name='project_%(class)s')
+
 
 class UserPermission(ProjectPermission):
     user = models.ForeignKey(User, related_name='project_%(class)s')
@@ -80,8 +82,6 @@ class Project(InfoBaseModel):
             related_name='used_by_projects',
             help_text=_("Sub-projects that this project uses"))
 
-    # Related biome --- once we incorporate this, stop using text field
-    #biome = models.ForeignKey(Biome, blank=True, null=True)
     biome = models.CharField(max_length=2,
             choices=anthrome_types.CHOICES,
             help_text=_("Choose the anthrome to which this project is most related to."))
@@ -92,8 +92,6 @@ class Project(InfoBaseModel):
         Pass "team" into this function to "fork as team"
         Returns the new instance, already saved.
         """
-
-        # todo: should do this in a separate thread
         p = Project(
                     license=self.license,
                     title=self.title,
@@ -118,18 +116,11 @@ class Project(InfoBaseModel):
         p.save()
         return p
 
-
-    def merge(self, project):
-        # TODO
-        NotImplemented()
-
     def get_absolute_url(self):
         return reverse('project', args=[str(self.hubpath)])
 
     def get_absolute_thread_url(self, thread):
         return reverse('project_thread', args=[str(self.hubpath), thread.id])
-
-
 
     def editable_by_user_id_list(self):
         # A lot of look ups here, later we should cache all user IDs using the
@@ -152,7 +143,6 @@ class Project(InfoBaseModel):
         #cache.set("editable-by-userid-list-"+self.id, user_ids)
         return user_ids
 
-
     def editable_by(self, user=None, user_id=None):
         """
         Given either the user_id or the user object, check if this project is
@@ -166,5 +156,3 @@ class Project(InfoBaseModel):
         Does this project meet the requirements to be featured?
         """
         return self.release
-
-

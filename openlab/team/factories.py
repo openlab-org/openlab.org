@@ -26,5 +26,3 @@ def make_random(count, users):
         results.append(team)
 
     return results
-
-

@@ -32,7 +32,6 @@ class EditProjectForm(CreateProjectForm):
         model = Project
 
 
-
 class SelectProjectField(AutoModelSelect2Field):
     queryset = Project.objects
     search_fields = ['title__icontains', 'slug__icontains']
@@ -53,6 +52,4 @@ class AddDependencyForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-lg-2'
         self.helper.field_class = 'col-lg-8'
-
-
 

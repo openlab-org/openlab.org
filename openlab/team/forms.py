@@ -16,6 +16,7 @@ class CreateTeamForm(InfoBaseForm):
     def copy_from(self, instance):
         return instance.user
 
+
 class EditTeamForm(CreateTeamForm):
     class Meta:
         fields = InfoBaseForm._edit_fields
@@ -30,5 +31,3 @@ class SelectTeamField(AutoModelSelect2Field):
 
 class TeamSelectForm(forms.Form):
     team = SelectTeamField()
-
-
