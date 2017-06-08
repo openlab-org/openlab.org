@@ -22,9 +22,10 @@ urlpatterns = [
     # todo make file counted
 
     # Individual tabs
+    u(PROJECT_PATH+'/description/$', views.ProjectViewOverview),
     u(PROJECT_PATH+'/files/$', views.ProjectViewFiles),
     u(PROJECT_PATH+'/files/(?P<file_id>\d+)/$', views.ProjectViewFile),
-    u(PROJECT_PATH+'/details/$', views.ProjectViewOverview),
+    u(PROJECT_PATH+'/dependencies/$', views.ProjectViewDependencies),
     u(PROJECT_PATH+'/activity/$', views.ProjectViewActivity),
     u(PROJECT_PATH+'/activity/revision/(?P<revision_number>\d+)/$', views.ProjectViewRevision),
     u(PROJECT_PATH+'/followers/$', views.ProjectViewFollowers),

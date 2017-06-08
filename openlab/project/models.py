@@ -86,6 +86,12 @@ class Project(InfoBaseModel):
             choices=anthrome_types.CHOICES,
             help_text=_("Choose the anthrome to which this project is most related to."))
 
+    def get_olmarkdown_source(self):
+        """
+        Eventually, used a cached version of README.md
+        """
+        return ''
+
     def fork(self, user, team=None):
         """
         Forks this project into a new one, copying all file instances.

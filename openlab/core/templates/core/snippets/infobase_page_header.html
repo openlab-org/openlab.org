@@ -26,12 +26,15 @@
             {% if user.is_authenticated %}
                 <div class="pull-right infobase-actions">
                     {% include "activity/snippets/star_icon.html" with noun=object_class %}
-                    {% if 'forking' in actions_available %}
-                        <a class="tip"
-                            data-toggle="modal" href="#fork_modal"
-                            title="Fork this {{ object_class }}."><i class="icon-code-fork icon-large"></i>
-                        </a>
-                    {% endif %}
+                    {% comment %}
+                        {# Disabling forking #}
+                        {% if 'forking' in actions_available %}
+                            <a class="tip"
+                                data-toggle="modal" href="#fork_modal"
+                                title="Fork this {{ object_class }}."><i class="icon-code-fork icon-large"></i>
+                            </a>
+                        {% endif %}
+                    {% endcomment %}
                 </div>
             {% endif %}
         </div>

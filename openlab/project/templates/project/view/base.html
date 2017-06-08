@@ -14,9 +14,8 @@
             <ul class="nav nav-tabs">
                 <li {{ tab.about }}><a href="{% url "project_about" project.hubpath %}">Description</a></li>
                 <li {{ tab.files }}{{ tab.file }}><a href="{% url "project_files" project.hubpath %}">Files</a></li>
-                <li {{ tab.files }}><a href="{% url "project_files" project.hubpath %}">Dependencies</a></li>
+                <li {{ tab.dependencies }}><a href="{% url "project_dependencies" project.hubpath %}">Dependencies</a></li>
                 <li {{ tab.discussions }}{{ tab.thread }}><a href="{% url "project_discussions" project.hubpath %}">Discussions</a></li>
-                <li {{ tab.followers }}><a href="{% url "project_followers" project.hubpath %}">Followers</a></li>
 
                 {% if can_edit %}
                     <li class="{{ tab.update.as_class }} edit-tab pull-right tip"
@@ -26,6 +25,7 @@
 
                 {% comment %}
                     <!-- DISABLED TABS -->
+                    <li {{ tab.followers }}><a href="{% url "project_followers" project.hubpath %}">Followers</a></li>
                     <li {{ tab.activity }}><a href="{% url "project_activity" project.hubpath %}">History</a></li>
                     {% if project.wikisite and not project.wikisite.is_disabled %}
                         {% if project.wikisite.is_public or can_edit %}
@@ -50,7 +50,8 @@
 {% block content %}
     {% block tabcontent %}
     {% endblock %}
-    {% comment %}includes metadata info necessary to allow markdown pop ups to work{% endcomment %}
+
+    {# includes metadata info necessary to allow markdown pop ups to work #}
     {% include "core/snippets/infobase_olmarkdown_help.html" %}
 {% endblock content %}
 

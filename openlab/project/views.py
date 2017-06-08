@@ -131,7 +131,7 @@ def project_release(request, hubpath, template="project/release/release.html"):
     project = get_object_or_404(Project, hubpath=hubpath)
     if not project.release:
         # Project has not yet been released, just redirect to file view
-        return redirect("project_files", hubpath)
+        return redirect("project_about", hubpath)
 
     # Okay, there is a release, lets format this
     ctx = make_release_context(request, project)
@@ -146,13 +146,28 @@ def project_release(request, hubpath, template="project/release/release.html"):
 ## Project views
 
 #class ProjectViewFiles(ViewOverviewInfo, Base):
-class ProjectViewFiles(ViewInfo, Base):
+class ProjectViewOverview(ViewInfo, Base):
     parent_view = ProjectList
-    template_basename = 'files'
+    template_basename = "about"
+    breadcrumb = _('Overview')
 
     @classmethod
     def breadcrumb(cls, ctx):
         return str(ctx.get('obj'))
+
+
+class ProjectViewDependencies(ViewInfo, Base):
+    parent_view = ProjectViewOverview
+    template_basename = "dependencies"
+    breadcrumb = _('Dependencies')
+    def get_more_context(self, request, obj):
+        return {'subprojects': obj.dependencies.all()}
+
+
+class ProjectViewFiles(ViewInfo, Base):
+    parent_view = ProjectViewOverview
+    template_basename = "files"
+    breadcrumb = _('Files')
 
     def get_more_context(self, request, obj):
         files_by_folder = []
@@ -187,19 +202,14 @@ class ProjectViewFile(ViewInfo, DiscussableMixin, Base):
         return c
 
 
-class ProjectViewOverview(ViewInfo, Base):
-    parent_view = ProjectViewFiles
-    template_basename = "about"
-    breadcrumb = _('Overview')
-
 
 class ProjectViewMembers(ViewMembersInfo, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
 
 class ProjectViewForks(ViewActivityInfo, Base):
     template_basename = 'forks'
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
     def get_more_context(self, request, obj):
         # Maybe flatten tree?
@@ -210,7 +220,7 @@ class ProjectViewForks(ViewActivityInfo, Base):
 
 
 class ProjectViewGallery(ViewGalleryBase, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
 
 class ProjectViewPhoto(ViewPhotoBase, Base):
@@ -220,7 +230,7 @@ class ProjectViewPhoto(ViewPhotoBase, Base):
 ################################
 # Discussion stuff
 class ProjectViewDiscussions(ListDiscussionsBase, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
     thread_view_name = "project_thread"
 
 class ProjectViewThread(ViewThreadBase, Base):
@@ -230,15 +240,15 @@ class ProjectViewThread(ViewThreadBase, Base):
 ################################
 # Act stream stuff
 class ProjectViewFollowers(ViewFollowersBase, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
 class ProjectViewActivity(ViewActivityStreamBase, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
 ################################
 # wiki info
 class ProjectViewWiki(ViewWikiBase, Base):
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
 
 class ProjectEditWiki(EditWikiBase, Base):
     parent_view = ProjectViewWiki
@@ -260,7 +270,7 @@ class ProjectUpdate(ViewInfo, Base):
     """
     Create a new project release
     """
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
     template_basename = 'update'
     template_interfix = 'update/'
     breadcrumb = _('Update')
@@ -489,7 +499,7 @@ class ProjectManageEdit(ManageEditInfo, Base):
     Editing details about the Project :)
     """
     #parent_view = ProjectManageFiles
-    parent_view = ProjectViewFiles
+    parent_view = ProjectViewOverview
     form = EditProjectForm
 
 class ProjectManageDependencies(ManageInfo, Base):
@@ -596,7 +606,7 @@ class ProjectManageFiles(ManageUploadBaseInfo, Base):
     """
     template_basename = 'files'
     breadcrumb = _("Update")
-    parent_view = ProjectViewFiles
+    parent_view = ProjectManageEdit
     def get_queryset(self, obj):
         #return FileModel.objects.filter(project=obj, deleted=False)
         return []

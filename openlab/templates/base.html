@@ -114,27 +114,18 @@
 
     {% block footer %}
     <footer class="container">
-        <hr>
-        <div class="row">
-            <div class="col-md-10">
-            <p>
-                Open Lab
-                <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
-                <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
-                &copy;</span>
-                <!--[if lte IE 8]></span><![endif]-->
-                {% now "Y" %}
-
-
-                <a href="{% url "core_site_credits" %}">{% trans "Credits & Special Thanks." %}</a>
-                {% trans "Contact:" %}
-                <a href="/contact/">{% trans "Contact us online" %}</a>
-                {% include "su/statusbar.html" %}
-            </p>
-        </div>
-
-
-            {% comment %}
+        <p style="text-align: center">
+            Open Lab
+            <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+            <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+            &copy;</span>
+            <!--[if lte IE 8]></span><![endif]-->
+            {% now "Y" %}
+            -
+            <a href="{% url "core_site_credits" %}">{% trans "Credits" %}</a> -
+            <a href="/contact/">{% trans "Contact" %}</a>
+        </p>
+        {% comment %}
             <div class="col-md-2">
                 <p><a 
                         class="btn btn-default btn-xs tip"
@@ -145,8 +136,7 @@
                     <i class="icon-comments"></i> &nbsp; Open Lab Dev Chat &nbsp;<i class="icon-external-link"></i>
                 </a></p>
             </div>
-            {% endcomment %}
-        </div>
+        {% endcomment %}
     </footer> <!-- /container -->
     {% endblock footer %}
 {% endblock body %}

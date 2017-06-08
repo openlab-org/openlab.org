@@ -1,15 +1,15 @@
 from datetime import datetime
-from django.utils.html import strip_tags
 
+from django.utils.html import strip_tags
 from django.db import models
 from django.utils.translation import ugettext as _
-
 from django.utils.safestring import mark_safe
-
 
 from . import extensions
 
 SUMMARY_LENGTH = 200
+
+class NotImplementedException(Exception): pass
 
 class OLMarkdownBase(models.Model):
 
@@ -25,11 +25,11 @@ class OLMarkdownBase(models.Model):
     olmarkdown_rendered_date = models.DateTimeField(blank=True, null=True)
 
     def get_olmarkdown_source(self):
-        raise NotImplemented("Anything that subclasses OLMarkdownBase should "
+        raise NotImplementedException("Anything that subclasses OLMarkdownBase should "
                             "implement get_olmarkdown_source!")
 
     def fetch_olmarkdown_context_object(self):
-        raise NotImplemented("Anything that subclasses OLMarkdownBase should "
+        raise NotImplementedException("Anything that subclasses OLMarkdownBase should "
                             "implement fetch_olmarkdown_context_object!")
 
     def regenerate_markdown(self, context_object=None):
@@ -72,5 +72,3 @@ class OLMarkdownBase(models.Model):
     def _all_subclasses():
         classes = OLMarkdownBase.__subclasses__()
         return classes
-
-

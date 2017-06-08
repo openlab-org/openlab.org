@@ -6,16 +6,30 @@
         <div class="col-md-8">
             {{ project.rendered_markdown }}
         </div>
-        <div class="col-md-4">
-            <h2>Information</h2>
+        <div class="col-md-4 col-sm-6 project-sidebar">
             <dl class="dl-horizontal">
-                <dt>Path</dt>    <dd>{{ project.hubpath }}</dd>
-                <dt>Title</dt>   <dd>{{ project.title }}</dd>
-                <dt>Owner</dt>   <dd>{% firstof project.team project.user %}</dd>
-                <dt>First created</dt>   <dd>{{ project.creation_date }}</dd>
-                <dt>Last updated</dt>   <dd>{{ project.updated_date }}</dd>
-                <dt>Tags</dt>   <dd>{% for tag in project.tags.all %}{{ tag }} {% empty %}None{% endfor %}</dd>
-                <dt>Location</dt>   <dd>{% firstof project.city project.region project.country "Unspecified" %}</dd>
+                <dt>Owner</dt>   <dd><a href="{% if project.team %}
+                    {{ project.team.get_absolute_url }} {% else %}
+                    {{ project.user.get_absolute_url }}{% endif %}">{% firstof project.team project.user %}</a>
+                </dd>
+                <!--<dt>Path</dt>    <dd>{{ project.hubpath }}</dd>-->
+                {% url "project_list" as project_list_url %}
+                <dt>Tags</dt>   <dd>
+                    {% for tag in project.tags.all %}
+                        <a class="label label-info" href="{{ project_list_url}}?tag={{ tag }}">{{ tag }}</a>
+                    {% empty %}
+                        None
+                    {% endfor %}</dd>
+                <dt>Location</dt>   <dd>
+                    {% include "location/snippets/location_line.html" with view_name="project_list" %}
+                </dd>
+                <dt>License</dt>   <dd>
+                <p>
+                    {% include "licensefield/snippets/license.html" with license=project.license license_display=project.get_license_display img_size="small" %}
+                </p>
+                </dd>
+                <dt>First created</dt>   <dd>{{ project.creation_date|date }}</dd>
+                <dt>Last updated</dt>   <dd>{{ project.updated_date|date }}</dd>
             </dl>
         </div>
     </div>

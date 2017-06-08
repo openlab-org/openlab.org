@@ -1,0 +1,25 @@
+{% extends "project/view/base.html" %}
+
+{% block tabcontent %}
+
+<div class="container components">
+    {% for project in subprojects %}
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                {% include "project/snippets/project_bar.html" %}
+            </div>
+            {% include "project/snippets/file_list_preview.html" with files=project.files.all %}
+        </div>
+        {% empty %}
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <p class="no-files-notice">
+                    This project doesn't have any dependencies.
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock tabcontent %}
