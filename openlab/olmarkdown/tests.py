@@ -41,11 +41,11 @@ def fake_photo(project, title):
     photo.path = photo.path.field.attr_class(photo, photo.path.field, 'lol_fake_path')
 
     # hacks to mock preview thumb stuff
-    photo.preview_image_thumb = photo.preview_image_thumb.field.attr_class(photo,
-            photo.preview_image_thumb.field, 'lol_fake_thumb_path')
+    #photo.preview_image_thumb = photo.preview_image_thumb.field.attr_class(photo,
+    #        photo.preview_image_thumb.field, 'lol_fake_thumb_path')
 
-    photo.preview_image = photo.preview_image.field.attr_class(photo,
-            photo.preview_image.field, 'lol_fake_preview_path')
+    #photo.preview_image = photo.preview_image.field.attr_class(photo,
+    #        photo.preview_image.field, 'lol_fake_preview_path')
 
     photo.save()
     return photo

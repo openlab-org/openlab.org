@@ -5,8 +5,7 @@ MAX_FOR_MENU = 10
 def notifications(request):
     if not request.user.is_authenticated():
         return {}
-    #unread_count = len(Notification.objects.filter(user=request.user, read=False))
-    #total_count = len(Notification.objects.filter(user=request.user))
+
     messages = list(Notification.objects.filter(user=request.user)[:MAX_FOR_MENU])
     if not messages:
         return {}

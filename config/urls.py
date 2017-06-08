@@ -54,10 +54,6 @@ urlpatterns = [
     # misc gallery views
     url(r'^gallery/', include('openlab.gallery.urls')),
 
-    # test URLs
-    url(r'^-meshviewer/', include('openlab.meshviewer.urls')),
-    url(r'^-docviewer/', include('openlab.docviewer.urls')),
-
     ##### ##### #####
     # AJAX stuff
     url(r'^olmarkdown/', include('openlab.olmarkdown.urls')),

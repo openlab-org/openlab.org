@@ -209,7 +209,7 @@ class Anthrome(AnthromeBase):
             }
 
     def generate_stock_image(self):
-        from prequeue import handlers
+        # from prequeue import handlers
         in_path             = self.source_path
         preview_path_prefix, _ = os.path.splitext(self.image_path)
         thumb_path_prefix, _   = os.path.splitext(self.image_thumb_path)

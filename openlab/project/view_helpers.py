@@ -3,7 +3,7 @@ from os.path import dirname, basename
 
 from django.shortcuts import render, get_object_or_404
 
-from .models import Project, FileModel
+from .models import Project
 
 
 def get_project(request, project_path, action='edit'):

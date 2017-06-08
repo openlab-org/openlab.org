@@ -57,7 +57,7 @@ def trigger_thread_save(thread):
     projects = list(thread.project_set.all())
     teams = list(thread.team_set.all())
 
-    # NOTE: "anything"  should almost certainly be a list of length 1
+    # Note: "anything"  should almost certainly be a list of length 1
     anything = list(projects + teams)
     if thread.user:
         name = thread.user.profile.desired_name

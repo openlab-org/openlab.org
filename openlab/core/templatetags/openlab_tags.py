@@ -188,13 +188,13 @@ def do_switch(parser, token):
     got_else = False 
     while token.contents != 'endswitch': 
         nodelist = parser.parse(BlockTagList('case', 'else', 'endswitch')) 
-        
+
         if got_else: 
             raise template.TemplateSyntaxError("'else' must be last tag in '%s'." % tag_name) 
 
         contents = token.contents.split() 
         token_name, token_args = contents[0], contents[1:] 
-        
+
         if token_name == 'case': 
             tests = list(map(parser.compile_filter, token_args)) 
             case = (tests, nodelist) 
@@ -239,7 +239,7 @@ class SwitchNode(Node):
         except VariableDoesNotExist: 
             no_value = True 
             value_missing = None 
-        
+
         for tests, nodelist in self.cases: 
             if tests is None: 
                 return nodelist.render(context) 

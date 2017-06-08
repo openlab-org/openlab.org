@@ -12,7 +12,6 @@ from openlab.team.models import Team
 HubPathBase._SKIP_HUBPATH_CHECK = True
 
 class BasicViewsTestCase(TestCase):
-    #urls = 'project.urls'
     def setUp(self):
         self.user = User.objects.create_user("testuser", "test@test.com", "asdf")
         self.team = make_random(1, [self.user])[0]

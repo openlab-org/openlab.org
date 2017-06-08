@@ -20,7 +20,7 @@ class Subscription(models.Model):
     email_address = models.EmailField(blank=True, null=True,
                                     max_length=150)
 
-    # Discussable objects...
+    # Any sort of object can be subscribed to...
     content_type = models.ForeignKey(ContentType, null=True, blank=True)
     object_id = models.PositiveIntegerField(null=True, blank=True)
     topic_object = GenericForeignKey()

@@ -11,6 +11,7 @@ version_number_validator = RegexValidator(regex=r'^\d+\.\d+(\.\d+)?(a|b|rc\d+)?$
                                         '1)',
                                 code='nomatch')
 
+
 class VersionNumberField(models.CharField):
     """
     Field that allows versioning
@@ -39,9 +40,4 @@ class AutoProjectPathField(models.CharField):
         val = self.make_path(instance, add)
         setattr(instance, self.attname, val)
         return val
-
-    #path = models.TextField(max_length=127,
-
-
-
 

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 
 from core.forms import InfoBaseForm, PhotoSelect2Widget
 
-from .models import Project, FileModel, Revision
+from .models import Project
 
 from django_select2.widgets import *
 from django_select2 import AutoModelSelect2Field
@@ -32,22 +32,6 @@ class EditProjectForm(CreateProjectForm):
         model = Project
 
 
-class EditFileForm(forms.ModelForm):
-    class Meta:
-        fields = ('title', 'description', 'file_license', 'credits', 'photo',)
-        widgets = {
-                'license': forms.RadioSelect,
-                'photo': PhotoSelect2Widget,
-            }
-
-        model = FileModel
-
-    def __init__(self, *a, **k):
-        super(EditFileForm, self).__init__(*a, **k)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-
-
 class SelectProjectField(AutoModelSelect2Field):
     queryset = Project.objects
     search_fields = ['title__icontains', 'slug__icontains']
@@ -68,38 +52,4 @@ class AddDependencyForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-lg-2'
         self.helper.field_class = 'col-lg-8'
-
-
-class RevisionForm(forms.ModelForm):
-    class Meta:
-        fields = ('summary', 'changes',)
-        model = Revision
-
-    def __init__(self, *a, **k):
-        super(RevisionForm, self).__init__(*a, **k)
-
-
-
-class RenameFileForm(forms.ModelForm):
-    """
-    For renaming or moving files
-    """
-    class Meta:
-        fields = ('filename', 'folder', 'replaces', 'removed')
-        model = FileModel
-
-    def __init__(self, *a, **k):
-        tip_files = k.pop('tip_files')
-
-        super(RenameFileForm, self).__init__(*a, **k)
-        self.helper = FormHelper()
-        self.helper.form_tag = False
-
-        # Horizontal form
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-lg-2'
-        self.helper.field_class = 'col-lg-8'
-
-        self.fields['replaces'].queryset = tip_files
-
 

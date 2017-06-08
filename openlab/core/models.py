@@ -19,7 +19,8 @@ class UpdateMixin(object):
             setattr(self, key, val)
 
 class InfoBaseModel(LocatableBaseModel, UpdateMixin, OLMarkdownBase, HubPathBase):
-    #PLACEHOLDER_IMAGE_URL = settings.STATIC_URL + 'core/images/placeholder.png'
+    # Example use of placeholder:
+    # PLACEHOLDER_IMAGE_URL = settings.STATIC_URL + 'core/images/placeholder.png'
 
     class Meta:
         abstract = True
@@ -163,13 +164,11 @@ class Randomable(object):
                 id = random.randint(1, max_id)
                 kwds = model.get_displayable_kwds()
                 kwds['id__gte'] = id
-                #print kwds
                 try:
                     obj = model.objects.filter(**kwds)[0]
                 except IndexError:
                     # If we accidentally sampled a high number which there are
                     # only deleted ones after this, for example
-                    #print "ERROR", kwds
                     continue
 
                 if obj.id not in id_set:

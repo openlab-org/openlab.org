@@ -12,7 +12,6 @@ class ScopeBase(models.Model):
             help_text=_("Total number of items ever added"))
 
 
-
 class AutoScopedNumberField(models.PositiveIntegerField):
     """
     Field that allows positive integers counting numbers.
@@ -54,5 +53,4 @@ class CountedBase(models.Model):
         result = cls.objects.filter(**kwds).aggregate(Max('number'))
         new_number = (result['number__max'] or 0) + 1
         return new_number
-        
 

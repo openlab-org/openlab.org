@@ -10,8 +10,6 @@ from openlab.gallery.views import ManageGalleryBase, ManageGalleryEditBase,\
 from openlab.activity.views import ViewActivityStreamBase, ViewFollowersBase
 from openlab.project.models import Project
 from openlab.location.generic_views import CountryListBase
-#from openlab.wiki.views import ManageWikiBase, EditWikiBase, ViewWikiBase,\
-#                            EditHistoryWikiBase
 
 # local
 from .models import Team
@@ -43,9 +41,11 @@ class Base:
 class TeamList(ListInfo, Base):
     breadcrumb = _('People')
 
+
 class TeamCountryList(CountryListBase, Base):
     breadcrumb = _('Teams by Country')
     parent_view = TeamList
+
 
 class TeamCreate(CreateInfo, Base):
     parent_view = TeamList
@@ -55,8 +55,7 @@ class TeamCreate(CreateInfo, Base):
         # Add creator to team
         obj.members.add(obj.user)
 
-####################################
-## Team views
+
 class TeamView(ViewOverviewInfo, Base):
     parent_view = TeamList
 
@@ -74,26 +73,26 @@ class TeamView(ViewOverviewInfo, Base):
 class TeamViewActivity(ViewActivityInfo, Base):
     parent_view = TeamView
 
+
 class TeamViewMembers(ViewMembersInfo, Base):
     parent_view = TeamView
+
 
 class TeamViewFollowers(ViewFollowersBase, Base):
     parent_view = TeamView
 
+
 class TeamViewGallery(ViewGalleryBase, Base):
     parent_view = TeamView
+
 
 class TeamViewPhoto(ViewPhotoBase, Base):
     parent_view = TeamViewGallery
 
 
-###################################
-# Team management
-#
-
-# Manage members is top thing
+### Team management
 class TeamManageMembers(ManageMembersInfo, Base):
-    parent_view = TeamView
+    parent_view = TeamView # Manage members is top thing
     members = ['members']
 
 
@@ -111,13 +110,4 @@ class TeamManageEdit(ManageEditInfo, Base):
     """
     parent_view = TeamManageMembers
     form = EditTeamForm
-
-
-class TeamManageGalleryEdit(ManageGalleryEditBase, Base):
-    # NO LONGER IN USE
-    """
-    Page where you can add captions / edit all the different gallery photos
-    you just selected.
-    """
-    parent_view = TeamManageGallery
 

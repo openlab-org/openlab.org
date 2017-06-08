@@ -7,15 +7,6 @@ PROJECT_ACTION_PREFIX = r'^(?P<hubpath>[\.\w-]+/[\.\w-]+)'
 
 urlpatterns = [
     ###########################
-    # AJAX upload
-    #url(r'ajax-upload$', 'import_uploader', name="project_ajax_upload"),
-
-
-    ###########################
-    # Index
-
-
-    ###########################
     # Index
     #url(r'^$', views.TeamList.as_view(), {}, views.TeamList.url_name),
     u(r'^projects/$', views.ProjectList),

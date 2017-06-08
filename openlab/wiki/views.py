@@ -39,7 +39,6 @@ class ViewPageBase(ViewInfo):
         if not wikisite:
             return { 'wikisite': None }
 
-        # "Pageslug
         slug = self.kwargs.get('pageslug', 'index')
         ctx = {}
         try:

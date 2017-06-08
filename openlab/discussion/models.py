@@ -1,29 +1,17 @@
-# python
-import re
-import os.path
-from datetime import datetime
-
 # django
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
-from django.utils import formats
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 
 # 3rd party
 from taggit.managers import TaggableManager
-from s3uploader.models import GenericUploadableMixin
 
 # first party
 from openlab.users.models import User
-from openlab.prequeue.models import PreviewBaseClass
 from openlab.olmarkdown.models import OLMarkdownBase
 from openlab.counted.models import ScopeBase, CountedBase
-
-def file_path_builder(instance, filename):
-    return instance.path_builder(filename)
 
 
 class ThreadSubscription(models.Model):
@@ -146,90 +134,4 @@ class Message(OLMarkdownBase, CountedBase):
         "Description" is the field we use for the source
         """
         return self.text
-
-
-
-def id_path_builder(id_number):
-    """
-    Builds a path to a containing folder based on a id
-    """
-    s = "%06i" % id_number
-    return os.path.join(s[:3], s[3:])
-
-
-class Attachment(PreviewBaseClass, GenericUploadableMixin):
-    """
-    Generic uploadable attachment system for use with comments.
-    """
-
-    class PrequeueMeta:
-        FILE_FIELD = 'path'
-
-        @staticmethod
-        def setup_file_data(obj, local_file_path):
-            # Sets up size variable
-            obj.size = os.path.getsize(local_file_path)
-
-
-    class S3UploadableMeta:
-        file_field = 'path'
-        is_ready_field = 'is_uploaded'
-
-        @staticmethod
-        def get_object(request, filename, variables):
-            return Attachment(
-                        description=description,
-                        filename=filename,
-                        user=request.user
-                    )
-
-        @staticmethod
-        def generate_filename(file_model, original_filename):
-            revision = file_model.revision
-            return revision.get_path_for_file(
-                        file_model.folder, original_filename)
-
-
-    # The uploader
-    user = models.ForeignKey(User,
-            help_text=_("Person to upload the file"))
-
-    message = models.ForeignKey(Message,
-            blank=True, null=True,
-            help_text=_("Message that this attachment is attached to."))
-
-    filename = models.CharField(max_length=255,
-            help_text=_("Original filename of file"))
-
-    description = models.TextField(max_length=2048,
-            blank=True,
-            help_text=_("A longer description, or notes about this file"))
-
-    path = models.FileField(
-            #upload_to=lambda i, f: i.path_builder(f),
-            upload_to=file_path_builder,
-            help_text=_("Actual file"))
-
-    size = models.PositiveIntegerField(
-            help_text=_("Size in bytes of the file"))
-
-    is_uploaded = models.BooleanField(default=False,
-            help_text=_('Has the file successfully finished uploading?'))
-
-    deleted = models.BooleanField(default=False,
-            help_text=_('Has this entry been deleted?'))
-
-    def path_builder(self, filename):
-        """
-        Builds a path based on a file
-        """
-        fn = "%06i_%s" % (self.id, filename)
-        return os.path.join("attachment", id_path_builder(self.user_id), fn)
-
-    def __str__(self):
-        return "%s:%s" % (self.user.username, self.original_filename)
-
-    class PrequeueMeta:
-        FILE_FIELD = 'path' 
-
 

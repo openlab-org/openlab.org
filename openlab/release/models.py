@@ -33,11 +33,6 @@ class Release(models.Model):
             related_name="releases",
             help_text=_("Project for this file"))
 
-    # The revision "pegged" at this release
-    revision = models.ForeignKey("project.Revision",
-            related_name="releases",
-            help_text=_("Revision for this file"))
-
     license = LicenseField(
             help_text=_("License for this release."))
 
