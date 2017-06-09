@@ -139,7 +139,7 @@ class ManageReleasesBase(ManageInfo):#, FormBaseMixin):
             # redirect to self to prevent double submission
             my_url = request.get_full_path()
             raise RedirectException(my_url)
-                
+
         return {
                 'latest_stable': obj.release,
                 'releases': obj.releases.all(),

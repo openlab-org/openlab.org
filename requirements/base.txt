@@ -81,9 +81,3 @@ django_extensions==1.7.9
 markdown==2.3.1
 #requests==1.2.3 # OLD VERSION
 requests==2.14.2
-
-
-
-#############################################
-# First party reqs (not yet packaged)
--e git+https://bitbucket.com/michaelb/django-s3-uploader.git#egg=django-s3-uploader

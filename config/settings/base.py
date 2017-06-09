@@ -313,32 +313,4 @@ STATICFILES_FINDERS += ['compressor.finders.CompressorFinder']
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
-
 # ------------------------------------------------------------------------------
-
-
-########### S3 Uploader
-S3UPLOADER = {}
-S3UPLOADER_PROFILES = {
-    'default': {
-        'template_name': 'bootstrap',
-        'disable_css_classes': True,
-    },
-
-    'filemodel': {
-        'generic_model_class': 'project.FileModel',
-        'template_name': 'filemodel',
-    },
-
-    'attachment': {
-        'generic_model_class': 'discussion.Attachment',
-        'template_name': 'attachment',
-    },
-
-    'photo': {
-        'generic_model_class': 'gallery.Photo',
-        'template_name': 'photo',
-    },
-}
-########### End S3 Uploader
-
