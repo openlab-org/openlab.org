@@ -162,9 +162,8 @@ class InfoBaseForm(forms.ModelForm):
     """
     Don't instantiate directly, just useful to derive from
     """
-    #_fields = ('title', 'summary', 'tags', 'visibility', 'country', 'region', 'city')
-    _fields = ('title', 'slug', 'summary', 'visibility', 'location',)
-    _edit_fields = ('title', 'summary', 'visibility', 'location', 'photo', 'tags')
+    _fields = ('title', 'slug', 'summary', 'location',)
+    _edit_fields = ('title', 'summary', 'location', 'photo', 'tags')
     _widgets = {
             'slug': forms.TextInput(
                     attrs={
@@ -179,11 +178,6 @@ class InfoBaseForm(forms.ModelForm):
     _edit_widgets = dict(_widgets)
     _edit_widgets.update(
             photo=PhotoSelect2Widget()
-        )
-
-    visibility = forms.ChoiceField(
-            choices=InfoBaseModel.VISIBILITY_CHOICES,
-            required=True,
         )
 
     tags = TagField(required=False)

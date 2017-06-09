@@ -18,9 +18,9 @@
                 <li {{ tab.discussions }}{{ tab.thread }}><a href="{% url "project_discussions" project.hubpath %}">Discussions</a></li>
 
                 {% if can_edit %}
-                    <li class="{{ tab.update.as_class }} edit-tab pull-right tip"
-                        title="{% trans "Upload a new revision of this project." %}">
-                        <a href="{% url "project_update" project.hubpath %}"><i class="icon-upload-alt"></i> Update</a></li>
+                    <li  class="{{ tab.manage.as_class }} edit-tab pull-right tip"
+                        title="{% trans "You have access to this project, edit details about it." %}">
+                        <a href="{% url "project_manage_edit" project.hubpath %}"><i class="icon-pencil"></i> Edit</a></li>
                 {% endif %}
 
                 {% comment %}
@@ -37,9 +37,9 @@
                         <li {{ tab.gallery }}{{ tab.photo }}><a href="{% url "project_gallery" project.hubpath %}">Gallery</a></li>
                     {% endif %}
                     <li {{ tab.members }}><a href="{% url "project_members" project.hubpath %}">Contributors</a></li>
-                    <li  class="{{ tab.manage.as_class }} edit-tab pull-right tip"
-                        title="{% trans "You have access to this project, edit details about it." %}">
-                        <a href="{% url "project_manage_edit" project.hubpath %}"><i class="icon-pencil"></i> Edit</a></li>
+                    <li class="{{ tab.update.as_class }} edit-tab pull-right tip"
+                        title="{% trans "Upload a new revision of this project." %}">
+                        <a href="{% url "project_update" project.hubpath %}"><i class="icon-upload-alt"></i> Update</a></li>
                 {% endcomment %}
             </ul>
         </div>

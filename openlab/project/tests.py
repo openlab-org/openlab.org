@@ -17,12 +17,17 @@ class BasicViewsTestCase(TestCase):
         self.project = ProjectTestFactory(user=self.user, hubpath='testuser/testproj')
         self.project.save(skip_hubpath_check=True)
 
+    def test_view_about_tab(self):
+        url = reverse('project_about', args=(self.project.hubpath,))
+        response = self.client.get(url)
+        self.assertEqual(200, response.status_code)
+        self.assertIn(b"First created", response.content)
+
     def test_view_files_tab(self):
         url = reverse('project_files', args=(self.project.hubpath,))
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
-        #self.assertIn(b"project doesn't have any files", response.content)
-        self.assertIn(b"First created", response.content)
+        self.assertIn(b"project doesn't have any files", response.content)
 
     def test_view_forks_tab(self):
         url = reverse('project_forks', args=(self.project.hubpath,))

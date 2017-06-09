@@ -1,10 +1,16 @@
+import re
 import requests
+
+from urllib.parse import urlparse
 from os.path import dirname, basename
 
 from django.shortcuts import render, get_object_or_404
 
 from .models import Project
 
+CHARS = re.compile(r'[\W_-]+')
+def beautify_repo_name(value):
+    return CHARS.sub(' ', value).strip().capitalize()
 
 def get_project(request, project_path, action='edit'):
     project = get_object_or_404(Project, path=project_path)
@@ -20,8 +26,15 @@ def get_project(request, project_path, action='edit'):
 GITHUB_API = 'https://api.github.com/repos/michaelpb/omnithumb/git/trees/master?recursive=1'
 def git_tree(git_url):
     r = requests.get(GITHUB_API)
-    print(r.json())
     return r.json()['tree']
+
+def github_get_repo_commits(username, reponame):
+    '''
+    Gets API
+    '''
+    API = 'https://api.github.com/repos/%s/%s'
+    url = API % (username, reponame)
+    return requests.get(url).json()
 
 def git_tree_by_dir(git_url):
     tree = git_tree(git_url)

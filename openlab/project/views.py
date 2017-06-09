@@ -100,11 +100,7 @@ class ProjectCreate(CreateInfo, Base):
     extra_form = None
 
     def get_initial(self, request):
-        git_url = request.GET.get('git_url')
-        if git_url:
-            # Do Git API search
-            return {'git_url': git_url}
-        return {}
+        return PreCreateForm.get_initial(request.GET)
 
     def after_creation(self, obj):
         """

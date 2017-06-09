@@ -21,7 +21,8 @@
             {% csrf_token %}
             <div class="col-md-10">
                 <div class="form-group">
-                    <input style="font-size: 22pt; padding: 30px;" placeholder="http://github.com/yourname/yourproject/" type="input" class="form-control" id="pwd">
+                    {{ form }}
+                    <!--<input style="font-size: 22pt; padding: 30px;" placeholder="http://github.com/yourname/yourproject/" type="input" class="form-control" id="pwd">-->
                 </div>
             </div>
             <div class="col-md-2">

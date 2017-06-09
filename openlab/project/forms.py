@@ -1,14 +1,15 @@
+from urllib.parse import urlparse, urlencode
+
 from django import forms
 from django.utils.translation import ugettext as _
 
-from core.forms import InfoBaseForm, PhotoSelect2Widget
+from core.forms import InfoBaseForm
 
-from .models import Project
-
-from django_select2.widgets import *
 from django_select2 import AutoModelSelect2Field
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout
+
+from .models import Project
+from .view_helpers import github_get_repo_commits, beautify_repo_name
 
 
 class CreateProjectForm(InfoBaseForm):
@@ -30,8 +31,40 @@ class PreCreateForm(forms.Form):
     "importing" a project from an existing source (and, eventually, creating
     one from scratch utilizing OL's flat file system)
     '''
+    git_url = forms.URLField()
+
+    GET_FIELDS = [
+        'git_url',
+        'topics',
+        'summary',
+        'slug',
+        'title',
+    ]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def get_querystring(self):
+        # TODO Add validation to custom form field, GitHubURLField
+        git_url = self.cleaned_data['git_url']
+        path = urlparse(git_url).path.strip('/')
+        username, reponame = path.split('/')
+        repo_info = github_get_repo_commits(username, reponame)
+        data = {}
+        data['git_url'] = repo_info.get('clone_url', git_url)
+        data['topics'] = ', '.join(repo_info.get('topics', []))
+        data['summary'] = repo_info.get('description', '')
+        data['slug'] = repo_info.get('name', '')
+        data['title'] = beautify_repo_name(repo_info.get('name', ''))
+        return urlencode(data)
+
+    @classmethod
+    def get_initial(cls, get_data):
+        data = {}
+        for key in cls.GET_FIELDS:
+            if key in get_data:
+                data[key] = get_data[key]
+        return data
 
 
 class EditProjectForm(CreateProjectForm):

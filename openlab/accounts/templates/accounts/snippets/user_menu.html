@@ -7,23 +7,26 @@
         <a href="#" class="btn btn-primary dropdown-toggle " data-toggle="dropdown">Create  <i class="icon-caret-down"></i></a>
         <ul class="dropdown-menu">
 
+            <!--
             <li class="dropdown-header">Project</li>
+            -->
             <li>
-                <a href="{% url "project_create" user.username %}"><i class="icon-plus-sign-alt"></i> 
+                <a href="{% url "project_precreate" user.username %}"><i class="icon-plus-sign-alt"></i> 
                     Project {% if user.teams.all %}&mdash; <i class="icon-user"></i> {{ user.username|truncatechars:10 }}{% endif %}
                 </a>
             </li>
 
             {% for team in user.teams.all %}
-                <li> <a href="{% url "project_create" team.slug %}"><i class="icon-plus-sign-alt"></i> 
-                Team project  &mdash; <i class="icon-group"></i> {{ team|truncatechars:10 }}</a> </li>
+                <li> <a href="{% url "project_precreate" team.slug %}"><i class="icon-plus-sign-alt"></i> 
+                Project  &mdash; <i class="icon-group"></i> {{ team|truncatechars:10 }}</a> </li>
             {% endfor %}
-            
+
+            <!--
             <li class="divider"></li>
             <li class="dropdown-header">Organization</li>
-            <li> <a href="{% url "team_create" %}"><i class="icon-plus-sign-alt"></i> New
-                organization</a></li>
-
+            -->
+            <li> <a href="{% url "team_create" %}"><i class="icon-plus-sign-alt"></i> 
+                Organization</a></li>
 
             {% comment %}
             <li class="divider"></li>

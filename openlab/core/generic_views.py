@@ -27,8 +27,6 @@ Wiki
 ProjectWiki
 """
 
-
-
 # django
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
@@ -117,11 +115,8 @@ class Info(View):
 
 
     def add_breadcrumbs(self, request, ctx):
-
-
-        ##########################
-        # Breadcrumbs
         v = self.parent_view
+
         # make list, then loop over list backward
         lst = []
         while v:
@@ -137,9 +132,8 @@ class Info(View):
         # Add breadcrumb for current page
         bc = self.breadcrumb(ctx) if isinstance(self.breadcrumb, collections.Callable) else self.breadcrumb
         request.breadcrumbs(bc, request.path)
-        ##########################
 
-        # add self
+        # add self to page title
         ctx['page_title'] = bc
 
 
@@ -483,12 +477,12 @@ class FormBaseMixin(object):
 
         return redirect_result
 
-
     def get_form(self, request, instance=None):
         if hasattr(self, 'get_initial'):
             initial = self.get_initial(request)
         else:
             initial = {}
+        print('this is initial', initial)
 
         if request.method == 'POST':
             form = self.form(request.POST, instance=instance, initial=initial)
@@ -505,13 +499,16 @@ class FormBaseMixin(object):
 class PreCreateInfo(Info, LoginRequiredMixin):
     '''
     For Project views: Basically offers various creation step options,
-    either from GitHub, or from scratch
+    either from GitHub (or other sources eventually), or from scratch
 
     (Eventually may allow Team import from GitHub, also)
     '''
     template_interfix = "manage/"
     template_basename = "precreate"
     breadcrumb = _('Create')
+
+    def get_context_data(self, request):
+        return {'form': self.get_form(request)}
 
     def get_form(self, request):
         if request.method == 'POST':
@@ -520,14 +517,17 @@ class PreCreateInfo(Info, LoginRequiredMixin):
             form = self.form()
         return form
 
-    def post(self, request, *a, **k):
+    def post(self, request, *args, **kwargs):
+        '''
+        Form submission, results in redirect to actual Create page if
+        successful, otherwise just a response with what went wrong.
+        '''
         form = self.form(request.POST)
         if not form.is_valid():
             return self.get(request)
-
-        # TODO: turn look POST variables into GET variables
-        # request.POST
-        return redirect(self.redirect_view_name, *a, **k)
+        url = reverse(self.redirect_view_name, args=args, kwargs=kwargs)
+        querystring = form.get_querystring()
+        return redirect("%s?%s" % (url, querystring))
 
 
 class CreateInfo(Info, LoginRequiredMixin, FormBaseMixin):
@@ -656,7 +656,7 @@ class ManageEditUploadBaseInfo(ManageInfo):
 
         # Generate relevant context data
         ctx = self.get_context_data(request)
-        
+
         Form = self.form
         obj = ctx['obj']
         queryset = self.get_queryset(obj)

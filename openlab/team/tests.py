@@ -16,7 +16,7 @@ class BasicViewsTestCase(TestCase):
         self.user = User.objects.create_user("testuser", "test@test.com", "asdf")
         self.team = make_random(1, [self.user])[0]
 
-    def test_view_files_tab(self):
+    def test_view_projects_tab(self):
         url = reverse('team', args=(self.team.hubpath,))
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
