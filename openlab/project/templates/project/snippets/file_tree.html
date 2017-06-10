@@ -1,0 +1,29 @@
+{% load openlab_tags %}
+
+<ul class="project-tree-view">
+    {% for file in tree %}
+        {% if file.type == "blob" %}
+            <li class="file-list-item">
+                <a class="first-link" href="">
+                    <div class="unknown-extension extension-{{ file.get_extension }}">{{ file.get_extension }}</div>
+                    <tt>{{ file.basename }}</tt>
+                </a>
+                <span class="title">
+                </span>
+                <span class="size">
+                    {{ file.size|label_bytes }}
+                </span>
+                <a href="{{ file.url }}" download class="download-option"><i class="icon-download"></i></a>
+            </li>
+        {% else %}
+            <li class="file-list-item">
+                <i class="icon-folder-close-alt"></i> <tt>{{ file.basename }}</tt>
+                <br />
+                {% with tree=file.contents template_name="project/snippets/file_tree.html" %}
+                    {% include template_name %}
+                {% endwith %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+

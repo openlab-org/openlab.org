@@ -5,17 +5,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            {% if files_by_folder and files_by_folder.0.1 %}
-                {% include "project/snippets/file_list_preview.html" %}
+            {% comment %}
+                {% if files_by_folder and files_by_folder.0.1 %}
+                    {% include "project/snippets/file_list_preview.html" %}
+                {% else %}
+            {% endcomment %}
+            {% if files_by_folder %}
+                {% include "project/snippets/file_tree.html" with tree=files_by_folder %}
             {% else %}
-            <p class="no-files-notice">
-                {% comment %}
-                    {% if can_edit %}
-                        <a class="btn btn-success btn-large" href="{% url "project_update" project.hubpath %}"><i class="icon icon-4x icon-upload"></i></a><br />
-                    {% endif %}
-                {% endcomment %}
-                This project doesn't have any files.
-            </p>
+                <p class="no-files-notice">
+                    {% comment %}
+                        {% if can_edit %}
+                            <a class="btn btn-success btn-large" href="{% url "project_update" project.hubpath %}"><i class="icon icon-4x icon-upload"></i></a><br />
+                        {% endif %}
+                    {% endcomment %}
+                    This project doesn't have any files.
+                </p>
             {% endif %}
         </div>
    </div>
