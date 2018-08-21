@@ -34,13 +34,13 @@ def fake_projects(user):
 
 # Huge bias toward the first 4 items so we have "more popular" tags
 POSSIBLE_TAGS = ['ecology']*5 + ['medicine']*5 + ['maker']*5 + ['green']*5 + [
-                        'beans', 'baseline', 'barometers', 'probabilities',
-                        'humidity', 'deposit', 'wraps', 'study',
-                        'subfunction', 'telecommunication',
-                        'vibration', 'merchandise', 'drawer', 'rag',
-                        'challenge', 'rattle', 'pull', 'harness',
-                        'weapon', 'evaporation', 'nickel', 'coordinates',
-                        'probability', 'ease', 'flap', 'storm']
+    'beans', 'baseline', 'barometers', 'probabilities',
+    'humidity', 'deposit', 'wraps', 'study',
+    'subfunction', 'telecommunication',
+    'vibration', 'merchandise', 'drawer', 'rag',
+    'challenge', 'rattle', 'pull', 'harness',
+    'evaporation', 'nickel', 'coordinates',
+    'probability', 'ease', 'flap', 'storm']
 
 
 

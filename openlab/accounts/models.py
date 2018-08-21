@@ -3,7 +3,6 @@ import hashlib
 from django.db import models
 from openlab.users.models import User
 from django.utils.translation import ugettext as _
-from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
